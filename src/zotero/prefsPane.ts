@@ -136,57 +136,56 @@ export function initPrefsPane(win: Window): void {
     );
   }
 
+  // The heading and filter box are built once; only the checklist is
+  // re-rendered, so typing in the filter keeps its cursor position.
+  const ft50Box = el("ft50");
+  clear(ft50Box);
+  const ft50List = h(doc, "div", { class: "rr-checklist" });
+  ft50Box.append(
+    h(doc, "h3", { text: `${ft50Info.list} (${ft50Info.edition} edition)` }),
+    h(doc, "input", {
+      class: "rr-filter",
+      attrs: { type: "search", placeholder: "Filter FT50…" },
+      on: {
+        input: (e) => {
+          ft50Filter = (e.target as HTMLInputElement).value;
+          renderFt50();
+        },
+      },
+    }),
+    ft50List,
+  );
+
   function renderFt50() {
-    const box = el("ft50");
-    clear(box);
-    const shown = ft50.filter((j) =>
-      j.title.toLowerCase().includes(ft50Filter.toLowerCase()),
-    );
-    box.append(
-      h(doc, "h3", { text: `${ft50Info.list} (${ft50Info.edition} edition)` }),
-      h(doc, "input", {
-        class: "rr-filter",
-        attrs: {
-          type: "search",
-          placeholder: "Filter FT50…",
-          value: ft50Filter,
-        },
+    clear(ft50List);
+    const q = ft50Filter.trim().toLowerCase();
+    const shown = ft50.filter((j) => j.title.toLowerCase().includes(q));
+    if (shown.length === 0)
+      ft50List.append(
+        h(doc, "p", { class: "rr-muted", text: "No FT50 journal matches." }),
+      );
+    for (const j of shown) {
+      const cb = h(doc, "input", {
+        attrs: { type: "checkbox" },
         on: {
-          input: (e) => {
-            ft50Filter = (e.target as HTMLInputElement).value;
-            renderFt50();
-            (
-              el("ft50").querySelector(".rr-filter") as HTMLInputElement
-            )?.focus();
-          },
+          change: (e) =>
+            (e.target as HTMLInputElement).checked
+              ? addJournal(j)
+              : removeJournal(j.id),
         },
-      }),
-      h(
-        doc,
-        "div",
-        { class: "rr-checklist" },
-        ...shown.map((j) => {
-          const cb = h(doc, "input", {
-            attrs: { type: "checkbox" },
-            on: {
-              change: (e) =>
-                (e.target as HTMLInputElement).checked
-                  ? addJournal(j)
-                  : removeJournal(j.id),
-            },
-          });
-          cb.checked = has(j.id);
-          return h(
-            doc,
-            "label",
-            { class: "rr-check" },
-            cb,
-            ` ${j.title}`,
-            h(doc, "span", { class: "rr-muted", text: ` · ${j.publisher}` }),
-          );
-        }),
-      ),
-    );
+      });
+      cb.checked = has(j.id);
+      ft50List.append(
+        h(
+          doc,
+          "label",
+          { class: "rr-check" },
+          cb,
+          ` ${j.title}`,
+          h(doc, "span", { class: "rr-muted", text: ` · ${j.publisher}` }),
+        ),
+      );
+    }
   }
 
   async function runSearch(query: string) {
