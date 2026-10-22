@@ -1,0 +1,360 @@
+{
+  "list": "FT50",
+  "edition": "2026",
+  "source": "Financial Times, FT50 revision of 29 April 2026",
+  "checked": "2026-10-22",
+  "journals": [
+    {
+      "title": "Academy of Management Annals",
+      "publisher": "Academy of Management",
+      "issnPrint": "1941-6520",
+      "issnElectronic": "1941-6067",
+      "crossref": true
+    },
+    {
+      "title": "Academy of Management Journal",
+      "publisher": "Academy of Management",
+      "issnPrint": "0001-4273",
+      "issnElectronic": "1948-0989",
+      "crossref": true
+    },
+    {
+      "title": "Academy of Management Review",
+      "publisher": "Academy of Management",
+      "issnPrint": "0363-7425",
+      "issnElectronic": "1930-3807",
+      "crossref": true
+    },
+    {
+      "title": "Accounting, Organizations and Society",
+      "publisher": "Elsevier",
+      "issnPrint": "0361-3682",
+      "issnElectronic": null,
+      "crossref": true
+    },
+    {
+      "title": "The Accounting Review",
+      "publisher": "American Accounting Association",
+      "issnPrint": "0001-4826",
+      "issnElectronic": "1558-7967",
+      "crossref": true
+    },
+    {
+      "title": "Administrative Science Quarterly",
+      "publisher": "SAGE Publications",
+      "issnPrint": "0001-8392",
+      "issnElectronic": "1930-3815",
+      "crossref": true
+    },
+    {
+      "title": "American Economic Review",
+      "publisher": "American Economic Association",
+      "issnPrint": "0002-8282",
+      "issnElectronic": "1944-7981",
+      "crossref": true
+    },
+    {
+      "title": "American Sociological Review",
+      "publisher": "SAGE Publications",
+      "issnPrint": "0003-1224",
+      "issnElectronic": "1939-8271",
+      "crossref": true
+    },
+    {
+      "title": "Contemporary Accounting Research",
+      "publisher": "Wiley",
+      "issnPrint": "0823-9150",
+      "issnElectronic": "1911-3846",
+      "crossref": true
+    },
+    {
+      "title": "Econometrica",
+      "publisher": "The Econometric Society",
+      "issnPrint": "0012-9682",
+      "issnElectronic": "1468-0262",
+      "crossref": true
+    },
+    {
+      "title": "Entrepreneurship Theory and Practice",
+      "publisher": "SAGE Publications",
+      "issnPrint": "1042-2587",
+      "issnElectronic": "1540-6520",
+      "crossref": true
+    },
+    {
+      "title": "Harvard Business Review",
+      "publisher": "Harvard Business Publishing",
+      "issnPrint": "0017-8012",
+      "issnElectronic": null,
+      "crossref": false,
+      "note": "Does not register DOIs with Crossref; can only be followed through an RSS feed."
+    },
+    {
+      "title": "Human Resource Management",
+      "publisher": "Wiley",
+      "issnPrint": "0090-4848",
+      "issnElectronic": "1099-050X",
+      "crossref": true
+    },
+    {
+      "title": "Information Systems Research",
+      "publisher": "INFORMS",
+      "issnPrint": "1047-7047",
+      "issnElectronic": "1526-5536",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Accounting and Economics",
+      "publisher": "Elsevier",
+      "issnPrint": "0165-4101",
+      "issnElectronic": null,
+      "crossref": true
+    },
+    {
+      "title": "Journal of Accounting Research",
+      "publisher": "Wiley",
+      "issnPrint": "0021-8456",
+      "issnElectronic": "1475-679X",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Applied Psychology",
+      "publisher": "American Psychological Association",
+      "issnPrint": "0021-9010",
+      "issnElectronic": "1939-1854",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Business Venturing",
+      "publisher": "Elsevier",
+      "issnPrint": "0883-9026",
+      "issnElectronic": null,
+      "crossref": true
+    },
+    {
+      "title": "Journal of Consumer Psychology",
+      "publisher": "Wiley",
+      "issnPrint": "1057-7408",
+      "issnElectronic": "1532-7663",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Consumer Research",
+      "publisher": "Oxford University Press",
+      "issnPrint": "0093-5301",
+      "issnElectronic": "1537-5277",
+      "crossref": true
+    },
+    {
+      "title": "The Journal of Finance",
+      "publisher": "Wiley",
+      "issnPrint": "0022-1082",
+      "issnElectronic": "1540-6261",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Financial and Quantitative Analysis",
+      "publisher": "Cambridge University Press",
+      "issnPrint": "0022-1090",
+      "issnElectronic": "1756-6916",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Financial Economics",
+      "publisher": "Elsevier",
+      "issnPrint": "0304-405X",
+      "issnElectronic": null,
+      "crossref": true
+    },
+    {
+      "title": "Journal of International Business Studies",
+      "publisher": "Springer",
+      "issnPrint": "0047-2506",
+      "issnElectronic": "1478-6990",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Management",
+      "publisher": "SAGE Publications",
+      "issnPrint": "0149-2063",
+      "issnElectronic": "1557-1211",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Management Information Systems",
+      "publisher": "Taylor & Francis",
+      "issnPrint": "0742-1222",
+      "issnElectronic": "1557-928X",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Management Studies",
+      "publisher": "Wiley",
+      "issnPrint": "0022-2380",
+      "issnElectronic": "1467-6486",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Marketing",
+      "publisher": "SAGE Publications",
+      "issnPrint": "0022-2429",
+      "issnElectronic": null,
+      "crossref": true
+    },
+    {
+      "title": "Journal of Marketing Research",
+      "publisher": "SAGE Publications",
+      "issnPrint": "0022-2437",
+      "issnElectronic": "1547-7193",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Operations Management",
+      "publisher": "Wiley",
+      "issnPrint": "0272-6963",
+      "issnElectronic": "1873-1317",
+      "crossref": true
+    },
+    {
+      "title": "Journal of Political Economy",
+      "publisher": "The University of Chicago Press",
+      "issnPrint": "0022-3808",
+      "issnElectronic": "1537-534X",
+      "crossref": true
+    },
+    {
+      "title": "Journal of the Academy of Marketing Science",
+      "publisher": "Springer",
+      "issnPrint": "0092-0703",
+      "issnElectronic": "1552-7824",
+      "crossref": true
+    },
+    {
+      "title": "Management Science",
+      "publisher": "INFORMS",
+      "issnPrint": "0025-1909",
+      "issnElectronic": "1526-5501",
+      "crossref": true
+    },
+    {
+      "title": "Manufacturing & Service Operations Management",
+      "publisher": "INFORMS",
+      "issnPrint": "1523-4614",
+      "issnElectronic": "1526-5498",
+      "crossref": true
+    },
+    {
+      "title": "Marketing Science",
+      "publisher": "INFORMS",
+      "issnPrint": "0732-2399",
+      "issnElectronic": "1526-548X",
+      "crossref": true
+    },
+    {
+      "title": "MIS Quarterly",
+      "publisher": "MIS Quarterly",
+      "issnPrint": "0276-7783",
+      "issnElectronic": "2162-9730",
+      "crossref": true
+    },
+    {
+      "title": "Operations Research",
+      "publisher": "INFORMS",
+      "issnPrint": "0030-364X",
+      "issnElectronic": "1526-5463",
+      "crossref": true
+    },
+    {
+      "title": "Organization Science",
+      "publisher": "INFORMS",
+      "issnPrint": "1047-7039",
+      "issnElectronic": "1526-5455",
+      "crossref": true
+    },
+    {
+      "title": "Organizational Behavior and Human Decision Processes",
+      "publisher": "Elsevier",
+      "issnPrint": "0749-5978",
+      "issnElectronic": "1095-9920",
+      "crossref": true
+    },
+    {
+      "title": "Production and Operations Management",
+      "publisher": "SAGE Publications",
+      "issnPrint": "1059-1478",
+      "issnElectronic": "1937-5956",
+      "crossref": true
+    },
+    {
+      "title": "The Quarterly Journal of Economics",
+      "publisher": "Oxford University Press",
+      "issnPrint": "0033-5533",
+      "issnElectronic": "1531-4650",
+      "crossref": true
+    },
+    {
+      "title": "Research Policy",
+      "publisher": "Elsevier",
+      "issnPrint": "0048-7333",
+      "issnElectronic": null,
+      "crossref": true
+    },
+    {
+      "title": "Review of Accounting Studies",
+      "publisher": "Springer",
+      "issnPrint": "1380-6653",
+      "issnElectronic": "1573-7136",
+      "crossref": true
+    },
+    {
+      "title": "The Review of Economic Studies",
+      "publisher": "Oxford University Press",
+      "issnPrint": "0034-6527",
+      "issnElectronic": "1467-937X",
+      "crossref": true
+    },
+    {
+      "title": "Review of Finance",
+      "publisher": "Oxford University Press",
+      "issnPrint": "1572-3097",
+      "issnElectronic": "1573-692X",
+      "crossref": true
+    },
+    {
+      "title": "The Review of Financial Studies",
+      "publisher": "Oxford University Press",
+      "issnPrint": "0893-9454",
+      "issnElectronic": "1465-7368",
+      "crossref": true
+    },
+    {
+      "title": "MIT Sloan Management Review",
+      "publisher": "MIT Sloan School of Management",
+      "issnPrint": "1532-9194",
+      "issnElectronic": "1532-8937",
+      "crossref": true,
+      "note": "Reported in 2026 to be ceasing publication."
+    },
+    {
+      "title": "Psychological Science",
+      "publisher": "SAGE Publications",
+      "issnPrint": "0956-7976",
+      "issnElectronic": "1467-9280",
+      "crossref": true
+    },
+    {
+      "title": "Strategic Entrepreneurship Journal",
+      "publisher": "Wiley",
+      "issnPrint": "1932-4391",
+      "issnElectronic": "1932-443X",
+      "crossref": true
+    },
+    {
+      "title": "Strategic Management Journal",
+      "publisher": "Wiley",
+      "issnPrint": "0143-2095",
+      "issnElectronic": "1097-0266",
+      "crossref": true
+    }
+  ]
+}
