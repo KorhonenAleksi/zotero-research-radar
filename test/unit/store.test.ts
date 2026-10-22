@@ -259,3 +259,11 @@ describe("Store schema 2 (AI judgements)", () => {
     expect(s.ai).toEqual(judgement);
   });
 });
+
+describe("Store checkpoint", () => {
+  it("runs without error", async () => {
+    const store = new Store(memoryDb());
+    await store.init();
+    await expect(store.checkpoint()).resolves.toBeUndefined();
+  });
+});

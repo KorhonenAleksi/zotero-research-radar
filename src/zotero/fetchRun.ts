@@ -27,6 +27,7 @@ import {
   userLibraryID,
 } from "./library";
 import { judgeStoredItems } from "./ai";
+import { shouldStop } from "./stopFlag";
 import { aiNotReady, loadAiSettings, loadSettings } from "./settings";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -34,6 +35,18 @@ const CROSSREF_ROWS = 200;
 const CONCURRENCY = 3;
 
 let running = false;
+
+/** Wait until no fetch is running, at most `ms`. */
+export async function waitUntilIdle(ms: number): Promise<void> {
+  const until = Date.now() + ms;
+  while (running && Date.now() < until) await Zotero.Promise.delay(100);
+}
+
+/** New items are written in small groups with a pause between them, so
+ * plugins that react to new items (citation counts, duplicate checks,
+ * actions) are not hit by a burst. */
+const WRITE_BATCH = 5;
+const WRITE_PAUSE_MS = 2000;
 
 export const isRunning = () => running;
 
@@ -127,7 +140,7 @@ async function cleanup(
 export async function runFetch(
   store: Store,
 ): Promise<{ summary: RunSummary; lines: string[] } | null> {
-  if (running) return null;
+  if (running || shouldStop()) return null;
   running = true;
   const summary = emptySummary();
   const runId = await store.startRun();
@@ -193,6 +206,9 @@ export async function runFetch(
     }).write;
     let written = 0;
     for (const s of candidates) {
+      if (shouldStop()) break;
+      if (written > 0 && written % WRITE_BATCH === 0)
+        await Zotero.Promise.delay(WRITE_PAUSE_MS);
       if (written >= general.maxNewPerRun) {
         summary.waiting++;
         continue;
@@ -225,6 +241,8 @@ export async function runFetch(
     return { summary, lines: popupLines(summary) };
   } finally {
     await store.finishRun(runId, summary).catch(() => undefined);
+    // Fold the database's change log back into the main file
+    await store.checkpoint().catch(() => undefined);
     running = false;
   }
 }

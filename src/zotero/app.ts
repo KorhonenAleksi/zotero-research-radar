@@ -9,12 +9,14 @@ import { openZoteroDb } from "./db";
 import {
   isRunning,
   removeActiveRadarItems,
+  waitUntilIdle,
   rescoreAll,
   runFetch,
 } from "./fetchRun";
 import { getPref, setPref } from "../utils/prefs";
 import { repairEscapedPublicationTitles } from "./library";
 import { registerNotifier, unregisterNotifier } from "./notifier";
+import { requestStop } from "./stopFlag";
 import {
   followJournal,
   infoFromRadarItem,
@@ -173,15 +175,36 @@ export async function startApp(): Promise<void> {
     ],
   });
   startScheduler(() => void fetchNow({ quietIfNothing: true }));
+  // Plugins get no shutdown call when Zotero quits; this runs before Zotero
+  // closes its databases, so ours is closed cleanly too
+  Zotero.addShutdownListener(() => stopApp());
 }
 
+let stopped = false;
+
+/**
+ * Stop everything and close the plugin's database. Runs when the plugin is
+ * disabled or updated, and also when Zotero quits (via a shutdown listener,
+ * because plugins get no shutdown call on quit). Safe to call twice.
+ */
 export async function stopApp(): Promise<void> {
+  if (stopped) return;
+  stopped = true;
   stopScheduler();
-  closeAllItems();
-  unregisterNotifier(notifierID);
-  if (menuID) Zotero.MenuManager.unregisterMenu(menuID);
-  if (itemMenuID) Zotero.MenuManager.unregisterMenu(itemMenuID);
+  requestStop();
+  await waitUntilIdle(5000);
+  try {
+    closeAllItems();
+    unregisterNotifier(notifierID);
+    notifierID = undefined;
+    if (menuID) Zotero.MenuManager.unregisterMenu(menuID);
+    if (itemMenuID) Zotero.MenuManager.unregisterMenu(itemMenuID);
+  } catch (e) {
+    Zotero.debug(`[Research Radar] cleanup: ${e}`);
+  }
+  await store?.checkpoint().catch(() => undefined);
   await closeDb?.().catch(() => undefined);
+  closeDb = null;
   store = null;
 }
 

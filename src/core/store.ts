@@ -385,6 +385,11 @@ export class Store {
       );
   }
 
+  /** Fold the write-ahead log back into the database file and truncate it. */
+  async checkpoint(): Promise<void> {
+    await this.db.run("PRAGMA wal_checkpoint(TRUNCATE)");
+  }
+
   async startRun(): Promise<number> {
     await this.db.run("INSERT INTO runs (started_at) VALUES (?)", [this.now()]);
     const rows = await this.db.query(

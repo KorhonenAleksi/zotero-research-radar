@@ -621,7 +621,7 @@ export function initPrefsPane(win: Window): void {
   bindBool("autoFetch");
   bindNumber("fetchIntervalHours", LIMITS.fetchIntervalHours, 12);
   bindNumber("cleanupDays", LIMITS.cleanupDays, 30);
-  bindNumber("maxNewPerRun", LIMITS.maxNewPerRun, 30);
+  bindNumber("maxNewPerRun", LIMITS.maxNewPerRun, 15);
   bindNumber("firstFetchDays", LIMITS.firstFetchDays, 30);
   bindText("mailto");
   bindNumber("titleWeight", LIMITS.weight, 3);

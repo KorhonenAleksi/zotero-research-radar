@@ -8,6 +8,7 @@ import {
 } from "../core/ai";
 import { mapPool } from "../core/fetchPlan";
 import type { Store, StoredItem } from "../core/store";
+import { shouldStop } from "./stopFlag";
 import type { RadarItem } from "../core/types";
 
 const TIMEOUT_MS = 60000;
@@ -78,7 +79,7 @@ export async function judgeStoredItems(
   let stopped: string | undefined;
   let badReplies = 0;
   await mapPool(items, CONCURRENCY, async (s) => {
-    if (stopped) return;
+    if (stopped || shouldStop()) return;
     try {
       const j = await judgeArticle(s.item, interests, ai);
       await store.saveAiJudgement(s.item.key, j);

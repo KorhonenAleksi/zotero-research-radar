@@ -3,7 +3,7 @@
 pref("autoFetch", false);
 pref("fetchIntervalHours", 12);
 pref("cleanupDays", 30);
-pref("maxNewPerRun", 30);
+pref("maxNewPerRun", 15);
 pref("firstFetchDays", 30);
 pref("mailto", "");
 pref("journals", "[]");

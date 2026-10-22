@@ -28,7 +28,7 @@ export const DEFAULT_GENERAL: GeneralSettings = {
   autoFetch: false,
   fetchIntervalHours: 12,
   cleanupDays: 30,
-  maxNewPerRun: 30,
+  maxNewPerRun: 15,
   firstFetchDays: 30,
   mailto: "",
 };
