@@ -12,7 +12,7 @@ the approved plan for the build order.
 ```sh
 npm install
 npm test            # unit tests for the pure core (src/core), runs in Node
-npm run build       # → .scaffold/build/research-radar.xpi
+npm run build       # → build/research-radar.xpi
 npm start           # hot-reload into a separate dev Zotero profile (needs .env, see .env.example)
 ```
 
