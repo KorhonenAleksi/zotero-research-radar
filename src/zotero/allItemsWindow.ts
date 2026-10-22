@@ -43,39 +43,74 @@ export function openAllItems(store: Store): void {
 async function init(win: Window, store: Store): Promise<void> {
   const doc = win.document;
   const $ = <T extends HTMLElement>(id: string) => doc.getElementById(id) as T;
-  const tierSel = $<HTMLSelectElement>("tier");
-  const journalSel = $<HTMLSelectElement>("journal");
+  const tiersBox = $<HTMLElement>("tiers");
+  const journalsBox = $<HTMLElement>("journals");
   const search = $<HTMLInputElement>("search");
-  const sortSel = $<HTMLSelectElement>("sort");
+  const sortBox = $<HTMLElement>("sort");
   const count = $<HTMLParagraphElement>("count");
   const rows = $<HTMLElement>("rows");
 
   let stored: StoredItem[] = await store.allItems();
   const filter: ViewFilter = { ...DEFAULT_FILTER };
 
-  function fillSelects() {
+  /** A toggle button; `pressed` marks the current choice. */
+  const toggle = (
+    label: Node[] | string,
+    pressed: boolean,
+    onClick: () => void,
+  ) => {
+    const b = h(doc, "button", {
+      attrs: { type: "button", "aria-pressed": String(pressed) },
+      on: { click: onClick },
+    });
+    if (typeof label === "string") b.textContent = label;
+    else b.append(...label);
+    return b;
+  };
+
+  /** Tier buttons, sort buttons and the journal list, with counts. */
+  function renderFilters() {
     const counts = tierCounts(stored);
-    clear(tierSel);
+    clear(tiersBox);
     for (const t of Object.keys(TIER_LABEL) as TierFilter[])
-      tierSel.append(
-        h(doc, "option", {
-          attrs: { value: t },
-          text: `${TIER_LABEL[t]} (${counts[t]})`,
+      tiersBox.append(
+        toggle(`${TIER_LABEL[t]} ${counts[t]}`, filter.tier === t, () => {
+          filter.tier = t;
+          renderFilters();
+          render();
         }),
       );
-    tierSel.value = filter.tier;
-    clear(journalSel);
-    journalSel.append(
-      h(doc, "option", { attrs: { value: "" }, text: "All journals" }),
-    );
+
+    clear(sortBox);
+    for (const [value, label] of [
+      ["newest", "Newest"],
+      ["points", "Most points"],
+    ] as const)
+      sortBox.append(
+        toggle(label, filter.sort === value, () => {
+          filter.sort = value;
+          renderFilters();
+          render();
+        }),
+      );
+
+    clear(journalsBox);
+    const entry = (id: string, title: string, n: number) =>
+      toggle(
+        [
+          h(doc, "span", { text: title }),
+          h(doc, "span", { class: "n", text: String(n) }),
+        ],
+        filter.journalId === id,
+        () => {
+          filter.journalId = id;
+          renderFilters();
+          render();
+        },
+      );
+    journalsBox.append(entry("", "All journals", stored.length));
     for (const j of journalOptions(stored))
-      journalSel.append(
-        h(doc, "option", {
-          attrs: { value: j.id },
-          text: `${j.title} (${j.count})`,
-        }),
-      );
-    journalSel.value = filter.journalId;
+      journalsBox.append(entry(j.id, j.title, j.count));
   }
 
   function openArticle(s: StoredItem) {
@@ -88,8 +123,9 @@ async function init(win: Window, store: Store): Promise<void> {
     if (!canAddToRadar(s))
       return h(doc, "span", { class: "status", text: status });
     const btn = h(doc, "button", {
-      text: "Add to Radar",
-      title: "Add this article to Radar/Possible with its explanation note",
+      text: "Add article to library",
+      title:
+        "Adds this article to your library in Radar/Possible, with its explanation note. Your journals, rules and authors are not changed.",
       on: {
         click: async () => {
           btn.disabled = true;
@@ -97,7 +133,7 @@ async function init(win: Window, store: Store): Promise<void> {
           try {
             const result = await addToRadarByHand(store, s);
             stored = await store.allItems();
-            fillSelects();
+            renderFilters();
             const cell = btn.parentElement!;
             clear(cell);
             cell.append(
@@ -110,7 +146,7 @@ async function init(win: Window, store: Store): Promise<void> {
           } catch (e: any) {
             Zotero.logError(e);
             btn.disabled = false;
-            btn.textContent = "Add to Radar";
+            btn.textContent = "Add article to library";
             btn.title = `Failed: ${e?.message ?? e}`;
           }
         },
@@ -129,7 +165,7 @@ async function init(win: Window, store: Store): Promise<void> {
     const shown = filterItems(stored, filter);
     count.textContent =
       shown.length > MAX_ROWS
-        ? `Showing the first ${MAX_ROWS} of ${shown.length} articles. Narrow them down with the filters above.`
+        ? `Showing the first ${MAX_ROWS} of ${shown.length} articles. Narrow them down with the filters.`
         : `${shown.length} article${shown.length === 1 ? "" : "s"}`;
     clear(rows);
     if (stored.length === 0) {
@@ -197,18 +233,6 @@ async function init(win: Window, store: Store): Promise<void> {
     );
   }
 
-  tierSel.addEventListener("change", () => {
-    filter.tier = tierSel.value as TierFilter;
-    render();
-  });
-  journalSel.addEventListener("change", () => {
-    filter.journalId = journalSel.value;
-    render();
-  });
-  sortSel.addEventListener("change", () => {
-    filter.sort = sortSel.value as ViewFilter["sort"];
-    render();
-  });
   search.addEventListener("input", () => {
     filter.text = search.value;
     render();
@@ -217,7 +241,7 @@ async function init(win: Window, store: Store): Promise<void> {
     if ((e as KeyboardEvent).key === "Escape") win.close();
   });
 
-  fillSelects();
+  renderFilters();
   render();
   search.focus();
 }

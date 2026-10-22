@@ -3,28 +3,120 @@
   color-scheme: light dark;
   font: message-box;
   font-size: 13px;
+  --line: color-mix(in srgb, CanvasText 15%, transparent);
+  --hover: color-mix(in srgb, CanvasText 7%, transparent);
+  --selected: color-mix(in srgb, Highlight 22%, transparent);
+}
+
+html,
+body {
+  height: 100%;
 }
 
 body {
   margin: 0;
+  display: flex;
+  flex-direction: column;
   background: Canvas;
   color: CanvasText;
 }
 
 .toolbar {
-  position: sticky;
-  top: 0;
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
   padding: 10px 12px;
-  background: Canvas;
-  border-bottom: 1px solid color-mix(in srgb, CanvasText 15%, transparent);
-  z-index: 1;
+  border-bottom: 1px solid var(--line);
 }
 
 .toolbar #search {
   flex: 1;
-  min-width: 180px;
+  min-width: 200px;
+  padding: 4px 6px;
+}
+
+/* Segmented button groups (tier, sort) */
+.seg {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.seg button {
+  appearance: none;
+  border: none;
+  border-inline-end: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  padding: 4px 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.seg button:last-child {
+  border-inline-end: none;
+}
+
+.seg button:hover {
+  background: var(--hover);
+}
+
+.seg button[aria-pressed="true"] {
+  background: var(--selected);
+  font-weight: 600;
+}
+
+.layout {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+/* Journal list on the left */
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  border-inline-end: 1px solid var(--line);
+  padding: 6px 0;
+}
+
+.sidebar button {
+  appearance: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background: var(--hover);
+}
+
+.sidebar button[aria-pressed="true"] {
+  background: var(--selected);
+  font-weight: 600;
+}
+
+.sidebar .n {
+  opacity: 0.6;
+  font-variant-numeric: tabular-nums;
+}
+
+.content {
+  flex: 1;
+  overflow: auto;
+  min-width: 0;
 }
 
 .muted {
@@ -44,9 +136,9 @@ th {
   text-align: start;
   font-weight: 600;
   padding: 6px 8px;
-  border-bottom: 1px solid color-mix(in srgb, CanvasText 20%, transparent);
+  border-bottom: 1px solid var(--line);
   position: sticky;
-  top: 45px;
+  top: 0;
   background: Canvas;
 }
 
@@ -59,10 +151,11 @@ td {
 td.num {
   text-align: end;
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 td.why {
-  max-width: 360px;
+  max-width: 340px;
   font-size: 0.92em;
 }
 
@@ -110,6 +203,6 @@ td.why {
   white-space: nowrap;
 }
 
-button {
+td button {
   white-space: nowrap;
 }

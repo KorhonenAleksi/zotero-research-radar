@@ -7,20 +7,22 @@
     <link rel="stylesheet" href="chrome://__addonRef__/content/allItems.css" />
   </head>
   <body>
+    <!-- No <select> menus: they do not render in Zotero's separate windows -->
     <header class="toolbar">
-      <select id="tier" aria-label="Tier"></select>
-      <select id="journal" aria-label="Journal"></select>
+      <div id="tiers" class="seg" role="group" aria-label="Tier"></div>
       <input
         id="search"
         type="search"
         placeholder="Search titles, authors, DOIs…"
       />
-      <select id="sort" aria-label="Sort">
-        <option value="newest">Newest first</option>
-        <option value="points">Most points first</option>
-      </select>
+      <div id="sort" class="seg" role="group" aria-label="Sort"></div>
     </header>
-    <p id="count" class="muted"></p>
-    <main id="rows"></main>
+    <div class="layout">
+      <nav id="journals" class="sidebar" aria-label="Journals"></nav>
+      <section class="content">
+        <p id="count" class="muted"></p>
+        <div id="rows"></div>
+      </section>
+    </div>
   </body>
 </html>
