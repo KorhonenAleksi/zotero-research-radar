@@ -109,7 +109,8 @@ export function mapWorks(response: unknown, journal: Journal): RadarItem[] {
       abstract,
       authors: (w.author ?? []).map(mapAuthor).filter((a): a is Author => !!a),
       journalId: journal.id,
-      journalTitle: w["container-title"]?.[0] ?? journal.title,
+      // Crossref sends some names HTML-escaped ("Learning &amp; Education")
+      journalTitle: stripMarkup(w["container-title"]?.[0]) || journal.title,
       date: isoDate(w.published) ?? isoDate(w.created),
       url: w.URL,
       volume: w.volume,

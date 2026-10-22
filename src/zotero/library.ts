@@ -1,4 +1,5 @@
 import { noteHtml } from "../core/explain";
+import { decodeEntities } from "../core/markup";
 import type { Tier } from "../core/rules";
 import type { RadarItem } from "../core/types";
 import type { ScoreResult } from "../core/rules";
@@ -177,4 +178,25 @@ export function radarCollectionIds(): Set<number> {
       getPref("collectionPossible"),
     ].filter((id) => !!id),
   );
+}
+
+/**
+ * Versions up to 0.6.0 wrote some journal names HTML-escaped into the
+ * Publication field ("Learning &amp; Education"). Fix that field, and only
+ * that field, on items the plugin created. Returns how many were fixed.
+ */
+export async function repairEscapedPublicationTitles(
+  ownedIds: Set<number>,
+): Promise<number> {
+  let fixed = 0;
+  for (const id of ownedIds) {
+    const zi = Zotero.Items.get(id) as Zotero.Item | false;
+    if (!zi || zi.deleted || !zi.isRegularItem()) continue;
+    const pub = String(zi.getField("publicationTitle") ?? "");
+    if (!/&(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-f]+);/i.test(pub)) continue;
+    zi.setField("publicationTitle", decodeEntities(pub));
+    await zi.saveTx({ skipDateModifiedUpdate: true });
+    fixed++;
+  }
+  return fixed;
 }

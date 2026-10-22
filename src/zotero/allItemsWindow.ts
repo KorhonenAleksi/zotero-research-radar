@@ -1,3 +1,4 @@
+import { version } from "../../package.json";
 import { summarize } from "../core/explain";
 import {
   canAddToRadar,
@@ -40,7 +41,8 @@ export function openAllItems(store: Store, onAction: RowActionHandler): void {
     return;
   }
   const win = Zotero.getMainWindow().openDialog(
-    `chrome://${addon.data.config.addonRef}/content/allItems.xhtml`,
+    // ?v= makes Zotero load this version's files, not a cached older copy
+    `chrome://${addon.data.config.addonRef}/content/allItems.xhtml?v=${version}`,
     "researchradar-all-items",
     "chrome,resizable,centerscreen,width=1100,height=720",
   ) as Window;
@@ -165,7 +167,28 @@ async function init(
         }),
       );
 
-    clear(journalsBox);
+    renderJournalList();
+  }
+
+  // Journal sidebar: a filter box (created once, so typing is never
+  // disturbed) above the list of journals, which is redrawn
+  let journalFilter = "";
+  const journalInput = h(doc, "input", {
+    class: "journal-filter",
+    attrs: { type: "search", placeholder: "Filter journals…" },
+    on: {
+      input: (e) => {
+        journalFilter = (e.target as HTMLInputElement).value;
+        renderJournalList();
+      },
+    },
+  });
+  const journalList = h(doc, "div", {});
+  clear(journalsBox);
+  journalsBox.append(journalInput, journalList);
+
+  function renderJournalList() {
+    clear(journalList);
     const entry = (id: string, title: string, n: number) =>
       toggle(
         [
@@ -179,9 +202,11 @@ async function init(
           render();
         },
       );
-    journalsBox.append(entry("", "All journals", stored.length));
+    journalList.append(entry("", "All journals", stored.length));
+    const q = journalFilter.trim().toLowerCase();
     for (const j of journalOptions(stored))
-      journalsBox.append(entry(j.id, j.title, j.count));
+      if (!q || j.title.toLowerCase().includes(q))
+        journalList.append(entry(j.id, j.title, j.count));
   }
 
   function openArticle(s: StoredItem) {

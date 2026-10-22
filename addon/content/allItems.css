@@ -84,6 +84,14 @@ body {
   padding: 6px 0;
 }
 
+.sidebar .journal-filter {
+  display: block;
+  box-sizing: border-box;
+  width: calc(100% - 16px);
+  margin: 2px 8px 6px;
+  padding: 3px 6px;
+}
+
 .sidebar button {
   appearance: none;
   display: flex;

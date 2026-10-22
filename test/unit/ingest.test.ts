@@ -163,3 +163,27 @@ describe("mergeItems", () => {
     expect(m.titleOnly).toBe(false);
   });
 });
+
+describe("HTML-escaped journal names from Crossref (seen 22 Oct)", () => {
+  it("decodes &amp; in container titles", () => {
+    const items = mapWorks(
+      {
+        message: {
+          items: [
+            {
+              DOI: "10.5465/amle.2026.1",
+              title: ["A paper"],
+              "container-title": [
+                "Academy of Management Learning &amp; Education",
+              ],
+            },
+          ],
+        },
+      },
+      SMJ,
+    );
+    expect(items[0].journalTitle).toBe(
+      "Academy of Management Learning & Education",
+    );
+  });
+});

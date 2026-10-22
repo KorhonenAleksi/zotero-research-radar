@@ -198,3 +198,19 @@ describe("Store flags", () => {
     });
   });
 });
+
+describe("Store read cleaning", () => {
+  it("decodes journal names stored escaped by earlier versions", async () => {
+    const db = memoryDb();
+    const store = new Store(db);
+    await store.init();
+    await store.upsertItems([
+      item({ journalTitle: "Enterprise &amp; Society" }),
+    ]);
+    const [s] = await store.allItems();
+    expect(s.item.journalTitle).toBe("Enterprise & Society");
+    expect((await store.getItem(s.item.key))?.journalTitle).toBe(
+      "Enterprise & Society",
+    );
+  });
+});

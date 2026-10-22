@@ -1,4 +1,5 @@
 import { titleKey } from "./itemKey";
+import { stripMarkup } from "./markup";
 import type { ScoreResult, Tier } from "./rules";
 import type { RadarItem } from "./types";
 
@@ -236,7 +237,7 @@ export class Store {
       cols,
     );
     return rows.map((r) => {
-      const item = JSON.parse(String(r.data)) as RadarItem;
+      const item = readItem(r.data);
       return {
         item,
         firstSeen: String(r.first_seen),
@@ -258,9 +259,7 @@ export class Store {
       [key],
       ["data"],
     );
-    return rows.length
-      ? (JSON.parse(String(rows[0].data)) as RadarItem)
-      : undefined;
+    return rows.length ? readItem(rows[0].data) : undefined;
   }
 
   /** The user already has this article; it will never be written. */
@@ -398,4 +397,11 @@ function stripUndefined<T extends object>(o: T): Partial<T> {
   return Object.fromEntries(
     Object.entries(o).filter(([, v]) => v !== undefined),
   ) as Partial<T>;
+}
+
+/** Parse a stored item; journal names saved HTML-escaped by 0.6.0 and earlier are cleaned. */
+function readItem(data: unknown): RadarItem {
+  const item = JSON.parse(String(data)) as RadarItem;
+  item.journalTitle = stripMarkup(item.journalTitle);
+  return item;
 }

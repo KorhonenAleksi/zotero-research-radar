@@ -1,4 +1,5 @@
 import { isValidIssn, normalizeIssn } from "./issn";
+import { stripMarkup } from "./markup";
 import { parseQuery, QueryError } from "./query";
 import type { KeywordRule, WatchedAuthor } from "./rules";
 import type { Journal } from "./types";
@@ -105,7 +106,8 @@ const str = (x: unknown) => (typeof x === "string" ? x.trim() : "");
 
 export function validateJournal(x: unknown, i = 0): Journal | string {
   const o = (x ?? {}) as Record<string, unknown>;
-  const title = str(o.title);
+  // Also repairs titles saved HTML-escaped by version 0.6.0 and earlier
+  const title = stripMarkup(str(o.title));
   const issnPrint = normalizeIssn(str(o.issnPrint));
   const issnElectronic = normalizeIssn(str(o.issnElectronic));
   const validIssns = [issnPrint, issnElectronic].filter(
@@ -122,7 +124,7 @@ export function validateJournal(x: unknown, i = 0): Journal | string {
   return {
     id: validIssns[0] ?? `feed:${feedUrl}`,
     title,
-    publisher: str(o.publisher) || undefined,
+    publisher: stripMarkup(str(o.publisher)) || undefined,
     issnPrint: issnPrint && isValidIssn(issnPrint) ? issnPrint : undefined,
     issnElectronic:
       issnElectronic && isValidIssn(issnElectronic)

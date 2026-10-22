@@ -1,3 +1,4 @@
+import { version } from "../package.json";
 import { initLocale } from "./utils/locale";
 import { startApp, stopApp } from "./zotero/app";
 import { initPrefsPane } from "./zotero/prefsPane";
@@ -17,7 +18,10 @@ async function onStartup() {
     src: rootURI + "content/preferences.xhtml",
     label: addon.data.config.addonName,
     image: `chrome://${addon.data.config.addonRef}/content/icons/favicon.png`,
-    stylesheets: [rootURI + "content/preferences.css"],
+    // ?v= makes Zotero load this version's stylesheet, not a cached older copy
+    stylesheets: [
+      `chrome://${addon.data.config.addonRef}/content/preferences.css?v=${version}`,
+    ],
   });
 
   await Promise.all(

@@ -148,3 +148,17 @@ describe("helpers", () => {
     expect(newId("rule", [{ id: "rule-2" }, { id: "rule-3" }])).toBe("rule-4");
   });
 });
+
+describe("journal names saved escaped by earlier versions", () => {
+  it("are cleaned when settings are read", () => {
+    const { value } = parseJournals(
+      JSON.stringify([
+        {
+          title: "Management &amp; Organizational History",
+          issnPrint: "1744-9359",
+        },
+      ]),
+    );
+    expect(value[0].title).toBe("Management & Organizational History");
+  });
+});

@@ -19,6 +19,8 @@ pref("collectionRadar", 0);
 pref("collectionHigh", 0);
 pref("collectionPossible", 0);
 pref("lastRun", "");
+// One-time repair of "&amp;" in journal names written by 0.6.0 and earlier
+pref("repairedEscapedTitles", false);
 // Result lines of the last fetch, shown in the settings pane (JSON list)
 pref("lastRunSummary", "[]");
 // Plain-language research interests, for the optional AI ranking

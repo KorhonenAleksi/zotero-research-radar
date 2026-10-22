@@ -106,3 +106,24 @@ describe("parseJournalSearch ISSN hygiene", () => {
     expect(parseJournalSearch(response, "Bad")).toEqual([]);
   });
 });
+
+describe("parseJournalSearch decodes escaped names", () => {
+  it("turns &amp; into &", () => {
+    const [r] = parseJournalSearch(
+      {
+        message: {
+          items: [
+            {
+              title: "Enterprise &amp; Society",
+              publisher: "Cambridge University Press (CUP)",
+              "issn-type": [{ type: "print", value: "1467-2227" }],
+            },
+          ],
+        },
+      },
+      "Enterprise & Society",
+    );
+    expect(r.title).toBe("Enterprise & Society");
+    expect(r.exactTitle).toBe(true);
+  });
+});

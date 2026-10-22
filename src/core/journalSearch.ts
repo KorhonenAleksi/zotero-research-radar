@@ -1,4 +1,5 @@
 import { isValidIssn, normalizeIssn } from "./issn";
+import { stripMarkup } from "./markup";
 import type { JournalCandidate } from "./types";
 
 const CROSSREF_JOURNALS = "https://api.crossref.org/journals";
@@ -68,10 +69,11 @@ export function parseJournalSearch(
     if (!issnElectronic || issnElectronic === issnPrint)
       issnElectronic = spares[0] ?? null;
     if (!issnPrint && !issnElectronic) continue;
-    const title = (item.title ?? "").trim();
+    // Crossref sends some names HTML-escaped ("Enterprise &amp; Society")
+    const title = stripMarkup(item.title);
     candidates.push({
       title,
-      publisher: (item.publisher ?? "").trim(),
+      publisher: stripMarkup(item.publisher),
       issnPrint: issnPrint ?? undefined,
       issnElectronic: issnElectronic ?? undefined,
       currentDois: item.counts?.["current-dois"] ?? 0,

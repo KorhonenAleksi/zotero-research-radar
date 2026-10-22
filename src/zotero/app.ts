@@ -12,6 +12,8 @@ import {
   rescoreAll,
   runFetch,
 } from "./fetchRun";
+import { getPref, setPref } from "../utils/prefs";
+import { repairEscapedPublicationTitles } from "./library";
 import { registerNotifier, unregisterNotifier } from "./notifier";
 import {
   followJournal,
@@ -98,6 +100,13 @@ export async function startApp(): Promise<void> {
     await s.init();
     store = s;
     notifierID = registerNotifier(s);
+    if (!getPref("repairedEscapedTitles")) {
+      const n = await repairEscapedPublicationTitles(
+        await s.ownedZoteroItemIds(),
+      );
+      if (n) Zotero.debug(`[Research Radar] repaired ${n} journal names`);
+      setPref("repairedEscapedTitles", true);
+    }
   } catch (e: any) {
     startError = e?.message ?? String(e);
     Zotero.logError(e);
