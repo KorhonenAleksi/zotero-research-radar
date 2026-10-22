@@ -44,10 +44,9 @@ export const DEFAULT_SCORING: ScoringSettings = {
   authors: [],
   journalBonus: {},
   fieldWeights: { title: 3, abstract: 1 },
-  // With weight-1 rules: one abstract match → Possible needs 2, so a single
-  // abstract hit stays in Rest; one title hit (3 points) → Possible;
+  // With weight-1 rules: any match (abstract 1, title 3) → Possible;
   // a title hit plus anything else, or a watched author (default 5) → High.
-  thresholds: { high: 5, possible: 2 },
+  thresholds: { high: 5, possible: 1 },
 };
 
 export type Reason =

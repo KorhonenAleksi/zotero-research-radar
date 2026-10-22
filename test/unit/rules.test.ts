@@ -115,7 +115,27 @@ describe("scoreItem", () => {
       field: "title",
       terms: ['"organizational decline"'],
     });
-    expect(inAbstract).toMatchObject({ total: 1, tier: "rest" });
+    // Any match is worth a look: an abstract-only hit is Possible, not Rest
+    expect(inAbstract).toMatchObject({ total: 1, tier: "possible" });
+    expect(inAbstract.reasons[0]).toMatchObject({ field: "abstract" });
+  });
+
+  it("first real run (22 Oct): abstract-only 'strateg*' matches reach Possible", () => {
+    const s = settings({
+      rules: [{ id: "r", query: "strateg* OR histor*", weight: 1 }],
+    });
+    const r = scoreItem(
+      item({
+        title: "Platform development in incumbent firms",
+        abstract:
+          "We examine how incumbents' strategic choices shape platforms.",
+      }),
+      s,
+    );
+    expect(r).toMatchObject({ tier: "possible", total: 1 });
+    expect(scoreItem(item({ title: "Issue Information" }), s).tier).toBe(
+      "rest",
+    );
   });
 
   it("matches watched authors by ORCID, and does not confuse namesakes", () => {

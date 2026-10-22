@@ -13,7 +13,7 @@ pref("journalBonus", "{}");
 pref("titleWeight", 3);
 pref("abstractWeight", 1);
 pref("thresholdHigh", 5);
-pref("thresholdPossible", 2);
+pref("thresholdPossible", 1);
 // Ids of the Radar collections in the user library, set on first use
 pref("collectionRadar", 0);
 pref("collectionHigh", 0);

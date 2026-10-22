@@ -13,18 +13,49 @@ let startError: string | null = null;
 
 const TITLE = "Research Radar";
 
+type LineType = "success" | "default" | "fail";
+
+/**
+ * A Zotero pop-up that is opened once and updated in place. Closing one
+ * pop-up and opening another in quick succession can lose the second, so a
+ * fetch shows "Fetching…" and then rewrites the same window with the result.
+ * Pop-up failures are logged, never thrown: they must not break a fetch.
+ */
+class Popup {
+  private win: any = null;
+
+  constructor(first: string, type: LineType = "default") {
+    try {
+      this.win = new ztoolkit.ProgressWindow(TITLE, {
+        closeOnClick: true,
+        closeTime: -1,
+      })
+        .createLine({ text: first, type })
+        .show();
+    } catch (e) {
+      Zotero.debug(`[Research Radar] pop-up failed: ${e}`);
+    }
+  }
+
+  /** Replace the text with the result lines, then close after `closeMs` (-1 = stay until clicked). */
+  finish(lines: string[], type: LineType, closeMs: number): void {
+    try {
+      if (!this.win) return;
+      this.win.changeLine({ text: lines[0], type, progress: 100 });
+      for (const line of lines.slice(1)) this.win.addDescription(line);
+      if (closeMs > 0) this.win.startCloseTimer(closeMs);
+    } catch (e) {
+      Zotero.debug(`[Research Radar] pop-up failed: ${e}`);
+    }
+  }
+}
+
 function popup(
   lines: string[],
-  type: "success" | "default" | "fail" = "default",
+  type: LineType = "default",
   closeMs = 10000,
-) {
-  const win = new ztoolkit.ProgressWindow(TITLE, {
-    closeOnClick: true,
-    closeTime: closeMs,
-  });
-  for (const text of lines) win.createLine({ text, type });
-  win.show();
-  return win;
+): void {
+  new Popup(lines[0], type).finish(lines, type, closeMs);
 }
 
 export async function startApp(): Promise<void> {
@@ -92,24 +123,24 @@ export async function fetchNow(
   }
   const progress = opts.quietIfNothing
     ? null
-    : popup([`Fetching ${journals.length} journals…`], "default", -1);
+    : new Popup(`Fetching ${journals.length} journals…`);
   try {
     const result = await runFetch(store);
-    progress?.close();
     if (!result) return;
     const { summary, lines } = result;
+    Zotero.debug(`[Research Radar] fetch done: ${JSON.stringify(summary)}`);
     const found = summary.written.high + summary.written.possible;
-    if (opts.quietIfNothing && found === 0 && summary.errors.length === 0)
-      return;
-    popup(
-      lines,
-      found > 0 ? "success" : summary.errors.length ? "fail" : "default",
-      found > 0 ? -1 : 10000,
-    );
+    const type: LineType =
+      found > 0 ? "success" : summary.errors.length ? "fail" : "default";
+    // Matches stay on screen until clicked; "nothing new" closes by itself
+    const closeMs = found > 0 ? -1 : 10000;
+    if (progress) progress.finish(lines, type, closeMs);
+    else if (found > 0 || summary.errors.length) popup(lines, type, closeMs);
   } catch (e: any) {
-    progress?.close();
     Zotero.logError(e);
-    popup([`Fetch failed: ${e?.message ?? e}`], "fail");
+    const msg = [`Fetch failed: ${e?.message ?? e}`];
+    if (progress) progress.finish(msg, "fail", -1);
+    else popup(msg, "fail", -1);
   }
 }
 

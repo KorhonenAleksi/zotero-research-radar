@@ -593,7 +593,7 @@ export function initPrefsPane(win: Window): void {
   bindNumber("titleWeight", LIMITS.weight, 3);
   bindNumber("abstractWeight", LIMITS.weight, 1);
   bindNumber("thresholdHigh", LIMITS.weight, 5);
-  bindNumber("thresholdPossible", LIMITS.weight, 2);
+  bindNumber("thresholdPossible", LIMITS.weight, 1);
 
   renderJournals();
   renderRules();
