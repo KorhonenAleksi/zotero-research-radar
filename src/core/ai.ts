@@ -115,7 +115,9 @@ export function parseAiReply(
   if (!Number.isFinite(n) || n < 0 || n > 3)
     throw new AiReplyError("The reply had no score between 0 and 3.");
   const clip = (v: unknown, max: number) => {
-    const s = String(v ?? "").replace(/\s+/g, " ").trim();
+    const s = String(v ?? "")
+      .replace(/\s+/g, " ")
+      .trim();
     return s.length > max ? `${s.slice(0, max - 1)}…` : s;
   };
   return {

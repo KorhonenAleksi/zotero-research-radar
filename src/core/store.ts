@@ -1,3 +1,4 @@
+import type { AiJudgement } from "./ai";
 import { titleKey } from "./itemKey";
 import { stripMarkup } from "./markup";
 import type { ScoreResult, Tier } from "./rules";
@@ -45,10 +46,12 @@ export interface StoredItem {
   /** The user already had this article in their library; never written. */
   inLibrary: boolean;
   score?: ScoreResult;
+  /** Optional AI judgement (may be outdated: compare its context). */
+  ai?: AiJudgement;
   link?: Link;
 }
 
-const SCHEMA_VERSION = 1;
+const SCHEMA_VERSION = 2;
 
 const MIGRATIONS: Record<number, string[]> = {
   1: [
@@ -89,6 +92,13 @@ const MIGRATIONS: Record<number, string[]> = {
       started_at TEXT NOT NULL,
       finished_at TEXT,
       summary TEXT)`,
+  ],
+  // 0.7.0: optional AI judgements, one per article
+  2: [
+    `CREATE TABLE IF NOT EXISTS ai_scores (
+      key TEXT PRIMARY KEY,
+      judgement TEXT NOT NULL,
+      judged_at TEXT NOT NULL)`,
   ],
 };
 
@@ -219,6 +229,7 @@ export class Store {
       "baseline",
       "in_library",
       "result",
+      "judgement",
       "library_id",
       "zotero_item_id",
       "ltier",
@@ -227,11 +238,12 @@ export class Store {
       "status_at",
     ];
     const rows = await this.db.query(
-      `SELECT i.data, i.first_seen, i.last_seen, i.baseline, i.in_library, s.result,
+      `SELECT i.data, i.first_seen, i.last_seen, i.baseline, i.in_library, s.result, a.judgement,
               l.library_id, l.zotero_item_id, l.tier AS ltier, l.status, l.created_at, l.status_at
        FROM items i
        LEFT JOIN scores s ON s.key = i.key
        LEFT JOIN links l ON l.key = i.key
+       LEFT JOIN ai_scores a ON a.key = i.key
        ORDER BY i.first_seen DESC, i.key`,
       [],
       cols,
@@ -247,6 +259,9 @@ export class Store {
         score: r.result
           ? (JSON.parse(String(r.result)) as ScoreResult)
           : undefined,
+        ai: r.judgement
+          ? (JSON.parse(String(r.judgement)) as AiJudgement)
+          : undefined,
         link: r.zotero_item_id != null ? rowToLink(item.key, r) : undefined,
       };
     });
@@ -260,6 +275,13 @@ export class Store {
       ["data"],
     );
     return rows.length ? readItem(rows[0].data) : undefined;
+  }
+
+  async saveAiJudgement(key: string, judgement: AiJudgement): Promise<void> {
+    await this.db.run(
+      "INSERT OR REPLACE INTO ai_scores (key, judgement, judged_at) VALUES (?, ?, ?)",
+      [key, JSON.stringify(judgement), this.now()],
+    );
   }
 
   /** The user already has this article; it will never be written. */

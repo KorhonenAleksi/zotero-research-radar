@@ -1,3 +1,4 @@
+import { effectiveTier } from "./ai";
 import type { StoredItem } from "./store";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -43,9 +44,17 @@ export interface Selection {
  */
 export function selectToWrite(
   stored: StoredItem[],
-  opts: { now: Date; windowDays: number; max: number },
+  opts: {
+    now: Date;
+    windowDays: number;
+    max: number;
+    /** Current AI context, or null when AI is off: only current AI 3s lift. */
+    aiContext?: string | null;
+  },
 ): Selection {
   const cutoff = opts.now.getTime() - opts.windowDays * DAY;
+  const tierOf = (s: StoredItem) =>
+    effectiveTier(s.score!, s.ai, opts.aiContext ?? null).tier;
   const candidates = stored
     .filter(
       (s) =>
@@ -54,13 +63,14 @@ export function selectToWrite(
         !s.inLibrary &&
         s.score &&
         !s.score.excluded &&
-        s.score.tier !== "rest" &&
+        tierOf(s) !== "rest" &&
         Date.parse(s.firstSeen) >= cutoff,
     )
     .sort(
       (a, b) =>
-        Number(b.score!.tier === "high") - Number(a.score!.tier === "high") ||
+        Number(tierOf(b) === "high") - Number(tierOf(a) === "high") ||
         b.score!.total - a.score!.total ||
+        (b.ai?.score ?? 0) - (a.ai?.score ?? 0) ||
         b.firstSeen.localeCompare(a.firstSeen),
     );
   return {
@@ -69,12 +79,38 @@ export function selectToWrite(
   };
 }
 
+/**
+ * Which articles to send to the AI this run: recent, not yet in the library,
+ * not excluded by a rule, and without a judgement for the current interests
+ * and model. Newest first, at most `max`.
+ */
+export function selectForAi(
+  stored: StoredItem[],
+  opts: { now: Date; windowDays: number; context: string; max: number },
+): StoredItem[] {
+  const cutoff = opts.now.getTime() - opts.windowDays * DAY;
+  return stored
+    .filter(
+      (s) =>
+        !s.link &&
+        !s.baseline &&
+        !s.inLibrary &&
+        !s.score?.excluded &&
+        s.ai?.context !== opts.context &&
+        Date.parse(s.firstSeen) >= cutoff,
+    )
+    .sort((a, b) => b.firstSeen.localeCompare(a.firstSeen))
+    .slice(0, opts.max);
+}
+
 export interface RunSummary {
   journals: number;
   fetched: number;
   newItems: number;
-  written: { high: number; possible: number; titleOnly: number };
+  written: { high: number; possible: number; titleOnly: number; byAi: number };
   waiting: number;
+  /** AI judgements made this run; `skipped` explains why the AI was not (fully) used. */
+  ai: { judged: number; skipped?: string };
   alreadyInLibrary: number;
   cleanedUp: number;
   errors: Array<{ journal: string; message: string }>;
@@ -85,8 +121,9 @@ export function emptySummary(): RunSummary {
     journals: 0,
     fetched: 0,
     newItems: 0,
-    written: { high: 0, possible: 0, titleOnly: 0 },
+    written: { high: 0, possible: 0, titleOnly: 0, byAi: 0 },
     waiting: 0,
+    ai: { judged: 0 },
     alreadyInLibrary: 0,
     cleanedUp: 0,
     errors: [],
@@ -109,6 +146,7 @@ export function popupLines(s: RunSummary): string[] {
   if (high + possible === 0) lines.push("No new matches");
   else lines.push(`${high} High, ${possible} Possible added`);
   if (titleOnly) lines.push(`${titleOnly} of them title-only`);
+  if (s.written.byAi) lines.push(`${s.written.byAi} of them found by AI`);
   if (s.waiting) lines.push(`${s.waiting} more next time (per-fetch limit)`);
   if (s.alreadyInLibrary)
     lines.push(`${s.alreadyInLibrary} already in your library`);
@@ -131,6 +169,13 @@ export function summaryLines(s: RunSummary, maxNewPerRun: number): string[] {
       `${high} new High, ${possible} Possible${titleOnly ? ` (${titleOnly} title-only)` : ""}.`,
     );
   }
+  if (s.written.byAi)
+    lines.push(
+      `${plural(s.written.byAi, "article")} found by AI (no keyword rule matched).`,
+    );
+  if (s.ai.judged)
+    lines.push(`AI judged ${plural(s.ai.judged, "new article")}.`);
+  if (s.ai.skipped) lines.push(`AI not used: ${s.ai.skipped}`);
   if (s.waiting)
     lines.push(`${s.waiting} more waiting (limit ${maxNewPerRun} per fetch).`);
   if (s.alreadyInLibrary)

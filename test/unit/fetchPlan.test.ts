@@ -5,6 +5,7 @@ import {
   popupLines,
   POPUP_LINE_MAX,
   mapPool,
+  selectForAi,
   selectToWrite,
   sinceDate,
   summaryLines,
@@ -205,5 +206,90 @@ describe("noteHtml for hand-added articles", () => {
     });
     expect(html).toContain("Research Radar: Rest (0 points)");
     expect(html).toContain("You added this article by hand");
+  });
+});
+
+describe("AI in selection, notes and pop-ups", () => {
+  const ctx = "ctx-now";
+  const judged = (scoreN: 0 | 1 | 2 | 3, context = ctx) => ({
+    score: scoreN,
+    interest: "decline",
+    reason: "On firm failure.",
+    titleOnly: true,
+    model: "gemini-3.5-flash-lite",
+    context,
+  });
+
+  it("writes a Rest article the AI rates 3, after rule matches", () => {
+    const rule = stored({ score: score("possible", 1) });
+    const ai3 = stored({ score: score("rest", 0), ai: judged(3) });
+    const ai2 = stored({ score: score("rest", 0), ai: judged(2) });
+    const stale = stored({ score: score("rest", 0), ai: judged(3, "old") });
+    const sel = selectToWrite([ai3, ai2, stale, rule], {
+      now,
+      windowDays: 30,
+      max: 10,
+      aiContext: ctx,
+    });
+    expect(sel.write).toEqual([rule, ai3]);
+  });
+
+  it("lifts nothing when AI is off", () => {
+    const ai3 = stored({ score: score("rest", 0), ai: judged(3) });
+    expect(
+      selectToWrite([ai3], { now, windowDays: 30, max: 10, aiContext: null })
+        .write,
+    ).toEqual([]);
+  });
+
+  it("sends only unjudged, recent, eligible articles to the AI, newest first", () => {
+    const fresh = stored({ firstSeen: "2026-10-22T11:00:00Z" });
+    const older = stored({ firstSeen: "2026-10-20T11:00:00Z" });
+    const done = stored({ ai: judged(1) });
+    const outdated = stored({ ai: judged(1, "old") });
+    const skip = [
+      stored({ baseline: true }),
+      stored({ inLibrary: true }),
+      stored({ score: score("rest", 0, { excluded: true }) }),
+      stored({ firstSeen: "2026-08-01T00:00:00Z" }),
+    ];
+    const picked = selectForAi([older, done, ...skip, outdated, fresh], {
+      now,
+      windowDays: 30,
+      context: ctx,
+      max: 2,
+    });
+    expect(picked).toEqual([fresh, outdated]);
+  });
+
+  it("notes say the AI found it, and why", () => {
+    const html = noteHtml(score("rest", 0, { titleOnly: true }), {
+      fetchedOn: "2026-10-22",
+      sources: ["crossref"],
+      ai: judged(3),
+      liftedByAi: true,
+    });
+    expect(html).toContain("Research Radar: Possible (found by AI)");
+    expect(html).toContain(
+      "<strong>AI (gemini-3.5-flash-lite):</strong> 3/3 (decline): On firm failure. Judged from the title only.",
+    );
+    expect(html).toContain("No keyword rule matched");
+  });
+
+  it("pop-up and settings mention AI finds; a skipped AI is only in the details", () => {
+    const s = {
+      ...emptySummary(),
+      written: { high: 0, possible: 2, titleOnly: 2, byAi: 1 },
+      ai: { judged: 12, skipped: "endpoint unreachable (offline or VPN?)" },
+    };
+    expect(popupLines(s)).toEqual([
+      "0 High, 2 Possible added",
+      "2 of them title-only",
+      "1 of them found by AI",
+    ]);
+    expect(summaryLines(s, 30)).toContain(
+      "AI not used: endpoint unreachable (offline or VPN?)",
+    );
+    expect(summaryLines(s, 30)).toContain("AI judged 12 new articles.");
   });
 });

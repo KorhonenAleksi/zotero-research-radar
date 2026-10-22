@@ -66,7 +66,7 @@ describe("Store", () => {
     const [row] = await db.query(
       "SELECT value FROM meta WHERE key = 'schema_version'",
     );
-    expect(row.value).toBe("1");
+    expect(row.value).toBe("2");
   });
 
   it("refuses a database from a newer plugin version", async () => {
@@ -212,5 +212,50 @@ describe("Store read cleaning", () => {
     expect((await store.getItem(s.item.key))?.journalTitle).toBe(
       "Enterprise & Society",
     );
+  });
+});
+
+describe("Store schema 2 (AI judgements)", () => {
+  it("upgrades a version-1 database in place, keeping its data", async () => {
+    const db = memoryDb();
+    // A database as left by 0.6.x: schema 1 with one stored item
+    await db.run("CREATE TABLE meta (key TEXT PRIMARY KEY, value TEXT)");
+    await db.run(
+      `CREATE TABLE items (key TEXT PRIMARY KEY, title_key TEXT NOT NULL, journal_id TEXT NOT NULL,
+        doi TEXT, data TEXT NOT NULL, first_seen TEXT NOT NULL, last_seen TEXT NOT NULL,
+        baseline INTEGER NOT NULL DEFAULT 0, in_library INTEGER NOT NULL DEFAULT 0)`,
+    );
+    for (const t of ["scores", "links", "journal_state", "runs"])
+      await db.run(`CREATE TABLE ${t} (key TEXT)`);
+    await db.run(
+      "INSERT INTO items VALUES ('doi:10.1/a', 't:1', 'j', '10.1/a', ?, 'x', 'x', 0, 0)",
+      [JSON.stringify(item({}))],
+    );
+    await db.run("INSERT INTO meta VALUES ('schema_version', '1')");
+
+    const store = new Store(db);
+    await store.init();
+    const [v] = await db.query(
+      "SELECT value FROM meta WHERE key = 'schema_version'",
+    );
+    expect(v.value).toBe("2");
+    expect(await store.getItem("doi:10.1/a")).toBeDefined();
+  });
+
+  it("stores AI judgements with their items", async () => {
+    const store = new Store(memoryDb());
+    await store.init();
+    await store.upsertItems([item({})]);
+    const judgement = {
+      score: 3 as const,
+      interest: "decline",
+      reason: "On firm failure.",
+      titleOnly: true,
+      model: "gemini-3.5-flash-lite",
+      context: "abcd1234",
+    };
+    await store.saveAiJudgement("doi:10.1/a", judgement);
+    const [s] = await store.allItems();
+    expect(s.ai).toEqual(judgement);
   });
 });

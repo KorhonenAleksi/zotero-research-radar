@@ -1,3 +1,4 @@
+import { aiSummary, type AiJudgement } from "./ai";
 import type { Reason, ScoreResult } from "./rules";
 
 const TIER_LABEL = {
@@ -43,9 +44,17 @@ export function escapeHtml(s: string): string {
  */
 export function noteHtml(
   result: ScoreResult,
-  info: { fetchedOn: string; sources: string[]; addedByHand?: boolean },
+  info: {
+    fetchedOn: string;
+    sources: string[];
+    addedByHand?: boolean;
+    ai?: AiJudgement;
+    liftedByAi?: boolean;
+  },
 ): string {
-  const head = `Research Radar: ${TIER_LABEL[result.tier]} (${result.total} points)`;
+  const head = info.liftedByAi
+    ? "Research Radar: Possible (found by AI)"
+    : `Research Radar: ${TIER_LABEL[result.tier]} (${result.total} points)`;
   const items = result.reasons
     .map((r) => `<li>${escapeHtml(reasonText(r))}</li>`)
     .join("");
@@ -56,6 +65,12 @@ export function noteHtml(
     `<h2>${escapeHtml(head)}</h2>`,
     items ? `<ul>${items}</ul>` : "",
     titleOnly,
+    info.ai
+      ? `<p><strong>${escapeHtml(`AI (${info.ai.model}):`)}</strong> ${escapeHtml(aiSummary(info.ai).replace(/^AI /, ""))}</p>`
+      : "",
+    info.liftedByAi
+      ? "<p><em>No keyword rule matched; the AI rated this article as directly relevant to your interests.</em></p>"
+      : "",
     `<p>Found ${escapeHtml(info.fetchedOn)} via ${escapeHtml(info.sources.join(" + "))}.</p>`,
     info.addedByHand
       ? "<p>You added this article by hand from \u201cAll fetched articles\u201d.</p>"
