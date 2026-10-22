@@ -6,6 +6,7 @@ import {
   mapPool,
   selectToWrite,
   sinceDate,
+  popupLines,
   summaryLines,
   type RunSummary,
 } from "../core/fetchPlan";
@@ -202,7 +203,7 @@ export async function runFetch(
     setPref("lastRun", now.toISOString());
     // Kept so a pop-up closed by another plugin never means a lost result
     setPref("lastRunSummary", JSON.stringify(lines));
-    return { summary, lines };
+    return { summary, lines: popupLines(summary) };
   } finally {
     await store.finishRun(runId, summary).catch(() => undefined);
     running = false;

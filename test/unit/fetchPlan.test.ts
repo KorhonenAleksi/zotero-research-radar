@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import { escapeHtml, noteHtml } from "../../src/core/explain";
 import {
   emptySummary,
+  popupLines,
+  POPUP_LINE_MAX,
   mapPool,
   selectToWrite,
   sinceDate,
@@ -160,5 +162,36 @@ describe("mapPool", () => {
     });
     expect(out).toEqual([60, 20, 40, 10]);
     expect(peak).toBe(2);
+  });
+});
+
+describe("popupLines", () => {
+  it("keeps every line short enough for Zotero's pop-up, even with big numbers", () => {
+    const worst = {
+      ...emptySummary(),
+      journals: 120,
+      newItems: 4000,
+      written: { high: 199, possible: 199, titleOnly: 199 },
+      waiting: 1999,
+      alreadyInLibrary: 199,
+      cleanedUp: 999,
+      errors: Array.from({ length: 50 }, () => ({
+        journal: "Journal of the Academy of Marketing Science",
+        message: "network error (offline?)",
+      })),
+    };
+    const lines = popupLines(worst);
+    expect(lines).toHaveLength(6);
+    for (const l of lines)
+      expect(l.length, l).toBeLessThanOrEqual(POPUP_LINE_MAX);
+  });
+
+  it("leads with the result", () => {
+    const s = {
+      ...emptySummary(),
+      written: { high: 0, possible: 6, titleOnly: 0 },
+    };
+    expect(popupLines(s)).toEqual(["0 High, 6 Possible added"]);
+    expect(popupLines(emptySummary())).toEqual(["No new matches"]);
   });
 });

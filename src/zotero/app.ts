@@ -51,8 +51,9 @@ class Popup {
   finish(lines: string[], type: LineType, closeMs: number): void {
     try {
       if (!this.win) return;
+      // One short line per row; descriptions wrap badly in Zotero's narrow pop-up
       this.win.changeLine({ text: lines[0], type, progress: 100 });
-      for (const line of lines.slice(1)) this.win.addDescription(line);
+      for (const text of lines.slice(1)) this.win.createLine({ text });
       if (closeMs > 0) this.win.startCloseTimer(closeMs);
     } catch (e) {
       Zotero.debug(`[Research Radar] pop-up failed: ${e}`);
@@ -114,9 +115,7 @@ export async function fetchNow(
 ): Promise<void> {
   if (!store) {
     popup(
-      [
-        `Could not open the Research Radar database: ${startError ?? "unknown error"}`,
-      ],
+      ["Database could not be opened", startError ?? "unknown error"],
       "fail",
     );
     return;
@@ -128,7 +127,7 @@ export async function fetchNow(
   const { journals } = loadSettings();
   if (journals.length === 0) {
     if (!opts.quietIfNothing)
-      popup(["No journals yet: add some in Settings → Research Radar."]);
+      popup(["No journals yet:", "add them in Settings"]);
     return;
   }
   const progress = opts.quietIfNothing
@@ -155,7 +154,7 @@ export async function fetchNow(
     else if (summary.errors.length) popup(lines, type, closeMs);
   } catch (e: any) {
     Zotero.logError(e);
-    const msg = [`Fetch failed: ${e?.message ?? e}`];
+    const msg = ["Fetch failed", String(e?.message ?? e)];
     if (progress) progress.finish(msg, "fail", -1);
     else popup(msg, "fail", -1);
   }
@@ -171,8 +170,5 @@ async function removeAll(): Promise<void> {
   );
   if (!ok) return;
   const n = await removeActiveRadarItems(store);
-  popup(
-    [`${n} Radar item${n === 1 ? "" : "s"} moved to the Trash.`],
-    "success",
-  );
+  popup([`${n} Radar item${n === 1 ? "" : "s"} moved to Trash`], "success");
 }

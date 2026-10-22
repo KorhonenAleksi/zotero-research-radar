@@ -96,7 +96,29 @@ export function emptySummary(): RunSummary {
 const plural = (n: number, one: string, many = `${one}s`) =>
   `${n} ${n === 1 ? one : many}`;
 
-/** Lines for the pop-up after a fetch. */
+/** Zotero's pop-up fits about this many characters per line. */
+export const POPUP_LINE_MAX = 40;
+
+/**
+ * Short lines for the pop-up. Details (which journal failed and why) go in
+ * summaryLines, shown in the settings pane.
+ */
+export function popupLines(s: RunSummary): string[] {
+  const { high, possible, titleOnly } = s.written;
+  const lines: string[] = [];
+  if (high + possible === 0) lines.push("No new matches");
+  else lines.push(`${high} High, ${possible} Possible added`);
+  if (titleOnly) lines.push(`${titleOnly} of them title-only`);
+  if (s.waiting) lines.push(`${s.waiting} more next time (per-fetch limit)`);
+  if (s.alreadyInLibrary)
+    lines.push(`${s.alreadyInLibrary} already in your library`);
+  if (s.cleanedUp) lines.push(`${s.cleanedUp} old items moved to Trash`);
+  if (s.errors.length)
+    lines.push(`${plural(s.errors.length, "journal")} failed: see Settings`);
+  return lines;
+}
+
+/** Full result lines, kept for the settings pane. */
 export function summaryLines(s: RunSummary, maxNewPerRun: number): string[] {
   const lines: string[] = [];
   const { high, possible, titleOnly } = s.written;
