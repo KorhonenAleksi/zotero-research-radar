@@ -39,6 +39,10 @@ export interface StoredItem {
   item: RadarItem;
   firstSeen: string;
   lastSeen: string;
+  /** Seen in a feed on the journal's first fetch: old backlog, never announced. */
+  baseline: boolean;
+  /** The user already had this article in their library; never written. */
+  inLibrary: boolean;
   score?: ScoreResult;
   link?: Link;
 }
@@ -54,7 +58,9 @@ const MIGRATIONS: Record<number, string[]> = {
       doi TEXT,
       data TEXT NOT NULL,
       first_seen TEXT NOT NULL,
-      last_seen TEXT NOT NULL)`,
+      last_seen TEXT NOT NULL,
+      baseline INTEGER NOT NULL DEFAULT 0,
+      in_library INTEGER NOT NULL DEFAULT 0)`,
     "CREATE INDEX IF NOT EXISTS items_title_key ON items(title_key)",
     `CREATE TABLE IF NOT EXISTS scores (
       key TEXT PRIMARY KEY,
@@ -126,6 +132,7 @@ export class Store {
    */
   async upsertItems(
     items: RadarItem[],
+    opts: { baseline?: (item: RadarItem) => boolean } = {},
   ): Promise<Array<{ item: RadarItem; isNew: boolean }>> {
     const now = this.now();
     return this.db.transaction(async () => {
@@ -163,7 +170,7 @@ export class Store {
           out.push({ item: merged, isNew: false });
         } else {
           await this.db.run(
-            "INSERT INTO items (key, title_key, journal_id, doi, data, first_seen, last_seen) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO items (key, title_key, journal_id, doi, data, first_seen, last_seen, baseline) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
             [
               item.key,
               tKey,
@@ -172,6 +179,7 @@ export class Store {
               JSON.stringify(item),
               now,
               now,
+              opts.baseline?.(item) ? 1 : 0,
             ],
           );
           out.push({ item, isNew: true });
@@ -207,6 +215,8 @@ export class Store {
       "data",
       "first_seen",
       "last_seen",
+      "baseline",
+      "in_library",
       "result",
       "library_id",
       "zotero_item_id",
@@ -216,7 +226,7 @@ export class Store {
       "status_at",
     ];
     const rows = await this.db.query(
-      `SELECT i.data, i.first_seen, i.last_seen, s.result,
+      `SELECT i.data, i.first_seen, i.last_seen, i.baseline, i.in_library, s.result,
               l.library_id, l.zotero_item_id, l.tier AS ltier, l.status, l.created_at, l.status_at
        FROM items i
        LEFT JOIN scores s ON s.key = i.key
@@ -231,12 +241,19 @@ export class Store {
         item,
         firstSeen: String(r.first_seen),
         lastSeen: String(r.last_seen),
+        baseline: Number(r.baseline) === 1,
+        inLibrary: Number(r.in_library) === 1,
         score: r.result
           ? (JSON.parse(String(r.result)) as ScoreResult)
           : undefined,
         link: r.zotero_item_id != null ? rowToLink(item.key, r) : undefined,
       };
     });
+  }
+
+  /** The user already has this article; it will never be written. */
+  async markInLibrary(key: string): Promise<void> {
+    await this.db.run("UPDATE items SET in_library = 1 WHERE key = ?", [key]);
   }
 
   async addLink(

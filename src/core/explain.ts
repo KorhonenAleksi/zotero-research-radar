@@ -28,3 +28,35 @@ export function summarize(result: ScoreResult): string {
   if (result.titleOnly) parts.push("title-only: no abstract available");
   return parts.length ? `${head}: ${parts.join("; ")}` : `${head}: no matches`;
 }
+
+export function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/**
+ * The child note attached to each Radar item. Every piece of text from
+ * outside (titles, rule labels, matched terms) is escaped.
+ */
+export function noteHtml(
+  result: ScoreResult,
+  info: { fetchedOn: string; sources: string[] },
+): string {
+  const head = `Research Radar: ${TIER_LABEL[result.tier]} (${result.total} points)`;
+  const items = result.reasons
+    .map((r) => `<li>${escapeHtml(reasonText(r))}</li>`)
+    .join("");
+  const titleOnly = result.titleOnly
+    ? "<p><em>Title-only match: no abstract was available from the publisher.</em></p>"
+    : "";
+  return [
+    `<h2>${escapeHtml(head)}</h2>`,
+    items ? `<ul>${items}</ul>` : "",
+    titleOnly,
+    `<p>Found ${escapeHtml(info.fetchedOn)} via ${escapeHtml(info.sources.join(" + "))}.</p>`,
+    "<p>To keep this article, add it to one of your own collections. To dismiss it, move it to the Trash. Untouched Radar items are cleaned up automatically after the period set in Research Radar's settings.</p>",
+  ].join("");
+}

@@ -170,3 +170,31 @@ describe("Store", () => {
     expect(await store.startRun()).toBe(a + 1);
   });
 });
+
+describe("Store flags", () => {
+  it("marks first-fetch feed items as baseline and remembers library duplicates", async () => {
+    const db = memoryDb();
+    const store = new Store(db);
+    await store.init();
+    const old = item({
+      key: "doi:10.1/old",
+      doi: "10.1/old",
+      sources: ["rss"],
+    });
+    const fresh = item({ key: "doi:10.1/new", doi: "10.1/new" });
+    await store.upsertItems([old, fresh], {
+      baseline: (i) => !i.sources.includes("crossref"),
+    });
+    await store.markInLibrary(fresh.key);
+    const all = await store.allItems();
+    const byKey = Object.fromEntries(all.map((s) => [s.item.key, s]));
+    expect(byKey["doi:10.1/old"]).toMatchObject({
+      baseline: true,
+      inLibrary: false,
+    });
+    expect(byKey["doi:10.1/new"]).toMatchObject({
+      baseline: false,
+      inLibrary: true,
+    });
+  });
+});
