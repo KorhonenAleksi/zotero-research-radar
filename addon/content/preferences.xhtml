@@ -9,6 +9,32 @@
   <html:div id="researchradar-last-run" class="rr-last-run"></html:div>
 
   <groupbox>
+    <label><html:h2>Set up with AI (optional)</html:h2></label>
+    <html:p class="rr-muted">
+      An AI assistant that can read a folder (for example Claude Cowork) can
+      draft your journals, rules and authors from your own research notes. Copy
+      the setup prompt, give it to the assistant together with access to your
+      notes folder, then import the profile file it writes. You see a preview
+      first, and importing only adds to your settings. Your notes are read by
+      the assistant you choose; Research Radar never reads them.
+    </html:p>
+    <html:div class="rr-row">
+      <html:button id="researchradar-copy-prompt"
+        >Copy setup prompt</html:button
+      >
+      <html:button id="researchradar-import">Import profile…</html:button>
+      <html:span id="researchradar-ai-status" class="rr-muted"></html:span>
+    </html:div>
+    <html:div id="researchradar-import-preview"></html:div>
+    <html:h3>Research interests</html:h3>
+    <html:p class="rr-muted">
+      A few sentences about your research, in plain language. Used by the
+      optional AI ranking (coming in a later version).
+    </html:p>
+    <html:textarea id="researchradar-interests" rows="4"></html:textarea>
+  </groupbox>
+
+  <groupbox>
     <label><html:h2>Journals</html:h2></label>
     <html:p class="rr-muted">
       Articles are fetched from Crossref by ISSN; an RSS feed URL is optional

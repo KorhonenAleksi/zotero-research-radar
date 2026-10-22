@@ -111,3 +111,22 @@
   border-radius: 4px;
   background: color-mix(in srgb, currentColor 6%, transparent);
 }
+
+#researchradar-pane #researchradar-interests {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#researchradar-pane .rr-preview {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  border-radius: 4px;
+}
+
+#researchradar-pane .rr-preview ul {
+  margin: 2px 0 6px;
+  padding-inline-start: 18px;
+  max-height: 140px;
+  overflow-y: auto;
+}

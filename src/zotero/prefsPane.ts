@@ -1,3 +1,4 @@
+import { AI_SETUP_PROMPT } from "../core/aiSetupPrompt";
 import { ft50Info, ft50Journals, journalId } from "../core/catalogue";
 import {
   buildJournalSearchUrl,
@@ -11,6 +12,7 @@ import {
   normalizeOrcid,
   queryError,
 } from "../core/settings";
+import { previewProfile, type ProfilePreview } from "../core/profile";
 import type { Journal, JournalCandidate } from "../core/types";
 import { getPref, setPref } from "../utils/prefs";
 import { clear, h } from "./dom";
@@ -614,6 +616,147 @@ export function initPrefsPane(win: Window): void {
   bindNumber("abstractWeight", LIMITS.weight, 1);
   bindNumber("thresholdHigh", LIMITS.weight, 5);
   bindNumber("thresholdPossible", LIMITS.weight, 1);
+
+  // ---- set up with AI: copy prompt, import profile ----
+  const aiStatus = el("ai-status");
+  const interests = el("interests") as HTMLTextAreaElement;
+  interests.value = String(getPref("interests") ?? "");
+  interests.addEventListener("change", () =>
+    setPref("interests", interests.value.trim()),
+  );
+
+  el("copy-prompt").addEventListener("click", () => {
+    new ztoolkit.Clipboard().addText(AI_SETUP_PROMPT, "text/unicode").copy();
+    aiStatus.textContent = "Prompt copied to the clipboard.";
+  });
+
+  function renderPreview(p: ProfilePreview | null, error?: string) {
+    const box = el("import-preview");
+    clear(box);
+    if (!p && !error) return;
+    if (error) {
+      box.append(
+        h(doc, "p", { class: "rr-warning", text: `Import failed: ${error}` }),
+      );
+      return;
+    }
+    const p2 = p!;
+    const nothing =
+      !p2.journals.length && !p2.rules.length && !p2.authors.length;
+    const section = (title: string, lines: string[]) =>
+      lines.length
+        ? [
+            h(doc, "strong", { text: `${title} (${lines.length})` }),
+            h(doc, "ul", {}, ...lines.map((l) => h(doc, "li", { text: l }))),
+          ]
+        : [];
+    const dup = p2.duplicates;
+    const dupTotal = dup.journals + dup.rules + dup.authors;
+    const replaceInterests = h(doc, "input", { attrs: { type: "checkbox" } });
+    replaceInterests.checked = !interests.value.trim();
+    box.append(
+      h(
+        doc,
+        "div",
+        { class: "rr-preview" },
+        h(doc, "p", {
+          text: nothing
+            ? "Nothing new to add from this profile."
+            : "Importing will add:",
+        }),
+        ...section(
+          "Journals",
+          p2.journals.map((j) =>
+            [j.title, j.issnPrint ?? j.issnElectronic]
+              .filter(Boolean)
+              .join(" · "),
+          ),
+        ),
+        ...section(
+          "Keyword rules",
+          p2.rules.map(
+            (r) =>
+              `${r.label ?? "Rule"}: ${r.query} (weight ${r.weight}${r.exclude ? ", exclude" : ""})`,
+          ),
+        ),
+        ...section(
+          "Watched authors",
+          p2.authors.map(
+            (a) =>
+              [a.given, a.family].filter(Boolean).join(" ") +
+              (a.orcid ? ` (ORCID ${a.orcid})` : ""),
+          ),
+        ),
+        dupTotal
+          ? h(doc, "p", {
+              class: "rr-muted",
+              text: `Already in your settings, not added again: ${dup.journals} journals, ${dup.rules} rules, ${dup.authors} authors.`,
+            })
+          : null,
+        ...p2.warnings.map((w) =>
+          h(doc, "p", { class: "rr-warning", text: w }),
+        ),
+        p2.interests
+          ? h(
+              doc,
+              "label",
+              { class: "rr-check" },
+              replaceInterests,
+              " Use the profile's research interests paragraph",
+            )
+          : null,
+        h(
+          doc,
+          "div",
+          { class: "rr-row" },
+          h(doc, "button", {
+            text: "Add to my settings",
+            attrs: { disabled: nothing && !p2.interests },
+            on: {
+              click: () => {
+                setJournals([...journals, ...p2.journals]);
+                setRules([...rules, ...p2.rules]);
+                setAuthors([...authors, ...p2.authors]);
+                if (p2.interests && replaceInterests.checked) {
+                  interests.value = p2.interests;
+                  setPref("interests", p2.interests);
+                }
+                renderPreview(null);
+                aiStatus.textContent = `Added ${p2.journals.length} journals, ${p2.rules.length} rules and ${p2.authors.length} authors.`;
+              },
+            },
+          }),
+          h(doc, "button", {
+            text: "Cancel",
+            on: {
+              click: () => {
+                renderPreview(null);
+                aiStatus.textContent = "";
+              },
+            },
+          }),
+        ),
+      ),
+    );
+  }
+
+  el("import").addEventListener("click", async () => {
+    aiStatus.textContent = "";
+    try {
+      const path = await new ztoolkit.FilePicker(
+        "Import Research Radar profile",
+        "open",
+        [["Research Radar profile (*.json)", "*.json"]],
+        undefined,
+        win,
+      ).open();
+      if (!path) return;
+      const text = (await Zotero.File.getContentsAsync(path)) as string;
+      renderPreview(previewProfile(text, { journals, rules, authors }));
+    } catch (e: any) {
+      renderPreview(null, e?.message ?? String(e));
+    }
+  });
 
   renderJournals();
   renderRules();
