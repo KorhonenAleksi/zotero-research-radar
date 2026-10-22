@@ -1,19 +1,155 @@
 <linkset>
   <html:link rel="localization" href="__addonRef__-preferences.ftl" />
 </linkset>
-<groupbox
+<vbox
+  id="researchradar-pane"
   onload="Zotero.__addonInstance__.hooks.onPrefsEvent('load', { window })"
 >
-  <label><html:h2 data-l10n-id="pref-title"></html:h2></label>
-  <checkbox
-    id="zotero-prefpane-__addonRef__-enable"
-    preference="enable"
-    data-l10n-id="pref-enable"
-  />
-</groupbox>
-<vbox>
-  <html:label
+  <html:div id="researchradar-warnings"></html:div>
+
+  <groupbox>
+    <label><html:h2>Journals</html:h2></label>
+    <html:p class="rr-muted">
+      Articles are fetched from Crossref by ISSN; an RSS feed URL is optional
+      and mainly adds abstracts that some publishers don't send to Crossref.
+    </html:p>
+    <html:div id="researchradar-my-journals"></html:div>
+    <html:div id="researchradar-ft50"></html:div>
+    <html:h3>Search any journal</html:h3>
+    <html:div class="rr-row">
+      <html:input
+        id="researchradar-search-input"
+        type="search"
+        placeholder="Journal title, e.g. Enterprise &amp; Society"
+      />
+      <html:button id="researchradar-search-button"
+        >Search Crossref</html:button
+      >
+    </html:div>
+    <html:div id="researchradar-search-results"></html:div>
+  </groupbox>
+
+  <groupbox>
+    <label><html:h2>Keyword rules</html:h2></label>
+    <html:p class="rr-muted">
+      Words are matched in any form (decline, declining) and in British or
+      American spelling. Use "quotes" for phrases, AND / OR / NOT (capitals),
+      brackets, and * for word families: histor* matches history and historical.
+      Title matches count 3× abstract matches by default.
+    </html:p>
+    <html:div id="researchradar-rules"></html:div>
+  </groupbox>
+
+  <groupbox>
+    <label><html:h2>Watched authors</html:h2></label>
+    <html:p class="rr-muted">
+      With an ORCID iD, matching is exact and namesakes are ignored; without
+      one, family name plus first initial is used.
+    </html:p>
+    <html:div id="researchradar-authors"></html:div>
+  </groupbox>
+
+  <groupbox>
+    <label><html:h2>Options</html:h2></label>
+    <html:div class="rr-options">
+      <html:label class="rr-check">
+        <html:input type="checkbox" id="researchradar-opt-autoFetch" />
+        Fetch automatically on startup and every
+      </html:label>
+      <html:div>
+        <html:input
+          type="number"
+          class="rr-num"
+          id="researchradar-opt-fetchIntervalHours"
+          min="1"
+          max="168"
+        />
+        hours
+      </html:div>
+      <html:label for="researchradar-opt-maxNewPerRun"
+        >Max new items per fetch</html:label
+      >
+      <html:input
+        type="number"
+        class="rr-num"
+        id="researchradar-opt-maxNewPerRun"
+        min="1"
+        max="200"
+      />
+      <html:label for="researchradar-opt-firstFetchDays"
+        >First fetch looks back (days)</html:label
+      >
+      <html:input
+        type="number"
+        class="rr-num"
+        id="researchradar-opt-firstFetchDays"
+        min="1"
+        max="365"
+      />
+      <html:label for="researchradar-opt-cleanupDays"
+        >Trash unkept Radar items after (days, 0 = never)</html:label
+      >
+      <html:input
+        type="number"
+        class="rr-num"
+        id="researchradar-opt-cleanupDays"
+        min="0"
+        max="365"
+      />
+      <html:label for="researchradar-opt-titleWeight"
+        >Title match multiplier</html:label
+      >
+      <html:input
+        type="number"
+        class="rr-num"
+        id="researchradar-opt-titleWeight"
+        min="0"
+        max="100"
+      />
+      <html:label for="researchradar-opt-abstractWeight"
+        >Abstract match multiplier</html:label
+      >
+      <html:input
+        type="number"
+        class="rr-num"
+        id="researchradar-opt-abstractWeight"
+        min="0"
+        max="100"
+      />
+      <html:label for="researchradar-opt-thresholdHigh"
+        >Points for High</html:label
+      >
+      <html:input
+        type="number"
+        class="rr-num"
+        id="researchradar-opt-thresholdHigh"
+        min="0"
+        max="100"
+      />
+      <html:label for="researchradar-opt-thresholdPossible"
+        >Points for Possible</html:label
+      >
+      <html:input
+        type="number"
+        class="rr-num"
+        id="researchradar-opt-thresholdPossible"
+        min="0"
+        max="100"
+      />
+      <html:label for="researchradar-opt-mailto"
+        >Contact email for Crossref (optional)</html:label
+      >
+      <html:input
+        type="email"
+        id="researchradar-opt-mailto"
+        placeholder="Sent to Crossref only if filled in"
+      />
+    </html:div>
+  </groupbox>
+
+  <html:p
+    class="rr-muted"
     data-l10n-id="pref-help"
     data-l10n-args='{"time": "__buildTime__","name": "__addonName__","version":"__buildVersion__"}'
-  ></html:label>
+  ></html:p>
 </vbox>

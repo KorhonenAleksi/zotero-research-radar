@@ -1,5 +1,5 @@
 import { initLocale } from "./utils/locale";
-import { registerPrefsScripts } from "./modules/preferenceScript";
+import { initPrefsPane } from "./zotero/prefsPane";
 import { createZToolkit } from "./utils/ztoolkit";
 
 async function onStartup() {
@@ -16,6 +16,7 @@ async function onStartup() {
     src: rootURI + "content/preferences.xhtml",
     label: addon.data.config.addonName,
     image: `chrome://${addon.data.config.addonRef}/content/icons/favicon.png`,
+    stylesheets: [rootURI + "content/preferences.css"],
   });
 
   await Promise.all(
@@ -50,7 +51,7 @@ function onShutdown(): void {
 async function onPrefsEvent(type: string, data: { [key: string]: any }) {
   switch (type) {
     case "load":
-      registerPrefsScripts(data.window);
+      initPrefsPane(data.window);
       break;
     default:
       return;

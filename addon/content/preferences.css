@@ -1,0 +1,106 @@
+/* Settings pane. Colours come from the system/Zotero theme so light and dark mode both work. */
+#researchradar-pane h3 {
+  margin: 14px 0 6px;
+  font-size: 1.05em;
+}
+
+#researchradar-pane .rr-muted {
+  opacity: 0.7;
+  margin: 2px 0;
+}
+
+#researchradar-pane .rr-warning {
+  color: #b35900;
+  margin: 2px 0;
+}
+
+#researchradar-pane .rr-error {
+  color: #c4302b;
+  font-size: 0.9em;
+  min-height: 1em;
+}
+
+#researchradar-pane .rr-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+#researchradar-pane .rr-right {
+  margin-inline-start: auto;
+}
+
+#researchradar-pane .rr-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#researchradar-pane .rr-list > li {
+  padding: 6px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+}
+
+#researchradar-pane .rr-feed {
+  width: 100%;
+  margin-top: 4px;
+}
+
+#researchradar-pane .rr-checklist {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin-top: 4px;
+}
+
+#researchradar-pane .rr-check {
+  display: block;
+  padding: 2px 0;
+}
+
+#researchradar-pane #researchradar-search-input,
+#researchradar-pane .rr-filter {
+  flex: 1;
+  min-width: 200px;
+}
+
+#researchradar-pane .rr-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 6px;
+}
+
+#researchradar-pane .rr-table th {
+  text-align: start;
+  font-weight: 600;
+  padding: 2px 4px;
+}
+
+#researchradar-pane .rr-table td {
+  padding: 2px 4px;
+  vertical-align: top;
+}
+
+#researchradar-pane .rr-wide {
+  width: 55%;
+}
+
+#researchradar-pane .rr-query,
+#researchradar-pane .rr-table input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#researchradar-pane .rr-num {
+  width: 5em;
+}
+
+#researchradar-pane .rr-options {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 6px 12px;
+  align-items: center;
+}
