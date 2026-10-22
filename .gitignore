@@ -1,0 +1,21 @@
+# Dependencies and build output
+node_modules/
+build/
+.scaffold/
+*.xpi
+
+# Secrets and local config (never commit)
+.env
+.env.*
+!.env.example
+
+# Local Zotero dev profile / data
+.zotero-dev/
+
+# OS / editor
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.log
+coverage/
