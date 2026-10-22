@@ -19,3 +19,6 @@ build/
 .idea/
 *.log
 coverage/
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo

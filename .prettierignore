@@ -1,0 +1,12 @@
+.vscode
+build
+logs
+node_modules
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+.scaffold
+coverage
+# Author-written planning docs: keep as written
+docs/brief.md
+docs/plan.md
