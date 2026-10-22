@@ -1,0 +1,590 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "facets": {},
+    "total-results": 12,
+    "items": [
+      {
+        "issue": "6",
+        "published-print": { "date-parts": [[2026, 12]] },
+        "DOI": "10.1016\/j.lrp.2026.102696",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 19]],
+          "date-time": "2026-10-19T15:33:21Z",
+          "timestamp": 1792424001000
+        },
+        "page": "102696",
+        "title": [
+          "A design science approach to scaling platform business models"
+        ],
+        "volume": "59",
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-1542-9603",
+            "authenticated-orcid": false,
+            "given": "Stephan",
+            "family": "von Delft",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-6299-7238",
+            "authenticated-orcid": false,
+            "given": "Yang",
+            "family": "Zhao",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-1508-1694",
+            "authenticated-orcid": false,
+            "given": "Ignacio J.",
+            "family": "Canales",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Trevor",
+            "family": "Buck",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/j.lrp.2026.102696",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 12]] }
+      },
+      {
+        "issue": "6",
+        "published-print": { "date-parts": [[2026, 12]] },
+        "DOI": "10.1016\/j.lrp.2026.102694",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 17]],
+          "date-time": "2026-10-17T09:04:45Z",
+          "timestamp": 1792227885000
+        },
+        "page": "102694",
+        "title": ["Ecosystem governance for circularity"],
+        "volume": "59",
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-2090-0490",
+            "authenticated-orcid": false,
+            "given": "Llewellyn D.W.",
+            "family": "Thomas",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-8525-4610",
+            "authenticated-orcid": false,
+            "given": "Paavo",
+            "family": "Ritala",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Erkko",
+            "family": "Autio",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Leena",
+            "family": "Aarikka-Stenroos",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Peter",
+            "family": "Hopkinson",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-5187-681X",
+            "authenticated-orcid": false,
+            "given": "Yuliya",
+            "family": "Snihur",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/j.lrp.2026.102694",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 12]] }
+      },
+      {
+        "issue": "6",
+        "published-print": { "date-parts": [[2026, 12]] },
+        "DOI": "10.1016\/j.lrp.2026.102695",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 12]],
+          "date-time": "2026-10-12T06:16:02Z",
+          "timestamp": 1791785762000
+        },
+        "page": "102695",
+        "title": [
+          "Status and stretch: The effect of network status on collaboration with \u2018distant\u2019 partners"
+        ],
+        "volume": "59",
+        "author": [
+          {
+            "given": "Mei",
+            "family": "Chen",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-5594-5787",
+            "authenticated-orcid": false,
+            "given": "Pengfei",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/j.lrp.2026.102695",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 12]] }
+      },
+      {
+        "issue": "6",
+        "published-print": { "date-parts": [[2026, 12]] },
+        "DOI": "10.1016\/j.lrp.2026.102693",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 30]],
+          "date-time": "2026-09-30T15:04:38Z",
+          "timestamp": 1790780678000
+        },
+        "page": "102693",
+        "title": ["Open strategy and AI: A new actor in the strategy process?"],
+        "volume": "59",
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-0918-1971",
+            "authenticated-orcid": false,
+            "given": "Julia",
+            "family": "Hautz",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Christian",
+            "family": "Stadler",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Richard",
+            "family": "Whittington",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/j.lrp.2026.102693",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 12]] }
+      },
+      {
+        "published-print": { "date-parts": [[2026, 9]] },
+        "DOI": "10.1016\/j.lrp.2026.102692",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 29]],
+          "date-time": "2026-09-29T23:45:10Z",
+          "timestamp": 1790725510000
+        },
+        "page": "102692",
+        "title": [
+          "The Double-Edged Sword of Political Connections: How Environmental Information Disclosure Standards Trigger Strategic Reversal in Corporate Green Investment"
+        ],
+        "author": [
+          {
+            "given": "Xiaohua",
+            "family": "Sun",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Xiaohong",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Mingshan",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Yan",
+            "family": "Luo",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Shu",
+            "family": "Guan",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/j.lrp.2026.102692",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 9]] }
+      },
+      {
+        "issue": "6",
+        "published-print": { "date-parts": [[2026, 12]] },
+        "DOI": "10.1016\/j.lrp.2026.102690",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 29]],
+          "date-time": "2026-09-29T14:59:34Z",
+          "timestamp": 1790693974000
+        },
+        "page": "102690",
+        "title": [
+          "Place-based institutional work in sustainable entrepreneurial ecosystems: Evidence from an Italian rural ecosystem"
+        ],
+        "volume": "59",
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-5525-4126",
+            "authenticated-orcid": false,
+            "given": "Naomi",
+            "family": "Di Santo",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-3867-9114",
+            "authenticated-orcid": false,
+            "given": "Maria Carmela",
+            "family": "Annosi",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Roberta",
+            "family": "Sisto",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-4586-6193",
+            "authenticated-orcid": false,
+            "given": "Francesco Paolo",
+            "family": "Appio",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/j.lrp.2026.102690",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 12]] }
+      },
+      {
+        "issue": "6",
+        "published-print": { "date-parts": [[2026, 12]] },
+        "DOI": "10.1016\/j.lrp.2026.102691",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 25]],
+          "date-time": "2026-09-25T23:44:33Z",
+          "timestamp": 1790379873000
+        },
+        "page": "102691",
+        "title": [
+          "The curve of time: A U-shaped relationship between CEO career horizon and climate risk perception bias"
+        ],
+        "volume": "59",
+        "author": [
+          {
+            "given": "Hao",
+            "family": "Tian",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Xuming",
+            "family": "Li",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0009-0008-2866-8180",
+            "authenticated-orcid": false,
+            "given": "Peng",
+            "family": "Hu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Da",
+            "family": "Wang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/j.lrp.2026.102691",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 12]] }
+      },
+      {
+        "issue": "6",
+        "published-print": { "date-parts": [[2026, 12]] },
+        "DOI": "10.1016\/j.lrp.2026.102689",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 11]],
+          "date-time": "2026-09-11T15:06:01Z",
+          "timestamp": 1789139161000
+        },
+        "page": "102689",
+        "title": ["Ecosystem visioning: An attention-based view"],
+        "volume": "59",
+        "author": [
+          {
+            "given": "Ke",
+            "family": "Rong",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-8370-1034",
+            "authenticated-orcid": false,
+            "given": "Zhengyao",
+            "family": "Kang",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-7118-2946",
+            "authenticated-orcid": false,
+            "given": "Yong",
+            "family": "Lin",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-8153-1329",
+            "authenticated-orcid": false,
+            "given": "Zhihao",
+            "family": "Xu",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-6920-3469",
+            "authenticated-orcid": false,
+            "given": "James F.",
+            "family": "Moore",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/j.lrp.2026.102689",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 12]] }
+      },
+      {
+        "issue": "6",
+        "published-print": { "date-parts": [[2026, 12]] },
+        "DOI": "10.1016\/j.lrp.2026.102688",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 11]],
+          "date-time": "2026-09-11T00:05:55Z",
+          "timestamp": 1789085155000
+        },
+        "page": "102688",
+        "title": [
+          "International market entry strategy of digital platform firms: Evidence from international ride-sharing firms"
+        ],
+        "volume": "59",
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-5174-2632",
+            "authenticated-orcid": false,
+            "given": "Aveed",
+            "family": "Raha",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Taha",
+            "family": "Sarbaz",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Josef",
+            "family": "Windsperger",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/j.lrp.2026.102688",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 12]] }
+      },
+      {
+        "issue": "6",
+        "published-print": { "date-parts": [[2026, 12]] },
+        "DOI": "10.1016\/j.lrp.2026.102687",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 9]],
+          "date-time": "2026-09-09T00:01:04Z",
+          "timestamp": 1788912064000
+        },
+        "page": "102687",
+        "title": [
+          "Eco-innovation and exporting: Learning from innovation abandonment"
+        ],
+        "volume": "59",
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-7435-7374",
+            "authenticated-orcid": false,
+            "given": "Bettina",
+            "family": "Becker",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-5729-8624",
+            "authenticated-orcid": false,
+            "given": "Effie",
+            "family": "Kesidou",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Priit",
+            "family": "Vahter",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/j.lrp.2026.102687",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 12]] }
+      },
+      {
+        "issue": "5",
+        "published-print": { "date-parts": [[2026, 10]] },
+        "DOI": "10.1016\/s0024-6301(26)00079-8",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 7]],
+          "date-time": "2026-09-07T03:58:36Z",
+          "timestamp": 1788753516000
+        },
+        "page": "102682",
+        "title": ["Editorial Board"],
+        "volume": "59",
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/s0024-6301(26)00079-8",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 10]] }
+      },
+      {
+        "issue": "6",
+        "published-print": { "date-parts": [[2026, 12]] },
+        "DOI": "10.1016\/j.lrp.2026.102678",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 4]],
+          "date-time": "2026-09-04T23:41:33Z",
+          "timestamp": 1788565293000
+        },
+        "page": "102678",
+        "title": [
+          "Synergizing human capital and artificial intelligence for radical innovation: Mechanisms and evidence"
+        ],
+        "volume": "59",
+        "author": [
+          {
+            "given": "Xin",
+            "family": "Shu",
+            "sequence": "first",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Xiaogang",
+            "family": "He",
+            "sequence": "additional",
+            "affiliation": [],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "container-title": ["Long Range Planning"],
+        "URL": "https:\/\/doi.org\/10.1016\/j.lrp.2026.102678",
+        "ISSN": ["0024-6301"],
+        "published": { "date-parts": [[2026, 12]] }
+      }
+    ],
+    "items-per-page": 40,
+    "query": { "start-index": 0, "search-terms": null }
+  }
+}

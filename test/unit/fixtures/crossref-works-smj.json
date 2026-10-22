@@ -1,0 +1,855 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "facets": {},
+    "total-results": 18,
+    "items": [
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>\n                      We introduce the concept of\n                      <jats:italic>pay\u2010for\u2010prominence<\/jats:italic>\n                      , a system where employees are monetarily incentivized to become knowledge hubs in the intrafirm network and examine its effects on employees' networks and attrition. Integrating social network theory with relational incentives theory, we argue that pay\u2010for\u2010prominence motivates strategic networking behaviors that lead to the emergence of prominent connectors. However, these changes are associated with higher attrition as employees are preoccupied with networking, thus suggesting a trade\u2010off between enhanced connectivity in the short term and the risk of network fragmentation in the long term. Using a field quasi\u2010experiment in a multinational firm, we show that organizations can successfully incentivize employees' network prominence, but doing so may produce unintended consequences.\n                    <\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>We examine the impact of using monetary incentives to encourage employees to become knowledge hubs in the workplace informal network\u2014a term we label pay\u2010for\u2010prominence. We find that offering monetary rewards based on network metrics encourages employees to broaden their connections, enhancing knowledge flows within the firm. However, employees who become more socially prominent experience higher attrition than those who do not, as they become preoccupied with networking. Therefore, while incentivizing networking can improve knowledge sharing, it also requires careful management to avoid unintended consequences, such as the exit of key players that could cause fragmentation of the social network. Managers should weigh the benefits of increased connectivity against the risks of fragmentation when designing incentive programs aimed at fostering informal networks.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70133",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 22]],
+          "date-time": "2026-10-22T08:35:32Z",
+          "timestamp": 1792658132000
+        },
+        "title": [
+          "Pay\u2010for\u2010prominence: The (un)intended consequences of monetary incentives on employees' networks and attrition"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-3933-920X",
+            "authenticated-orcid": false,
+            "given": "Alessandro",
+            "family": "Iorio",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Management and Technology Bocconi University  Milan Italy"
+              },
+              { "name": "ICRIOS Bocconi University  Milan Italy" }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-9455-8499",
+            "authenticated-orcid": false,
+            "given": "Giuseppe",
+            "family": "Soda",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Management and Technology Bocconi University  Milan Italy"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-7086-5876",
+            "authenticated-orcid": false,
+            "given": "Brandy",
+            "family": "Aven",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Tepper School of Business Carnegie Mellon University  Pittsburgh Pennsylvania USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 10, 22]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70133",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 10, 22]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>Prior research suggests that institutional investors' liberalism is associated with firms' engagement in environmental sustainability, yet whether this association manifests in symbolic or substantive actions remains unclear. Taking a question\u2010driven approach, our analyses of Russell 3000 firms (2010\u20132020) reveal that investor liberalism, measured as the proportion of donations made to the Democratic Party, is positively associated with symbolic climate actions only from 2016 onward (a period when political polarization intensified), reversing a negative association during 2010\u20132015. Its positive association with substantive actions from 2016 onward, however, appears only among consistent Democratic donors (stronger liberal values), among dedicated investors, or in firms without CEO duality (greater investor influence). These findings indicate that liberal investor ownership may encourage, rather than deter, firms' environmental decoupling.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>Liberal institutional investors tend to favor greater corporate environmental sustainability efforts, but are they associated with firms' symbolic or substantive climate actions? Our findings based on U.S. firms reveal that across the full 2010\u20132020 period, firms with more liberal investors, as indicated by their Democratic\u2010leaning political donations, do not exhibit more symbolic or substantive climate actions. From 2016 onward, as political polarization intensified, firms with more liberal investors exhibited more symbolic climate actions but not substantive ones. During this period, only investors with stronger liberal commitment (i.e., consistent Democratic donors) are associated with more substantive actions. Democratic\u2010donating investors are also associated with more substantive actions when they are dedicated investors or when firm CEOs do not chair their boards.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70137",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 19]],
+          "date-time": "2026-10-19T23:54:13Z",
+          "timestamp": 1792454053000
+        },
+        "title": [
+          "Investors' ideology and corporate symbolic and substantive climate actions"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-8217-1572",
+            "authenticated-orcid": false,
+            "given": "Chang",
+            "family": "Liu",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "CUHK Business School Chinese University of Hong Kong  Hong Kong China"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-3031-732X",
+            "authenticated-orcid": false,
+            "given": "Wei",
+            "family": "Shi",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Miami Business School University of Miami  Coral Gables Florida USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 10, 19]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70137",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 10, 19]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>Digital platforms coordinate complementor innovations through interfaces into their core components. However, when interfaces themselves evolve alongside core component innovations, complementors may exhibit behaviors that are not entirely predictable. Using granular data from Apple's five major iOS releases, we abductively examine App developers\u2019 responses following Apple's core component innovations. We document that, in post\u2010release periods, complementors simultaneously increase co\u2010innovation on iOS while being more likely to multihome by diversifying to the competing platform. These choices are further explained by whether architectural changes reflect cross\u2010platform standardization or platform\u2010specific differentiation. Standardization spurs both complementor co\u2010innovation and multihoming, while differentiation reduces diversification tendencies. The patterns that we document reveal an important tension: governing through interfaces enables platforms\u2019 scalability but constrains their ability to control complementors as platforms evolve.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>Digital platforms like Apple coordinate large scale innovation through standardized interfaces, but those interfaces must evolve as platforms compete, and the direction of that evolution has consequences managers should attend to. Analyzing Apple's five major iOS releases, we find that architectural changes are associated with increased co\u2010innovation but also a higher likelihood that developers diversify to a competing platform. This pattern is particularly pronounced when updates bring iOS closer to Android, suggesting that architectural convergence may lower the barriers to cross\u2010platform expansion for developers. Importantly, this behavior is strongest among highest\u2010value developers. Platform managers should therefore treat architectural evolution not merely as a technical decision, but as a strategic one with direct implications for ecosystem loyalty, competitive differentiation, and the retention of valuable ecosystem partners.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70136",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 17]],
+          "date-time": "2026-10-17T03:11:21Z",
+          "timestamp": 1792206681000
+        },
+        "title": [
+          "A platform for change? Core component innovations, complementor adaptation, and multihoming in platform\u2010based ecosystems"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-3721-5334",
+            "authenticated-orcid": false,
+            "given": "Shiva",
+            "family": "Agarwal",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "The University of Texas at Austin McCombs School of Business  Austin Texas USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-8668-7004",
+            "authenticated-orcid": false,
+            "given": "Ram",
+            "family": "Ranganathan",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "The University of Texas at Austin McCombs School of Business  Austin Texas USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 10, 16]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70136",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 10, 16]] }
+      },
+      {
+        "issue": "11",
+        "published-print": { "date-parts": [[2026, 11]] },
+        "DOI": "10.1002\/smj.70057",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 6]],
+          "date-time": "2026-10-06T09:13:10Z",
+          "timestamp": 1791277990000
+        },
+        "page": "2821-2822",
+        "title": ["Issue Information"],
+        "volume": "47",
+        "published-online": { "date-parts": [[2026, 10, 6]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70057",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 10, 6]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>Scholars often examine how entrepreneurs' existing ties predict resource acquisition. We investigated the reverse: How does the act of pitching generate new ties with investors? Using the context of the Slow Money community, we analyzed social entrepreneurs' pitches to impact investors. Rather than identify a single strategy that benefited all firms, we found that \u201cstage\u2010appropriate framing\u201d facilitated resource acquisition by aligning with investors' expectations. Late\u2010stage entrepreneurs who emphasized financial process framing acquired more financial capital. Conversely, early\u2010stage entrepreneurs who emphasized social process framing developed more investor ties. By shifting attention from the importance of pre\u2010existing networks to the potential of entrepreneurial pitches, our research explains how pitch framing can facilitate the acquisition of both financial capital and investor ties, thereby mitigating liabilities for early\u2010stage firms.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>Entrepreneurs know that pitches help raise money, but we discovered that they also foster investor ties. In studying pitch competitions in the Slow Money community, we found that different messages resonated with investors depending on a firm's stage. Early\u2010stage entrepreneurs gained more investor ties when their pitches highlighted a willingness to collaborate and engage in true partnerships. Late\u2010stage entrepreneurs attracted more funds when they focused on their business track record. In both cases, matching the pitch framing to the firm stage\u2014and using engaging behavioral cues\u2014helped founders attract stage\u2010appropriate resources. Our research shows that entrepreneurs can raise not just financial capital but also build investor ties without relying on pre\u2010existing networks\u2014when their pitch aligns with their stage.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70134",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 2]],
+          "date-time": "2026-10-02T05:05:02Z",
+          "timestamp": 1790917502000
+        },
+        "title": [
+          "When money isn't everything: Identifying stage\u2010based patterns of entrepreneurial resource acquisition"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-6822-6650",
+            "authenticated-orcid": false,
+            "given": "Esther",
+            "family": "Leibel",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Western University Ivey Business School  London Ontario Canada"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-1036-9907",
+            "authenticated-orcid": false,
+            "given": "Denise",
+            "family": "Falchetti",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "George Washington University School of Business  Washington, DC USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Siobhan",
+            "family": "O'Mahony",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Boston University Questrom School of Business  Boston Massachusetts USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 10, 1]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70134",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 10, 1]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>\n                      Grand challenges are ecosystem challenges: success depends on aligning a multilateral set of public and private sector actors whose interdependent contributions determine whether a mission is achieved. This study examines how government can orchestrate ecosystem alignment by leveraging distinctive capabilities to deliver solutions at scale with urgency. Using an ecosystem\u2010as\u2010structure analytic approach, it draws on Operation Warp Speed, the U.S. government COVID\u201019 vaccine initiative, to surface mechanisms and dynamics of ecosystem transformation. The analysis introduces\n                      <jats:italic>coordinative fiat<\/jats:italic>\n                      as a mode of coordination distinct from hierarchy, coercion, or market signals; considers the choices involved in designing a purpose\u2010built orchestrating entity; links orchestration of the external ecosystem to reconfiguration of the orchestrator's own internal ecosystem; and identifies\n                      <jats:italic>orchestration capacity<\/jats:italic>\n                      as a key constraint on ecosystem strategy.\n                    <\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>\n                      Grand challenges are ecosystem challenges: success depends on aligning a multilateral set of public and private sector actors whose interdependent contributions determine whether a mission is achieved. The Operation Warp Speed COVID\u201019 vaccine initiative demonstrates how government can drive alignment at speed and scale to address such challenges. The analysis highlights four lessons for leaders: (i) the use of\n                      <jats:italic>coordinative fiat<\/jats:italic>\n                      to align independent actors without relying on hierarchy or coercion; (ii) the\n                      <jats:italic>design<\/jats:italic>\n                      of orchestrating entities; (iii) linking transformation of external ecosystems to the transformation of\n                      <jats:italic>internal<\/jats:italic>\n                      ecosystems; and (iv) strategizing\n                      <jats:italic>orchestration capacity<\/jats:italic>\n                      as a key constraint on scope. While the discussion is anchored in the public sector, it holds clear implications for private\u2010sector initiatives as well.\n                    <\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70129",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 1]],
+          "date-time": "2026-10-01T09:08:04Z",
+          "timestamp": 1790845684000
+        },
+        "title": [
+          "Government as orchestrator: Ecosystem transformation at scale and speed"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-1238-2248",
+            "authenticated-orcid": false,
+            "given": "Ron",
+            "family": "Adner",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Tuck School of Business Dartmouth College  Hanover New Hampshire USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 10, 1]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70129",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 10, 1]] }
+      },
+      {
+        "DOI": "10.1002\/smj.70131",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 28]],
+          "date-time": "2026-09-28T07:11:05Z",
+          "timestamp": 1790579465000
+        },
+        "title": [
+          "Correction to \u201cRevisiting Zuckerman's (1999) categorical imperative: An application of epistemic maps for replication\u201d"
+        ],
+        "published-online": { "date-parts": [[2026, 9, 28]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70131",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 28]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>Users often discover new uses for products that firms may later commercialize, which we call community\u2010led exaptation. We examine how product attributes shape users' discovery of new functions versus new functionalities. Using 1925 IKEA product hacks, we find that modularity increases the likelihood of new functions. This effect strengthens when product components are compatible across product lines but weakens when esthetic product variants exist. Visual simplicity, conversely, increases the likelihood of new functionalities. These findings suggest that firms can structure the opportunity space for discovery through product design. Exploratory analysis of archival data and interviews further illustrates how IKEA responds to these discoveries. We contribute to exaptation, user innovation, and design research by showing how product attributes shape the types of new uses communities discover.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>How can firms design products to facilitate community\u2010led exaptation? We find that product attributes can shape what users discover. Modular products enable users to find new functions (i.e., applications), while visually simple products enable users to find new functionalities (i.e., new product capabilities). Firms' decisions to offer components that are compatible across product lines and esthetic product variants can influence the likelihood of new functions. Additionally, firms can capitalize on these new uses by showcasing promising community\u2010discovered functions on official channels or incorporate them as complements to existing product lines. However, functional modifications can raise safety concerns and may require additional development. Firms should therefore design for intended use, and for the kinds of new uses they are willing to seed and commercialize.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70132",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 28]],
+          "date-time": "2026-09-28T05:05:03Z",
+          "timestamp": 1790571903000
+        },
+        "title": [
+          "Designing for unanticipated uses: How product attributes shape community\u2010led exaptation"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-3258-0463",
+            "authenticated-orcid": false,
+            "given": "Shi\u2010Ying",
+            "family": "Lim",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "School of Computing, National University of Singapore  Singapore"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-0286-1854",
+            "authenticated-orcid": false,
+            "given": "Tian Heong",
+            "family": "Chan",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Goizueta Business School, Emory University  Atlanta Georgia USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 27]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70132",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 27]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>Despite growing interest in platform transitions, limited research examines how firms navigate challenges of building platform businesses alongside existing products. Through a longitudinal case study of a financial services firm launching a platform, we develop a process model revealing how data bottlenecks shape platform development. These bottlenecks arise from the interplay of technological limitations and control tensions over data aggregation, sharing, and usage. We identify five sequential bottlenecks, where resolving one reconfigures constraints, giving rise to the next. We theorize how data heterogeneity, variation in strategic sensitivity, and actors' absorptive capacity create opportunities for platform sponsors to capture value without competing with complementors. We extend resource dependency theory by showing how peripheral units overcome power imbalances by demonstrating value creation potential with limited data.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>When established firms launch platforms alongside existing product businesses, they face significant data\u2010related obstacles. Drawing on a four\u2010year study of a financial services firm building a platform connecting SMEs with lenders, we show how firms must navigate challenges in collecting data from internal units and customers, making incompatible data sources work together, and persuading partners to share and use data in new ways. We find that these obstacles emerge in sequence, where resolving one creates the conditions for the next. We also find that not all data is equally useful to all partners, and that these differences can open market segments the platform sponsor can serve without competing with its own partners. Managers can maintain momentum by combining short\u2010term data workarounds with longer\u2010term structural solutions.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70124",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 24]],
+          "date-time": "2026-09-24T22:56:45Z",
+          "timestamp": 1790290605000
+        },
+        "title": [
+          "Platform development in incumbent firms: The interplay of data and actor interests in adding platforms to existing businesses"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-7008-3225",
+            "authenticated-orcid": false,
+            "given": "Jack",
+            "family": "Fraser",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Imperial Business School Imperial College London  London UK"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-7832-9944",
+            "authenticated-orcid": false,
+            "given": "Elizabeth J.",
+            "family": "Altman",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Manning School of Business University of Massachusetts Lowell  Lowell Massachusetts USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-7611-187X",
+            "authenticated-orcid": false,
+            "given": "Pinar",
+            "family": "Ozcan",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Sa\u00efd Business School University of Oxford  Oxford UK"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 24]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70124",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 24]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>The prevalence of dual tracking, in which upstream manufacturers simultaneously produce branded and private\u2010label products for downstream retailers, has increased substantially in recent years, driven by growing consumer demand for private\u2010label products. This paper examines the implications of manufacturer dual tracking by exploiting a setting in the ready\u2010to\u2010eat breakfast cereal industry where a leading branded manufacturer began supplying both products to retailers. We find that, because of this change in the vertical relationship, private\u2010label product introductions and advertising declined for products that directly imitated the dual\u2010tracking manufacturer's branded products. Changes in retailer behavior suggest that retailers accommodated the dual\u2010tracking manufacturer by selectively adjusting their private\u2010label portfolios. Dual tracking can therefore improve a manufacturer's bargaining position against retailers and reduce downstream imitation.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>Manufacturers have increasingly produced not only their own branded products but also private\u2010label products for retailers that compete with those brands. This phenomenon, known as dual tracking, carries benefits and risks for manufacturers. While producing private\u2010label products can utilize excess capacity, these products directly compete with the branded counterpart. We study the implications for firms engaging in dual tracking and show that doing so gives manufacturers greater bargaining power in their relationships with retailers. Firms can leverage this change in bargaining power to reduce imitation by retailers' private\u2010label products, lessening competition concerns. Our results show that retailers reduced the introduction and advertising of private\u2010label products that directly compete with the dual\u2010tracking manufacturer.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70123",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 22]],
+          "date-time": "2026-09-22T08:26:22Z",
+          "timestamp": 1790065582000
+        },
+        "title": [
+          "Accommodation in the vertical supply chain: Implications of manufacturer dual tracking"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-5064-8970",
+            "authenticated-orcid": false,
+            "given": "Young",
+            "family": "Hou",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Strategy, Ethics &amp; Entrepreneurship University of Virginia Darden School of Business  Charlottesville Virginia USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 22]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70123",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 22]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>Firms often celebrate accidental inventions that lead to major breakthroughs, yet little is known about how the value of serendipitous inventions materializes. Using data from 8530 patented inventions across 23\u00a0countries, our research shows that these inventions differ from planned R&amp;D outcomes. Serendipitous inventions are less likely to have a strong technological impact, be turned into marketable products, or serve as effective blocking tools in patent strategy. However, they are more likely to generate value through licensing, indicating that while they may not fit the originating firm's strategy, they can succeed elsewhere. Hence, serendipitous patented inventions represent \u201coption\u2010like\u201d assets that offer external channels to capture value rather than relying on internal use.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>Accidental breakthroughs like microwaves, penicillin, or Velcro are often celebrated, but their potential to create value in practice remains unclear. Analyzing data from 8530 patented inventions across 23 countries, we find that such serendipitous inventions differ fundamentally from planned R&amp;D outcomes. They are less likely to yield major technological impacts, products, or strategic patents but more likely to generate value through licensing, functioning as \u201coption\u2010like\u201d assets that are valuable externally more than internally. Thus, relative to planned inventions that benefit from downstream complementary assets, serendipitous patented inventions pay off more for firms with strong licensing or technology\u2010selling capabilities.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70126",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 22]],
+          "date-time": "2026-09-22T03:23:51Z",
+          "timestamp": 1790047431000
+        },
+        "title": [
+          "From accidents to assets\u2014The value pathways of patents for serendipitous inventions"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-7644-2054",
+            "authenticated-orcid": false,
+            "given": "Christoph",
+            "family": "Grimpe",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Strategy and Innovation Copenhagen Business School  Frederiksberg Denmark"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-2113-5794",
+            "authenticated-orcid": false,
+            "given": "Karin",
+            "family": "Hoisl",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Strategy and Innovation Copenhagen Business School  Frederiksberg Denmark"
+              },
+              {
+                "name": "Mannheim Business School University of Mannheim  Mannheim Germany"
+              },
+              {
+                "name": "Max Planck Institute for Innovation and Competition  Munich Germany"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-8701-0556",
+            "authenticated-orcid": false,
+            "given": "Myriam",
+            "family": "Mariani",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Management and Technology and ICRIOS Bocconi University  Milan Italy"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-1598-6127",
+            "authenticated-orcid": false,
+            "given": "Wolfgang",
+            "family": "Sofka",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Strategy and Innovation Copenhagen Business School  Frederiksberg Denmark"
+              },
+              {
+                "name": "Strategy, International Business and Entrepreneurship Group (SIBE) University of Liverpool Management School  Liverpool UK"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 21]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70126",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 21]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>We examine the effects of category erraticism, that is, having moved across socio\u2010cognitively distant industry categories over time, on status mobility. We argue that it is not the breadth of the categories that a firm spans or the overall distance among those categories, but whether its movement across categories forms a coherent or incoherent trajectory, that hinders upward status mobility by creating commitment and capability concerns among external audiences. We further argue that these concerns are more problematic for higher status firms and more experienced firms because they are subjected to stricter expectations of trajectory coherence. Using a comprehensive longitudinal sample of 1413 venture capital firms (VCs) in the U.S. VC industry from 1980 to 2012, we find that category erraticism reduces upward status mobility. This effect is partly mediated by the extent to which external audiences are concerned about the commitment and capability of the VCs,\u00a0and is stronger for higher\u2010status and more experienced VCs.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>This study shows that how venture capital firms (VCs) move across industries over time shapes their status position in the VC industry. VCs that move across distant sectors in ways that appear incoherent, often described in the industry as thesis drift, strategy drift, or tourist VC behavior, raise concerns about their long\u2010term commitment and ability to add value to the firms in which they invest. These concerns make it harder for such firms to form syndication relationships with high\u2010status partners, limiting their ability to improve their status position. In contrast, VCs that expand across industries in a more consistent way, where moves build on prior experience and reflect a clear investment thesis, are more likely to be viewed as committed and capable, which facilitates upward status mobility. Using three decades of data on U.S. VC investments, we find that the downsides of erratic investment paths are especially pronounced for higher\u2010status and more experienced VCs, which are held to stronger expectations of strategic coherence over time.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70130",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 18]],
+          "date-time": "2026-09-18T11:30:41Z",
+          "timestamp": 1789731041000
+        },
+        "title": [
+          "Drifting to the top? The effects of category erraticism on status mobility in the U.S. venture capital industry"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-7083-9560",
+            "authenticated-orcid": false,
+            "given": "Danyang",
+            "family": "Li",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "University of California, Berkeley  Berkeley California USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-9084-1361",
+            "authenticated-orcid": false,
+            "given": "Michael",
+            "family": "Jensen",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Michigan, Ann Arbor  Ann Arbor Michigan USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 18]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70130",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 18]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>Prior research documents that firms often collaborate with advocacy groups to mitigate stakeholder contention. Integrating stakeholder theory into a performance model of collaborative innovation, we propose an overlooked explanation for such collaborations: to enhance the adoption of firms' innovations. We argue that advocacy groups influence the adoption of innovations through a distinct, role\u2010based legitimacy mechanism. Because advocacy groups are expected to scrutinize firms' conduct, their willingness to collaborate provides a credible signal that a firm's innovation is socially appropriate. These signals become particularly valuable when firms have previously faced media criticism for socially irresponsible products or services and in industries characterized by high variation in corporate social performance. Using a unique dataset on firms' innovation collaborations in Germany, we find support for our conjectures.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>Research indicates that firms collaborate with advocacy groups to avoid boycotts or protests. We introduce a largely overlooked additional rationale for such collaborations: to enhance the adoption of a firm's innovations. We suggest that advocacy groups can lend legitimacy to innovations and argue that firms benefit most from such collaborations when their products and services received bad press in the past and when there is considerable variation in corporate social performance across firms in the industry. Based on unique data on innovation collaborations between firms and advocacy groups, we find that these conditions matter in determining when firms can significantly benefit from involving advocacy groups in their innovation projects.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70127",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 18]],
+          "date-time": "2026-09-18T11:10:19Z",
+          "timestamp": 1789729819000
+        },
+        "title": [
+          "Does innovation success need advocacy? Stakeholder involvement in firm innovation"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-4997-467X",
+            "authenticated-orcid": false,
+            "given": "Paolo",
+            "family": "Carioli",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Strategy and Innovation Copenhagen Business School  Frederiksberg Denmark"
+              },
+              {
+                "name": "Department of Management, Strategy and Innovation, Faculty of Economics and Business KU Leuven  Leuven Belgium"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-7644-2054",
+            "authenticated-orcid": false,
+            "given": "Christoph",
+            "family": "Grimpe",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Strategy and Innovation Copenhagen Business School  Frederiksberg Denmark"
+              },
+              {
+                "name": "Department of Economics of Innovation and Industrial Dynamics Leibniz Centre for European Economic Research (ZEW)  Mannheim Germany"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-2113-5794",
+            "authenticated-orcid": false,
+            "given": "Karin",
+            "family": "Hoisl",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Strategy and Innovation Copenhagen Business School  Frederiksberg Denmark"
+              },
+              { "name": "University of Mannheim  Mannheim Germany" },
+              {
+                "name": "Max Planck Institute for Innovation and Competition  Munich Germany"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-1598-6127",
+            "authenticated-orcid": false,
+            "given": "Wolfgang",
+            "family": "Sofka",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Strategy and Innovation Copenhagen Business School  Frederiksberg Denmark"
+              },
+              {
+                "name": "Strategy, International Business and Entrepreneurship Group (SIBE) University of Liverpool Management School  Liverpool UK"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 18]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70127",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 18]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>This study examines how divisionalized firm structures shape the gender gap in internal chief executive officer (CEO) promotion. We argue that divisionalized firms may narrow the gender gap in CEO succession by generating more individually attributable performance information about senior managers. In contrast to firms in which candidates' contributions are difficult to isolate, divisionalized firms create profit\u2010and\u2010loss (P&amp;L) accountability that makes managerial performance more visible and comparable. Using longitudinal data on over 616,000 managers in 49,135 US firms, we find that women are more likely to be promoted to CEO in divisionalized firms. We also find that the gender gap is smaller among managers with prior P&amp;L\u2010accountable experience. Among managers in divisionalized firms, stronger unit performance relative to within\u2010firm peers is more positively associated with promotion to CEO for women than for men. The results highlight organizational structure as a potential source of variation in gender inequality in executive advancement.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>Why do so few women become CEOs? Part of the answer lies in how firms are organized. When a company is structured into divisions with their own profit\u2010and\u2010loss responsibility, the results of the managers who lead those units are easier to observe, compare, and credit to the individual. This leaves less room for subjective judgments through which gender bias often enters promotion decisions. In data on more than 600,000 managers at roughly 49,000\u2009US firms, we find that women are more likely to be promoted to CEO in divisionalized firms. The pattern is strongest for women who have led a business unit, and strong unit results count for more in women's promotion prospects. For boards seeking greater gender equity in CEO succession, structures and evaluation systems that give senior leaders clear, comparable performance records may matter as much as diversity initiatives.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70128",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 17]],
+          "date-time": "2026-09-17T00:00:54Z",
+          "timestamp": 1789603254000
+        },
+        "title": [
+          "Firm divisionalization and the gender gap in\n                    <scp>CEO<\/scp>\n                    promotion"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0009-0001-9791-0873",
+            "authenticated-orcid": false,
+            "given": "Tingyu",
+            "family": "Du",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Management, Human Resources, and Information Systems Academic Area, Orfalea College of Business California Polytechnic State University  San Luis Obispo California USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-9825-8231",
+            "authenticated-orcid": false,
+            "given": "Ulya",
+            "family": "Tsolmon",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Management Department, Isenberg School of Management University of Massachusetts Amherst  Amherst Massachusetts USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 16]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70128",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 16]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>Strategy scholars have theoretically explored the relationship between legal knowledge protection and modularity of innovation activities in firms, but this relationship has yet to be empirically tested in the literature. Leveraging state\u2010level changes in US trade secrecy law and using a network modularity measure, this paper examines how trade secret protection affects the modularity of firms' innovation activities. Analyzing intrafirm inventor collaboration patterns in US patent data from 783 high\u2010tech firms between 1976 and 2017, we find that increased trade secret protection is negatively associated with the modularity of innovation activities within firms. This effect is more pronounced for firms with superior technologies and those geographically collocated with competitors\u2014factors that enhance firms' knowledge appropriability concerns\u2014and less pronounced for firms in industries where alternative appropriability mechanisms are highly effective. Moreover, our findings suggest that the increased betweenness centrality of new hires (skilled and junior) serves as an important underlying mechanism for the treatment effect. These results contribute to the literature by illuminating how firms strategize their internal innovation activities for knowledge protection and by underscoring its underlying mechanism.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>Firms often modularize innovation activities to safeguard proprietary knowledge, but this approach can undermine innovation performance by restricting knowledge integration within organizations. This study demonstrates that stronger legal mechanisms alleviating firms' knowledge protection concerns, such as increased trade secret protection, encourage firms to adopt a less modularized, more integrated innovation system. Furthermore, we find that under such protections, firms are more likely to position new hires, including both skilled and junior employees, in central roles to connect innovation communities within the organization. These findings offer valuable insights for managers, illustrating how knowledge protection concerns can shape the structure of firms' innovation activities.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70125",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 10]],
+          "date-time": "2026-09-10T23:55:08Z",
+          "timestamp": 1789084508000
+        },
+        "title": [
+          "Knowledge protection and modularity of innovation activities in firms: Evidence from US trade secrecy law"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-9731-8490",
+            "authenticated-orcid": false,
+            "given": "Eunkwang",
+            "family": "Seo",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Spears School of Business Oklahoma State University  Stillwater Oklahoma USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0009-0002-9399-5088",
+            "authenticated-orcid": false,
+            "given": "Christopher P.",
+            "family": "Dinkel",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Spears School of Business Oklahoma State University  Stillwater Oklahoma USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 10]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70125",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 10]] }
+      },
+      {
+        "issue": "10",
+        "published-print": { "date-parts": [[2026, 10]] },
+        "DOI": "10.1002\/smj.70056",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 7]],
+          "date-time": "2026-09-07T03:31:01Z",
+          "timestamp": 1788751861000
+        },
+        "page": "2621-2622",
+        "title": ["Issue Information"],
+        "volume": "47",
+        "published-online": { "date-parts": [[2026, 9, 6]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70056",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 6]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>\n                      Firms seeking competitive advantage need both internal fit and a distinctive market position, yet strategy research says little about how the search for the two is related. We develop a model of strategic search that integrates an\n                      <jats:italic>NK<\/jats:italic>\n                      landscape with differentiated Cournot competition, allowing a firm's position to shape both its internal fit and distinctiveness. We show that, under low complexity, competition constrains search, locking firms into resource configurations and creating a trade\u2010off between internal fit and distinctiveness. Conversely, under high\u2010complexity competition drives distant search, so that internal fit and distinctiveness go hand\u2010in\u2010hand. We further show that competitive lock\u2010in constrains search by early leaders, while distant search drives the emergence of new leaders, thus offering a search\u2010based theory of market disruption.\n                    <\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>How does the search for operationally effective configurations of resources and capabilities affect the distinctiveness of a firm's offering, and vice versa? Our work suggests that the need for distinctiveness may constrain search close to rivals but also enable the discovery of effective configurations far away from them. In relatively simple environments, where firms tend to converge on the same relatively obvious configurations, the search for distinctiveness is constraining, but in more complex environments it may enable the discovery of superior configurations. Further, early leaders may be constrained in their search as rivals cluster around them, while early followers may benefit more from distant search, potentially leading to a disruption of the market as early success proves constraining.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70122",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 4]],
+          "date-time": "2026-09-04T09:43:47Z",
+          "timestamp": 1788515027000
+        },
+        "title": [
+          "Strategic search: Adaptation of internal fit and market positioning under competition"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-0649-6599",
+            "authenticated-orcid": false,
+            "given": "Gianluigi",
+            "family": "Giustiziero",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Innovation, Management and Policy Division Alliance Manchester Business School, The University of Manchester  Manchester UK"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-1455-6897",
+            "authenticated-orcid": false,
+            "given": "Aseem",
+            "family": "Kaul",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Strategic Management and Entrepreneurship Department Carlson School of Management  Minneapolis Minnesota USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Dirk",
+            "family": "Martignoni",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Institute of Management and Organisation Universit\u00e0 della Svizzera Italiana  Lugano Switzerland"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 4]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70122",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 4]] }
+      },
+      {
+        "abstract": "<jats:title>Abstract<\/jats:title>\n                  <jats:sec>\n                    <jats:title>Research Summary<\/jats:title>\n                    <jats:p>Modular systems play a central role in technological innovation. Such systems emerge when interdependencies among modules in a complex system are isolated through interfaces. While early seminal work highlighted the importance of interface design, subsequent research on modularity has largely overlooked it. We develop a model that treats interfaces as a set of design choices, separate from module choices. This model elucidates the mechanisms through which interface design influences system performance and identifies novel strategies for sequencing the search of interface and module designers to improve outcomes. The framework has implications not only for standalone innovations but also for the design of standards in platforms and ecosystems. Ultimately, it demonstrates that interface design is as much a strategic challenge as it is a technical one.<\/jats:p>\n                  <\/jats:sec>\n                  <jats:sec>\n                    <jats:title>Managerial Summary<\/jats:title>\n                    <jats:p>Managers increasingly rely on modular designs to enable innovation, yet often overlook interfaces as a strategic lever. This study shows that actively designed and periodically updated interfaces can coordinate interdependencies without constraining decentralized search, enabling modular systems to approach the performance of integrated designs. Crucially, sequencing matters: allowing modules to evolve before introducing interfaces improves long\u2010run performance, as early experimentation generates knowledge that interfaces can later build upon. Finally, infrequent interface redesign is sufficient to sustain coordination, reducing the need for continuous adaptations. Overall, interfaces should be treated as evolving strategic choices that shape innovation trajectories in products, platforms, and ecosystems.<\/jats:p>\n                  <\/jats:sec>",
+        "DOI": "10.1002\/smj.70121",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 2]],
+          "date-time": "2026-09-02T12:05:56Z",
+          "timestamp": 1788350756000
+        },
+        "title": [
+          "Interface as a design choice: How the implementation of interfaces influences coordination and performance in modular systems"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-3888-1643",
+            "authenticated-orcid": false,
+            "given": "Daniel",
+            "family": "Albert",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Drexel University, Department of Management LeBow College of Business  Philadelphia Pennsylvania USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-7469-6467",
+            "authenticated-orcid": false,
+            "given": "Martin",
+            "family": "Ganco",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "University of Wisconsin\u2010Madison Management and Human Resources, Wisconsin School of Business  Madison Wisconsin USA"
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 2]] },
+        "container-title": ["Strategic Management Journal"],
+        "URL": "https:\/\/doi.org\/10.1002\/smj.70121",
+        "ISSN": ["0143-2095", "1097-0266"],
+        "published": { "date-parts": [[2026, 9, 2]] }
+      }
+    ],
+    "items-per-page": 40,
+    "query": { "start-index": 0, "search-terms": null }
+  }
+}

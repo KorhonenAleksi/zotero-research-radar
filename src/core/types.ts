@@ -19,6 +19,36 @@ export interface Journal {
   note?: string;
 }
 
+export interface Author {
+  given?: string;
+  family: string;
+  /** Bare ORCID iD, e.g. "0000-0002-3933-920X". */
+  orcid?: string;
+}
+
+export type ItemSource = "crossref" | "rss";
+
+/** One article as ingested, after merging Crossref and RSS. */
+export interface RadarItem {
+  /** Dedupe key: "doi:<normalised doi>", or "t:<hash>" when no DOI is known. */
+  key: string;
+  doi?: string;
+  title: string;
+  abstract?: string;
+  authors: Author[];
+  journalId: string;
+  journalTitle: string;
+  /** Best available publication date, ISO "YYYY", "YYYY-MM" or "YYYY-MM-DD". */
+  date?: string;
+  url?: string;
+  volume?: string;
+  issue?: string;
+  pages?: string;
+  sources: ItemSource[];
+  /** No abstract from any source: scoring can only use the title. */
+  titleOnly: boolean;
+}
+
 /** A journal found through the Crossref journal search, before the user adds it. */
 export interface JournalCandidate {
   title: string;

@@ -1,0 +1,875 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "facets": {},
+    "total-results": 20,
+    "items": [
+      {
+        "DOI": "10.1080\/00076791.2026.2739270",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 21]],
+          "date-time": "2026-10-21T13:25:42Z",
+          "timestamp": 1792589142000
+        },
+        "page": "1-28",
+        "title": [
+          "Beyond imperial statistics: A relational database of industrial enterprise and business elites in the Kingdom of Poland, 1904\u20131911"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-4976-0505",
+            "authenticated-orcid": false,
+            "given": "Piotr",
+            "family": "Kory\u015b",
+            "sequence": "first",
+            "affiliation": [
+              { "name": "University of Warsaw", "place": ["Warsaw, Poland"] }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-5677-9277",
+            "authenticated-orcid": false,
+            "given": "Maria J.",
+            "family": "Minakowska",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Dr Minakowska Publikacje Elektroniczne",
+                "place": ["Tarn\u00f3w, Poland"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-3094-9148",
+            "authenticated-orcid": false,
+            "given": "Rafa\u0142",
+            "family": "Smoczy\u0144ski",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Institute of Philosophy and Sociology of the Polish Academy of Sciences",
+                "place": ["Warsaw, Poland"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-2699-2856",
+            "authenticated-orcid": false,
+            "given": "Szymon",
+            "family": "Talaga",
+            "sequence": "additional",
+            "affiliation": [
+              { "name": "University of Warsaw", "place": ["Warsaw, Poland"] }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-2330-4499",
+            "authenticated-orcid": false,
+            "given": "Tomasz",
+            "family": "Zarycki",
+            "sequence": "additional",
+            "affiliation": [
+              { "name": "University of Warsaw", "place": ["Warsaw, Poland"] }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 10, 21]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2739270",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 10, 21]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2733720",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 6]],
+          "date-time": "2026-10-06T15:12:16Z",
+          "timestamp": 1791299536000
+        },
+        "page": "1-21",
+        "title": [
+          "Transplanting a socio-cultural innovation: Life insurance in Meiji Japan"
+        ],
+        "author": [
+          {
+            "given": "YingYing",
+            "family": "Jiang",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Faculty of Global Management, Chuo University",
+                "place": ["Tokyo, Japan"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 10, 6]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2733720",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 10, 6]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2730771",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 5]],
+          "date-time": "2026-10-05T13:37:26Z",
+          "timestamp": 1791207446000
+        },
+        "page": "1-3",
+        "title": [
+          "Considerato la pestifera voragine et pessimo verme dell\u2019usura: tra teoria e prassi: alle origini dei Monti di Piet\u00e0 di Arezzo, Firenze, Pistoia e Prato"
+        ],
+        "author": [
+          {
+            "given": "Jessica M.",
+            "family": "Lomas",
+            "sequence": "first",
+            "affiliation": [
+              { "name": "King\u2019s College London", "place": ["London, UK"] }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 10, 5]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2730771",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 10, 5]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2714152",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 10, 2]],
+          "date-time": "2026-10-02T16:15:23Z",
+          "timestamp": 1790957723000
+        },
+        "page": "1-22",
+        "title": [
+          "Civilising business: The imperial episteme of early US business school education"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-8797-9439",
+            "authenticated-orcid": false,
+            "given": "Deonnie",
+            "family": "Moodie",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Religious Studies, University of Oklahoma",
+                "place": ["Norman, USA"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 10, 2]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2714152",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 10, 2]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2711835",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 30]],
+          "date-time": "2026-09-30T04:52:18Z",
+          "timestamp": 1790743938000
+        },
+        "page": "1-19",
+        "title": [
+          "State-fuelled imperial giants: How businessmen shaped government support for the formation of British industrial giants, 1914\u20131930"
+        ],
+        "author": [
+          {
+            "given": "Simon",
+            "family": "Renner",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Historical Sciences, Norwegian University of Science and Technology",
+                "place": ["Trondheim, Norway"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 29]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2711835",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 29]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2724932",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 29]],
+          "date-time": "2026-09-29T14:31:16Z",
+          "timestamp": 1790692276000
+        },
+        "page": "1-24",
+        "title": [
+          "Economic warfare through informal imperialism: The pre\u2013World War II struggle for Chinese tungsten between Britain and Nazi Germany"
+        ],
+        "author": [
+          {
+            "given": "Simon",
+            "family": "Renner",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Historical Sciences, Norwegian University of Science and Technology (NTNU)",
+                "place": ["Trondheim, Norway"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 29]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2724932",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 29]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2714445",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 25]],
+          "date-time": "2026-09-25T13:13:30Z",
+          "timestamp": 1790342010000
+        },
+        "page": "1-29",
+        "title": [
+          "Placing history: Changing uses of the material past in a historic place"
+        ],
+        "author": [
+          {
+            "given": "Camilla",
+            "family": "Ferri",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Copenhagen Business School, Department of Business Humanities and Law",
+                "place": ["Copenhagen, Denmark"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Giovanni",
+            "family": "Favero",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Venice School of Management, Ca\u2019 Foscari University of Venice",
+                "place": ["Venice, Italy"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Maria",
+            "family": "Lusiani",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Management, University of Bologna",
+                "place": ["Bologna, Italy"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 25]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2714445",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 25]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2730992",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 21]],
+          "date-time": "2026-09-21T13:07:04Z",
+          "timestamp": 1789996024000
+        },
+        "page": "1-24",
+        "title": [
+          "Mediating metabolic change. The sanitation industry\u2019s response to the introduction of\n                    <i>tout-\u00e0-l\u2019\u00e9gout<\/i>\n                    in late 19th-century Paris"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-9620-2368",
+            "authenticated-orcid": false,
+            "given": "Matthijs",
+            "family": "Degraeve",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Departments of History and Architectural Engineering, Vrije Universiteit Brussel",
+                "place": ["Brussels, Belgium"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 21]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2730992",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 21]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2721884",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 18]],
+          "date-time": "2026-09-18T15:58:44Z",
+          "timestamp": 1789747124000
+        },
+        "page": "1-3",
+        "title": [
+          "Capitalism\u2019s favourite child: Global fashion business since 1850"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0009-0009-3851-174X",
+            "authenticated-orcid": false,
+            "given": "Alice",
+            "family": "Janssens",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Fashion and Textiles, Winchester School of Art, University of Southampton",
+                "place": ["Southampton, UK"]
+              },
+              {
+                "name": "Department of History, Erasmus School of History, Culture and Communication, Erasmus University Rotterdam",
+                "place": ["Rotterdam, Netherlands"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 18]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2721884",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 18]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2730032",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 17]],
+          "date-time": "2026-09-17T14:13:32Z",
+          "timestamp": 1789654412000
+        },
+        "page": "1-3",
+        "title": [
+          "Crusading for globalization: US multinationals and their opponents since 1945"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-0024-0867",
+            "authenticated-orcid": false,
+            "given": "Matti",
+            "family": "Yl\u00f6nen",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Faculty\u00a0of\u00a0Social\u00a0Sciences, Example University",
+                "place": ["Example City"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 17]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2730032",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 17]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2730031",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 17]],
+          "date-time": "2026-09-17T09:10:57Z",
+          "timestamp": 1789636257000
+        },
+        "page": "1-3",
+        "title": [
+          "How progress ends: Technology, innovation, and the fate of nations"
+        ],
+        "author": [
+          {
+            "given": "Hasibe",
+            "family": "Aysan",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Ostim Technical University",
+                "place": ["Ankara, T\u00fcrkiye"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 17]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2730031",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 17]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2724922",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 16]],
+          "date-time": "2026-09-16T15:17:48Z",
+          "timestamp": 1789571868000
+        },
+        "page": "1-25",
+        "title": [
+          "Privateers of the Spanish Caribbean: Supply networks and social connections in the mobilization of resources of war (first half of eighteenth-century)"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-3601-2295",
+            "authenticated-orcid": false,
+            "given": "Vera",
+            "family": "Moya Sordo",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "School of Economics and Business-Economic History, University of Navarra",
+                "place": ["Navarra, Spain"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-6566-4524",
+            "authenticated-orcid": false,
+            "given": "Rafael",
+            "family": "Torres S\u00e1nchez",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "School of Economics and Business-Economic History, University of Navarra",
+                "place": ["Navarra, Spain"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 16]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2724922",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 16]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2724926",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 16]],
+          "date-time": "2026-09-16T12:03:38Z",
+          "timestamp": 1789560218000
+        },
+        "page": "1-22",
+        "title": [
+          "Hydropower, expertise, and attempted Italian economic  imperialism  in Dalmatia. Nitrogen fixation in \u2018the Norway of the Mediterranean\u2019  (1902\u20131945)"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0009-0009-4758-8773",
+            "authenticated-orcid": false,
+            "given": "Lorenzo",
+            "family": "Francisci",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Humanities, Ancient and Modern Languages, Literatures and Civilizations, University of Perugia",
+                "place": ["Perugia, Italy"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0002-4111-1490",
+            "authenticated-orcid": false,
+            "given": "Emanuela",
+            "family": "Costantini",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Humanities, Ancient and Modern Languages, Literatures and Civilizations, University of Perugia",
+                "place": ["Perugia, Italy"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0009-0007-6037-5292",
+            "authenticated-orcid": false,
+            "given": "Anthony S.",
+            "family": "Travis",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Sidney M. Edelstein Center for the History and Philosophy of Science, Technology and Medicine, Safra Campus, The Hebrew University of Jerusalem",
+                "place": ["Jerusalem, Israel"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 16]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2724926",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 16]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2714150",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 11]],
+          "date-time": "2026-09-11T14:23:17Z",
+          "timestamp": 1789136597000
+        },
+        "page": "1-24",
+        "title": [
+          "The postcolonial \u2018future shock\u2019: Political, technological, and business expectations at the multinational Air Afrique during the 1960s and the early 1970s"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-6162-0105",
+            "authenticated-orcid": false,
+            "given": "Marie",
+            "family": "Huber",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Philipps Universit\u00e4t Marburg",
+                "place": ["Marburg, Germany"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0009-0009-2278-8787",
+            "authenticated-orcid": false,
+            "given": "Jonathan",
+            "family": "Krautter",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Department of Social and Economic History, Humboldt Universit\u00e4t zu Berlin",
+                "place": ["Berlin, Germany"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 11]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2714150",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 11]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2720802",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 10]],
+          "date-time": "2026-09-10T13:35:15Z",
+          "timestamp": 1789047315000
+        },
+        "page": "1-19",
+        "title": [
+          "Challenge or opportunity? A Dutch firm and the exploitation of foreign colonial empires in West Central Africa (1880s\u20131910s)"
+        ],
+        "author": [
+          {
+            "given": "Gijs",
+            "family": "Dreijer",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "History Department, Erasmus University Rotterdam",
+                "place": ["Rotterdam, The Netherlands"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 10]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2720802",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 10]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2717236",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 10]],
+          "date-time": "2026-09-10T13:28:46Z",
+          "timestamp": 1789046926000
+        },
+        "page": "1-22",
+        "title": [
+          "Business and politics: The City of London and the political debates on European monetary policy 1979\u20131990"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0009-0008-6988-0989",
+            "authenticated-orcid": false,
+            "given": "Juliane",
+            "family": "Clegg",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Department of Business History, University of Stuttgart",
+                "place": ["Stuttgart, Germany"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 10]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2717236",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 10]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2720798",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 8]],
+          "date-time": "2026-09-08T10:45:42Z",
+          "timestamp": 1788864342000
+        },
+        "page": "1-25",
+        "title": [
+          "From telegraphs to telephones: Tracing the socio-technical transition in Canadian telecommunications from 1846 to 1980"
+        ],
+        "author": [
+          {
+            "given": "David",
+            "family": "Foord",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Faculty of Management, University of New Brunswick",
+                "place": ["Fredericton, Canada"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Daniel",
+            "family": "Rosenbloom",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Sustainability Transitions School of Public Policy & Administration, Carleton University",
+                "place": ["Ottawa, Canada"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Cameron",
+            "family": "Roberts",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Sustainability Transitions School of Public Policy & Administration, Carleton University",
+                "place": ["Ottawa, Canada"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 8]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2720798",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 8]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2720805",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 4]],
+          "date-time": "2026-09-04T15:38:21Z",
+          "timestamp": 1788536301000
+        },
+        "page": "1-20",
+        "title": [
+          "Economic repression and control of private psychiatric institutions under the Franco dictatorship"
+        ],
+        "author": [
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0001-5782-9272",
+            "authenticated-orcid": false,
+            "given": "Elena",
+            "family": "Garc\u00eda-Cruz",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Departamento de Econom\u00eda e Historia Econ\u00f3mica, Universidad de Sevilla",
+                "place": ["Sevilla, Espa\u00f1a"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "ORCID": "https:\/\/orcid.org\/0000-0003-0491-7038",
+            "authenticated-orcid": false,
+            "given": "Jer\u00f2nia",
+            "family": "Pons-Pons",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Departamento de Econom\u00eda e Historia Econ\u00f3mica, Universidad de Sevilla",
+                "place": ["Sevilla, Espa\u00f1a"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 4]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2720805",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 4]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2720676",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 2]],
+          "date-time": "2026-09-02T12:21:56Z",
+          "timestamp": 1788351716000
+        },
+        "page": "1-22",
+        "title": [
+          "CEOs at war: Great War service and the formation of Britain\u2019s business elites"
+        ],
+        "author": [
+          {
+            "given": "Robin J. C.",
+            "family": "Adams",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Queen\u2019s Business School, Queen\u2019s University",
+                "place": ["Belfast, UK"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Michael",
+            "family": "Aldous",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Queen\u2019s Business School, Queen\u2019s University",
+                "place": ["Belfast, UK"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 2]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2720676",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 2]] }
+      },
+      {
+        "DOI": "10.1080\/00076791.2026.2714148",
+        "type": "journal-article",
+        "created": {
+          "date-parts": [[2026, 9, 1]],
+          "date-time": "2026-09-01T13:18:26Z",
+          "timestamp": 1788268706000
+        },
+        "page": "1-23",
+        "title": [
+          "Spirits made to order: The obscene-supplemental entrepreneurship of modern Spiritualism in Victorian Britain"
+        ],
+        "author": [
+          {
+            "given": "James",
+            "family": "Cronin",
+            "sequence": "first",
+            "affiliation": [
+              {
+                "name": "Marketing Department, Lancaster University",
+                "place": ["Lancaster, UK"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Sophie",
+            "family": "James",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Marketing Department, Lancaster University",
+                "place": ["Lancaster, UK"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          },
+          {
+            "given": "Christina",
+            "family": "Goulding",
+            "sequence": "additional",
+            "affiliation": [
+              {
+                "name": "Marketing Department, University of Birmingham",
+                "place": ["Birmingham, UK"]
+              }
+            ],
+            "role": [{ "vocabulary": "crossref", "role": "author" }]
+          }
+        ],
+        "published-online": { "date-parts": [[2026, 9, 1]] },
+        "container-title": ["Business History"],
+        "URL": "https:\/\/doi.org\/10.1080\/00076791.2026.2714148",
+        "ISSN": ["0007-6791", "1743-7938"],
+        "published": { "date-parts": [[2026, 9, 1]] }
+      }
+    ],
+    "items-per-page": 40,
+    "query": { "start-index": 0, "search-terms": null }
+  }
+}
