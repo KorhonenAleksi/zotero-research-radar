@@ -195,3 +195,15 @@ describe("popupLines", () => {
     expect(popupLines(emptySummary())).toEqual(["No new matches"]);
   });
 });
+
+describe("noteHtml for hand-added articles", () => {
+  it("says the user added it", () => {
+    const html = noteHtml(score("rest", 0), {
+      fetchedOn: "2026-10-22",
+      sources: ["crossref"],
+      addedByHand: true,
+    });
+    expect(html).toContain("Research Radar: Rest (0 points)");
+    expect(html).toContain("You added this article by hand");
+  });
+});

@@ -3,6 +3,7 @@
 /* eslint-disable */
 // @ts-nocheck
 export type FluentMessageId =
+  | 'menuitem-all-items'
   | 'menuitem-fetch-now'
   | 'menuitem-remove-all'
   | 'pref-help'

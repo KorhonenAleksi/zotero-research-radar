@@ -1,4 +1,5 @@
 import { Store } from "../core/store";
+import { closeAllItems, openAllItems } from "./allItemsWindow";
 import { openZoteroDb } from "./db";
 import { isRunning, removeActiveRadarItems, runFetch } from "./fetchRun";
 import { registerNotifier, unregisterNotifier } from "./notifier";
@@ -94,6 +95,15 @@ export async function startApp(): Promise<void> {
       },
       {
         menuType: "menuitem",
+        l10nID: "researchradar-menuitem-all-items",
+        onCommand: () => {
+          if (store) openAllItems(store);
+          else
+            popup(["Database could not be opened", startError ?? ""], "fail");
+        },
+      },
+      {
+        menuType: "menuitem",
         l10nID: "researchradar-menuitem-remove-all",
         onCommand: () => void removeAll(),
       },
@@ -104,6 +114,7 @@ export async function startApp(): Promise<void> {
 
 export async function stopApp(): Promise<void> {
   stopScheduler();
+  closeAllItems();
   unregisterNotifier(notifierID);
   if (menuID) Zotero.MenuManager.unregisterMenu(menuID);
   await closeDb?.().catch(() => undefined);

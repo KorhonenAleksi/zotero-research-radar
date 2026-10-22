@@ -94,6 +94,7 @@ export async function createRadarItem(
   tier: Exclude<Tier, "rest">,
   collections: RadarCollections,
   fetchedOn: string,
+  addedByHand = false,
 ): Promise<number> {
   const zi = new Zotero.Item("journalArticle");
   zi.libraryID = userLibraryID();
@@ -129,7 +130,9 @@ export async function createRadarItem(
 
   const note = new Zotero.Item("note");
   note.libraryID = userLibraryID();
-  note.setNote(noteHtml(score, { fetchedOn, sources: item.sources }));
+  note.setNote(
+    noteHtml(score, { fetchedOn, sources: item.sources, addedByHand }),
+  );
 
   await Zotero.DB.executeTransaction(async () => {
     await zi.save();

@@ -12,7 +12,7 @@ import {
 } from "../core/fetchPlan";
 import { mergeItems } from "../core/merge";
 import { compileScoring, scoreItem } from "../core/rules";
-import type { Store } from "../core/store";
+import type { Store, StoredItem } from "../core/store";
 import type { Journal, RadarItem } from "../core/types";
 import { setPref } from "../utils/prefs";
 import { getJson, getText } from "./http";
@@ -227,4 +227,33 @@ export async function removeActiveRadarItems(store: Store): Promise<number> {
     }
   }
   return n;
+}
+
+/**
+ * "Add to Radar" from the All fetched articles window. The user chose the
+ * article, so it counts as kept at once and cleanup never trashes it.
+ */
+export async function addToRadarByHand(
+  store: Store,
+  s: StoredItem,
+): Promise<"added" | "inLibrary"> {
+  if (s.item.doi && (await libraryHasDoi(s.item.doi))) {
+    await store.markInLibrary(s.item.key);
+    return "inLibrary";
+  }
+  const score =
+    s.score ?? scoreItem(s.item, compileScoring(loadSettings().scoring));
+  const tier = score.tier === "high" ? "high" : "possible";
+  const collections = await ensureCollections();
+  const itemID = await createRadarItem(
+    s.item,
+    score,
+    tier,
+    collections,
+    isoDay(new Date()),
+    true,
+  );
+  await store.addLink(s.item.key, userLibraryID(), itemID, tier);
+  await store.setLinkStatus(s.item.key, "kept");
+  return "added";
 }

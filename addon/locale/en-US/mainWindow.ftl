@@ -1,4 +1,6 @@
 menuitem-fetch-now =
     .label = Research Radar: Fetch now
+menuitem-all-items =
+    .label = Research Radar: All fetched articles…
 menuitem-remove-all =
     .label = Research Radar: Remove untouched Radar items…

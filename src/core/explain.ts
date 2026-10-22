@@ -43,7 +43,7 @@ export function escapeHtml(s: string): string {
  */
 export function noteHtml(
   result: ScoreResult,
-  info: { fetchedOn: string; sources: string[] },
+  info: { fetchedOn: string; sources: string[]; addedByHand?: boolean },
 ): string {
   const head = `Research Radar: ${TIER_LABEL[result.tier]} (${result.total} points)`;
   const items = result.reasons
@@ -57,6 +57,9 @@ export function noteHtml(
     items ? `<ul>${items}</ul>` : "",
     titleOnly,
     `<p>Found ${escapeHtml(info.fetchedOn)} via ${escapeHtml(info.sources.join(" + "))}.</p>`,
+    info.addedByHand
+      ? "<p>You added this article by hand from \u201cAll fetched articles\u201d.</p>"
+      : "",
     "<p>To keep this article, add it to one of your own collections. To dismiss it, move it to the Trash. Untouched Radar items are cleaned up automatically after the period set in Research Radar's settings.</p>",
   ].join("");
 }
