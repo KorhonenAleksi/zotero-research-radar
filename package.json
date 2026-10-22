@@ -1,7 +1,7 @@
 {
   "name": "research-radar",
   "type": "module",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Surfaces newly published research from your journals, ranked and explained, inside Zotero",
   "config": {
     "addonName": "Research Radar",

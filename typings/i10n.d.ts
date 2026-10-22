@@ -3,8 +3,12 @@
 /* eslint-disable */
 // @ts-nocheck
 export type FluentMessageId =
+  | 'menu-item'
   | 'menuitem-all-items'
   | 'menuitem-fetch-now'
+  | 'menuitem-follow-journal'
+  | 'menuitem-make-rule'
   | 'menuitem-remove-all'
+  | 'menuitem-watch-author'
   | 'pref-help'
   | 'startup-finish';

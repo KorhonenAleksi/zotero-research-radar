@@ -129,7 +129,7 @@ export async function runFetch(
   const summary = emptySummary();
   const runId = await store.startRun();
   try {
-    const { general, journals, scoring, warnings } = loadSettings();
+    const { general, journals, warnings } = loadSettings();
     for (const w of warnings) ztoolkit.log(`settings: ${w}`);
     const now = new Date();
     const today = isoDay(now);
@@ -159,15 +159,7 @@ export async function runFetch(
         await store.recordJournalFetch(r.journal.id, { error: r.error });
 
     // Re-score everything stored, so rule changes apply to recent items too
-    const compiled = compileScoring(scoring);
-    let stored = await store.allItems();
-    await store.saveScores(
-      stored.map((s) => ({
-        key: s.item.key,
-        score: scoreItem(s.item, compiled),
-      })),
-    );
-    stored = await store.allItems();
+    const stored = await rescoreAll(store);
 
     const windowDays = Math.max(general.firstFetchDays, 7);
     const candidates = selectToWrite(stored, {
@@ -256,4 +248,17 @@ export async function addToRadarByHand(
   await store.addLink(s.item.key, userLibraryID(), itemID, tier);
   await store.setLinkStatus(s.item.key, "kept");
   return "added";
+}
+
+/** Re-score every stored article with the current settings; returns them. */
+export async function rescoreAll(store: Store): Promise<StoredItem[]> {
+  const compiled = compileScoring(loadSettings().scoring);
+  const stored = await store.allItems();
+  await store.saveScores(
+    stored.map((s) => ({
+      key: s.item.key,
+      score: scoreItem(s.item, compiled),
+    })),
+  );
+  return store.allItems();
 }

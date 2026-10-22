@@ -1,8 +1,27 @@
 import { Store } from "../core/store";
-import { closeAllItems, openAllItems } from "./allItemsWindow";
+import {
+  closeAllItems,
+  openAllItems,
+  refreshAllItems,
+  type RowActionHandler,
+} from "./allItemsWindow";
 import { openZoteroDb } from "./db";
-import { isRunning, removeActiveRadarItems, runFetch } from "./fetchRun";
+import {
+  isRunning,
+  removeActiveRadarItems,
+  rescoreAll,
+  runFetch,
+} from "./fetchRun";
 import { registerNotifier, unregisterNotifier } from "./notifier";
+import {
+  followJournal,
+  infoFromRadarItem,
+  infoFromZoteroItem,
+  ruleFromArticle,
+  watchAuthor,
+  type ActionHooks,
+  type ArticleInfo,
+} from "./quickActions";
 import { startScheduler, stopScheduler } from "./scheduler";
 import { loadSettings } from "./settings";
 
@@ -10,6 +29,7 @@ let store: Store | null = null;
 let closeDb: (() => Promise<void>) | null = null;
 let notifierID: string | undefined;
 let menuID: string | false = false;
+let itemMenuID: string | false = false;
 let startError: string | null = null;
 
 const TITLE = "Research Radar";
@@ -97,7 +117,7 @@ export async function startApp(): Promise<void> {
         menuType: "menuitem",
         l10nID: "researchradar-menuitem-all-items",
         onCommand: () => {
-          if (store) openAllItems(store);
+          if (store) openAllItems(store, onRowAction);
           else
             popup(["Database could not be opened", startError ?? ""], "fail");
         },
@@ -109,6 +129,40 @@ export async function startApp(): Promise<void> {
       },
     ],
   });
+  // Right-click on an item in the main library: build settings from it
+  itemMenuID = Zotero.MenuManager.registerMenu({
+    menuID: "researchradar-item",
+    pluginID: addon.data.config.addonID,
+    target: "main/library/item",
+    menus: [
+      {
+        menuType: "submenu",
+        l10nID: "researchradar-menu-item",
+        onShowing: (_e, ctx) =>
+          ctx.setVisible(
+            ctx.items?.length === 1 && !!ctx.items[0].isRegularItem(),
+          ),
+        menus: [
+          {
+            menuType: "menuitem",
+            l10nID: "researchradar-menuitem-watch-author",
+            onCommand: (_e, ctx) => void onItemAction("author", ctx.items?.[0]),
+          },
+          {
+            menuType: "menuitem",
+            l10nID: "researchradar-menuitem-follow-journal",
+            onCommand: (_e, ctx) =>
+              void onItemAction("journal", ctx.items?.[0]),
+          },
+          {
+            menuType: "menuitem",
+            l10nID: "researchradar-menuitem-make-rule",
+            onCommand: (_e, ctx) => void onItemAction("rule", ctx.items?.[0]),
+          },
+        ],
+      },
+    ],
+  });
   startScheduler(() => void fetchNow({ quietIfNothing: true }));
 }
 
@@ -117,6 +171,7 @@ export async function stopApp(): Promise<void> {
   closeAllItems();
   unregisterNotifier(notifierID);
   if (menuID) Zotero.MenuManager.unregisterMenu(menuID);
+  if (itemMenuID) Zotero.MenuManager.unregisterMenu(itemMenuID);
   await closeDb?.().catch(() => undefined);
   store = null;
 }
@@ -183,3 +238,37 @@ async function removeAll(): Promise<void> {
   const n = await removeActiveRadarItems(store);
   popup([`${n} Radar item${n === 1 ? "" : "s"} moved to Trash`], "success");
 }
+
+const actionHooks: ActionHooks = {
+  afterChange: async () => {
+    if (store) await rescoreAll(store);
+    await refreshAllItems();
+  },
+  notify: (lines, type = "default") => popup(lines, type),
+};
+
+async function runAction(
+  action: "author" | "journal" | "rule",
+  info: ArticleInfo,
+  win?: Window,
+): Promise<void> {
+  try {
+    if (action === "author") await watchAuthor(info, actionHooks, win);
+    else if (action === "journal") await followJournal(info, actionHooks);
+    else await ruleFromArticle(info, actionHooks, store, win);
+  } catch (e: any) {
+    Zotero.logError(e);
+    popup(["Action failed", String(e?.message ?? e)], "fail");
+  }
+}
+
+async function onItemAction(
+  action: "author" | "journal" | "rule",
+  item: Zotero.Item | undefined,
+): Promise<void> {
+  if (!item) return;
+  await runAction(action, await infoFromZoteroItem(item, store));
+}
+
+const onRowAction: RowActionHandler = (action, s, win) =>
+  runAction(action, infoFromRadarItem(s.item), win);

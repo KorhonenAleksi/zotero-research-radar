@@ -45,24 +45,27 @@ export function initPrefsPane(win: Window): void {
     warn.append(h(doc, "p", { class: "rr-warning", text: w }));
 
   // ---- result of the last fetch ----
-  const lastRun = el("last-run");
-  clear(lastRun);
-  const lastAt = Date.parse(String(getPref("lastRun") || ""));
-  let lastLines: string[] = [];
-  try {
-    const parsed = JSON.parse(String(getPref("lastRunSummary") || "[]"));
-    if (Array.isArray(parsed)) lastLines = parsed.map(String);
-  } catch {
-    // ignore a damaged pref
+  function renderLastRun() {
+    const lastRun = el("last-run");
+    clear(lastRun);
+    const lastAt = Date.parse(String(getPref("lastRun") || ""));
+    let lastLines: string[] = [];
+    try {
+      const parsed = JSON.parse(String(getPref("lastRunSummary") || "[]"));
+      if (Array.isArray(parsed)) lastLines = parsed.map(String);
+    } catch {
+      // ignore a damaged pref
+    }
+    lastRun.append(
+      h(doc, "strong", {
+        text: Number.isFinite(lastAt)
+          ? `Last fetch: ${new Date(lastAt).toLocaleString()}`
+          : "No fetch yet: use Tools → Research Radar: Fetch now.",
+      }),
+      ...lastLines.map((l) => h(doc, "div", { text: l })),
+    );
   }
-  lastRun.append(
-    h(doc, "strong", {
-      text: Number.isFinite(lastAt)
-        ? `Last fetch: ${new Date(lastAt).toLocaleString()}`
-        : "No fetch yet: use Tools → Research Radar: Fetch now.",
-    }),
-    ...lastLines.map((l) => h(doc, "div", { text: l })),
-  );
+  renderLastRun();
 
   // ---- journals ----
   const has = (id: string) => journals.some((j) => j.id === id);
@@ -756,6 +759,42 @@ export function initPrefsPane(win: Window): void {
     } catch (e: any) {
       renderPreview(null, e?.message ?? String(e));
     }
+  });
+
+  // Settings can also change outside this window (right-click actions,
+  // a fetch). Reload when they do, so this window never saves a stale list
+  // over them. Changes made here compare equal and cause no redraw.
+  const same = (a: unknown, b: unknown) =>
+    JSON.stringify(a) === JSON.stringify(b);
+  const prefix = addon.data.config.prefsPrefix;
+  const observe = (key: string, onChange: () => void) =>
+    Zotero.Prefs.registerObserver(`${prefix}.${key}`, onChange, true);
+  const observers = [
+    observe("journals", () => {
+      const next = loadSettings().journals;
+      if (!same(next, journals)) {
+        journals = next;
+        renderJournals();
+      }
+    }),
+    observe("rules", () => {
+      const next = loadSettings().scoring.rules;
+      if (!same(next, rules)) {
+        rules = next;
+        renderRules();
+      }
+    }),
+    observe("authors", () => {
+      const next = loadSettings().scoring.authors;
+      if (!same(next, authors)) {
+        authors = next;
+        renderAuthors();
+      }
+    }),
+    observe("lastRunSummary", renderLastRun),
+  ];
+  win.addEventListener("unload", () => {
+    for (const o of observers) Zotero.Prefs.unregisterObserver(o);
   });
 
   renderJournals();

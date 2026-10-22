@@ -251,6 +251,18 @@ export class Store {
     });
   }
 
+  /** One stored article by key (e.g. to recover ORCIDs for a Radar item). */
+  async getItem(key: string): Promise<RadarItem | undefined> {
+    const rows = await this.db.query(
+      "SELECT data FROM items WHERE key = ?",
+      [key],
+      ["data"],
+    );
+    return rows.length
+      ? (JSON.parse(String(rows[0].data)) as RadarItem)
+      : undefined;
+  }
+
   /** The user already has this article; it will never be written. */
   async markInLibrary(key: string): Promise<void> {
     await this.db.run("UPDATE items SET in_library = 1 WHERE key = ?", [key]);

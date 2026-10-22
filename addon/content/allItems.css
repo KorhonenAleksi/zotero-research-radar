@@ -206,3 +206,43 @@ td.why {
 td button {
   white-space: nowrap;
 }
+
+/* Right-click menu */
+.ctx {
+  position: fixed;
+  z-index: 10;
+  min-width: 220px;
+  padding: 4px 0;
+  background: Canvas;
+  border: 1px solid color-mix(in srgb, CanvasText 25%, transparent);
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.25);
+}
+
+.ctx button {
+  appearance: none;
+  display: block;
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+
+.ctx button:hover:not(:disabled) {
+  background: var(--selected);
+}
+
+.ctx button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.ctx hr {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 4px 0;
+}

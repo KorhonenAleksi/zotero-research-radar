@@ -24,9 +24,17 @@ const TIER_LABEL: Record<TierFilter, string> = {
 };
 
 let openWin: Window | null = null;
+let reload: (() => Promise<void>) | null = null;
+
+export type RowAction = "author" | "journal" | "rule";
+export type RowActionHandler = (
+  action: RowAction,
+  s: StoredItem,
+  win: Window,
+) => Promise<void>;
 
 /** Open (or focus) the "All fetched articles" window. */
-export function openAllItems(store: Store): void {
+export function openAllItems(store: Store, onAction: RowActionHandler): void {
   if (openWin && isWindowAlive(openWin)) {
     openWin.focus();
     return;
@@ -37,10 +45,16 @@ export function openAllItems(store: Store): void {
     "chrome,resizable,centerscreen,width=1100,height=720",
   ) as Window;
   openWin = win;
-  win.addEventListener("load", () => void init(win, store), { once: true });
+  win.addEventListener("load", () => void init(win, store, onAction), {
+    once: true,
+  });
 }
 
-async function init(win: Window, store: Store): Promise<void> {
+async function init(
+  win: Window,
+  store: Store,
+  onAction: RowActionHandler,
+): Promise<void> {
   const doc = win.document;
   const $ = <T extends HTMLElement>(id: string) => doc.getElementById(id) as T;
   const tiersBox = $<HTMLElement>("tiers");
@@ -51,6 +65,63 @@ async function init(win: Window, store: Store): Promise<void> {
   const rows = $<HTMLElement>("rows");
 
   let stored: StoredItem[] = await store.allItems();
+  reload = async () => {
+    stored = await store.allItems();
+    renderFilters();
+    render();
+  };
+
+  // Right-click menu, drawn by the page itself: Zotero's separate windows
+  // cannot show a page's native menus (the same reason there are no <select>s)
+  let menu: HTMLElement | null = null;
+  const closeMenu = () => {
+    menu?.remove();
+    menu = null;
+  };
+  function showMenu(x: number, y: number, s: StoredItem) {
+    closeMenu();
+    const item = (label: string, run: () => void, enabled = true) =>
+      h(doc, "button", {
+        text: label,
+        attrs: { type: "button", disabled: !enabled },
+        on: {
+          click: () => {
+            closeMenu();
+            run();
+          },
+        },
+      });
+    const act = (a: RowAction) => () =>
+      void onAction(a, s, win).catch((e) => Zotero.logError(e));
+    menu = h(
+      doc,
+      "div",
+      { class: "ctx", attrs: { role: "menu" } },
+      item("Watch an author…", act("author"), s.item.authors.length > 0),
+      item("Follow this journal", act("journal")),
+      item("Make a rule from this article…", act("rule")),
+      h(doc, "hr"),
+      item(
+        "Add article to library",
+        () => {
+          const btn = rows.querySelector(
+            `button[data-key="${CSS.escape(s.item.key)}"]`,
+          ) as HTMLButtonElement | null;
+          btn?.click();
+        },
+        canAddToRadar(s),
+      ),
+    );
+    (doc.body ?? doc.documentElement)!.append(menu);
+    // Keep the menu inside the window
+    const r = menu.getBoundingClientRect();
+    menu.style.left = `${Math.min(x, win.innerWidth - r.width - 8)}px`;
+    menu.style.top = `${Math.min(y, win.innerHeight - r.height - 8)}px`;
+  }
+  doc.addEventListener("mousedown", (e) => {
+    if (menu && !menu.contains(e.target as Node)) closeMenu();
+  });
+  win.addEventListener("blur", closeMenu);
   const filter: ViewFilter = { ...DEFAULT_FILTER };
 
   /** A toggle button; `pressed` marks the current choice. */
@@ -124,6 +195,7 @@ async function init(win: Window, store: Store): Promise<void> {
       return h(doc, "span", { class: "status", text: status });
     const btn = h(doc, "button", {
       text: "Add article to library",
+      attrs: { "data-key": s.item.key },
       title:
         "Adds this article to your library in Radar/Possible, with its explanation note. Your journals, rules and authors are not changed.",
       on: {
@@ -166,7 +238,7 @@ async function init(win: Window, store: Store): Promise<void> {
     count.textContent =
       shown.length > MAX_ROWS
         ? `Showing the first ${MAX_ROWS} of ${shown.length} articles. Narrow them down with the filters.`
-        : `${shown.length} article${shown.length === 1 ? "" : "s"}`;
+        : `${shown.length} article${shown.length === 1 ? "" : "s"}. Right-click an article to watch an author, follow its journal or make a rule from it.`;
     clear(rows);
     if (stored.length === 0) {
       rows.append(
@@ -198,7 +270,16 @@ async function init(win: Window, store: Store): Promise<void> {
           return h(
             doc,
             "tr",
-            {},
+            {
+              title: "Right-click for more actions",
+              on: {
+                contextmenu: (e) => {
+                  e.preventDefault();
+                  const m = e as MouseEvent;
+                  showMenu(m.clientX, m.clientY, s);
+                },
+              },
+            },
             h(
               doc,
               "td",
@@ -238,7 +319,9 @@ async function init(win: Window, store: Store): Promise<void> {
     render();
   });
   doc.addEventListener("keydown", (e) => {
-    if ((e as KeyboardEvent).key === "Escape") win.close();
+    if ((e as KeyboardEvent).key !== "Escape") return;
+    if (menu) closeMenu();
+    else win.close();
   });
 
   renderFilters();
@@ -246,7 +329,13 @@ async function init(win: Window, store: Store): Promise<void> {
   search.focus();
 }
 
+/** Reload and redraw the window if it is open (after settings changed). */
+export async function refreshAllItems(): Promise<void> {
+  if (openWin && isWindowAlive(openWin) && reload) await reload();
+}
+
 export function closeAllItems(): void {
   if (openWin && isWindowAlive(openWin)) openWin.close();
   openWin = null;
+  reload = null;
 }
