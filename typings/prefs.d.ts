@@ -7,7 +7,24 @@
 declare namespace _ZoteroTypes {
   interface Prefs {
     PluginPrefsMap: {
-      "enable": boolean;
+      "autoFetch": boolean;
+      "fetchIntervalHours": number;
+      "cleanupDays": number;
+      "maxNewPerRun": number;
+      "firstFetchDays": number;
+      "mailto": string;
+      "journals": string;
+      "rules": string;
+      "authors": string;
+      "journalBonus": string;
+      "titleWeight": number;
+      "abstractWeight": number;
+      "thresholdHigh": number;
+      "thresholdPossible": number;
+      "collectionRadar": number;
+      "collectionHigh": number;
+      "collectionPossible": number;
+      "lastRun": string;
     };
   }
 }
