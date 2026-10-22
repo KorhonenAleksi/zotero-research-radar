@@ -104,3 +104,10 @@
   gap: 6px 12px;
   align-items: center;
 }
+
+#researchradar-pane .rr-last-run {
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: color-mix(in srgb, currentColor 6%, transparent);
+}

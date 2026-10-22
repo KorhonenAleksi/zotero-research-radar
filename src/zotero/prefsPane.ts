@@ -42,6 +42,26 @@ export function initPrefsPane(win: Window): void {
   for (const w of loaded.warnings)
     warn.append(h(doc, "p", { class: "rr-warning", text: w }));
 
+  // ---- result of the last fetch ----
+  const lastRun = el("last-run");
+  clear(lastRun);
+  const lastAt = Date.parse(String(getPref("lastRun") || ""));
+  let lastLines: string[] = [];
+  try {
+    const parsed = JSON.parse(String(getPref("lastRunSummary") || "[]"));
+    if (Array.isArray(parsed)) lastLines = parsed.map(String);
+  } catch {
+    // ignore a damaged pref
+  }
+  lastRun.append(
+    h(doc, "strong", {
+      text: Number.isFinite(lastAt)
+        ? `Last fetch: ${new Date(lastAt).toLocaleString()}`
+        : "No fetch yet: use Tools → Research Radar: Fetch now.",
+    }),
+    ...lastLines.map((l) => h(doc, "div", { text: l })),
+  );
+
   // ---- journals ----
   const has = (id: string) => journals.some((j) => j.id === id);
 

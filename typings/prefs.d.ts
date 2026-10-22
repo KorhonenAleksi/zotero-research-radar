@@ -25,6 +25,7 @@ declare namespace _ZoteroTypes {
       "collectionHigh": number;
       "collectionPossible": number;
       "lastRun": string;
+      "lastRunSummary": string;
     };
   }
 }

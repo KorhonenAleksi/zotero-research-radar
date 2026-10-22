@@ -198,8 +198,11 @@ export async function runFetch(
       summary.written[tier]++;
       if (s.item.titleOnly) summary.written.titleOnly++;
     }
+    const lines = summaryLines(summary, general.maxNewPerRun);
     setPref("lastRun", now.toISOString());
-    return { summary, lines: summaryLines(summary, general.maxNewPerRun) };
+    // Kept so a pop-up closed by another plugin never means a lost result
+    setPref("lastRunSummary", JSON.stringify(lines));
+    return { summary, lines };
   } finally {
     await store.finishRun(runId, summary).catch(() => undefined);
     running = false;

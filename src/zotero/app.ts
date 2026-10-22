@@ -12,6 +12,7 @@ let menuID: string | false = false;
 let startError: string | null = null;
 
 const TITLE = "Research Radar";
+const RESULT_POPUP_DELAY_MS = 3000;
 
 type LineType = "success" | "default" | "fail";
 
@@ -35,6 +36,15 @@ class Popup {
     } catch (e) {
       Zotero.debug(`[Research Radar] pop-up failed: ${e}`);
     }
+  }
+
+  close(): void {
+    try {
+      this.win?.close();
+    } catch (e) {
+      Zotero.debug(`[Research Radar] pop-up failed: ${e}`);
+    }
+    this.win = null;
   }
 
   /** Replace the text with the result lines, then close after `closeMs` (-1 = stay until clicked). */
@@ -134,8 +144,15 @@ export async function fetchNow(
       found > 0 ? "success" : summary.errors.length ? "fail" : "default";
     // Matches stay on screen until clicked; "nothing new" closes by itself
     const closeMs = found > 0 ? -1 : 10000;
-    if (progress) progress.finish(lines, type, closeMs);
-    else if (found > 0 || summary.errors.length) popup(lines, type, closeMs);
+    if (found > 0) {
+      // New items make other plugins react (Actions and Tags, Zoplicate…),
+      // and some of them close every open pop-up. Show the result in a fresh
+      // pop-up once they have had their turn.
+      progress?.close();
+      await Zotero.Promise.delay(RESULT_POPUP_DELAY_MS);
+      popup(lines, type, closeMs);
+    } else if (progress) progress.finish(lines, type, closeMs);
+    else if (summary.errors.length) popup(lines, type, closeMs);
   } catch (e: any) {
     Zotero.logError(e);
     const msg = [`Fetch failed: ${e?.message ?? e}`];

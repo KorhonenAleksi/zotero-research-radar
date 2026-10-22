@@ -19,3 +19,5 @@ pref("collectionRadar", 0);
 pref("collectionHigh", 0);
 pref("collectionPossible", 0);
 pref("lastRun", "");
+// Result lines of the last fetch, shown in the settings pane (JSON list)
+pref("lastRunSummary", "[]");
