@@ -4,5 +4,6 @@
 // @ts-nocheck
 export type FluentMessageId =
   | 'menuitem-fetch-now'
+  | 'menuitem-remove-all'
   | 'pref-help'
   | 'startup-finish';

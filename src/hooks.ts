@@ -1,4 +1,5 @@
 import { initLocale } from "./utils/locale";
+import { startApp, stopApp } from "./zotero/app";
 import { initPrefsPane } from "./zotero/prefsPane";
 import { createZToolkit } from "./utils/ztoolkit";
 
@@ -23,6 +24,8 @@ async function onStartup() {
     Zotero.getMainWindows().map((win) => onMainWindowLoad(win)),
   );
 
+  await startApp();
+
   ztoolkit.log(`${addon.data.config.addonName} started`);
 
   // Lets the scaffold test runner detect that the plugin has loaded
@@ -41,7 +44,8 @@ async function onMainWindowUnload(_win: Window): Promise<void> {
   ztoolkit.unregisterAll();
 }
 
-function onShutdown(): void {
+async function onShutdown(): Promise<void> {
+  await stopApp();
   ztoolkit.unregisterAll();
   addon.data.alive = false;
   // @ts-expect-error - Plugin instance is not typed
