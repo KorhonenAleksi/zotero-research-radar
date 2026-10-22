@@ -1,4 +1,5 @@
 import { version } from "../../package.json";
+import { aiContext, aiSummary, effectiveTier } from "../core/ai";
 import { summarize } from "../core/explain";
 import {
   canAddToRadar,
@@ -14,6 +15,7 @@ import type { Store, StoredItem } from "../core/store";
 import { isWindowAlive } from "../utils/window";
 import { clear, h } from "./dom";
 import { addToRadarByHand } from "./fetchRun";
+import { aiNotReady, loadAiSettings } from "./settings";
 
 const MAX_ROWS = 300;
 const TIER_LABEL: Record<TierFilter, string> = {
@@ -67,6 +69,12 @@ async function init(
   const rows = $<HTMLElement>("rows");
 
   let stored: StoredItem[] = await store.allItems();
+  // Current AI context: only judgements made with it can lift articles
+  const { ai, interests } = loadAiSettings();
+  const aiCtx =
+    ai.enabled && !aiNotReady(ai, interests)
+      ? aiContext(interests, ai.model)
+      : null;
   reload = async () => {
     stored = await store.allItems();
     renderFilters();
@@ -288,9 +296,13 @@ async function init(
           ),
         ),
         ...shown.slice(0, MAX_ROWS).map((s) => {
+          const lifted =
+            !!s.score && effectiveTier(s.score, s.ai, aiCtx).liftedByAi;
           const tier = s.score?.excluded
             ? "excluded"
-            : (s.score?.tier ?? "rest");
+            : lifted
+              ? "possible"
+              : (s.score?.tier ?? "rest");
           const authors = s.item.authors.map((a) => a.family).join(", ");
           return h(
             doc,
@@ -309,7 +321,13 @@ async function init(
               doc,
               "td",
               {},
-              h(doc, "span", { class: `tier ${tier}`, text: TIER_LABEL[tier] }),
+              h(doc, "span", {
+                class: `tier ${tier}`,
+                text: lifted ? "Possible (AI)" : TIER_LABEL[tier],
+                title: lifted
+                  ? "No keyword rule matched; the AI rated it 3/3"
+                  : undefined,
+              }),
             ),
             h(doc, "td", { class: "num", text: String(s.score?.total ?? "–") }),
             h(
@@ -328,10 +346,22 @@ async function init(
             ),
             h(doc, "td", { text: s.item.journalTitle }),
             h(doc, "td", { class: "num", text: s.item.date ?? "" }),
-            h(doc, "td", {
-              class: "why",
-              text: s.score ? summarize(s.score) : "Not scored yet",
-            }),
+            h(
+              doc,
+              "td",
+              { class: "why" },
+              s.score ? summarize(s.score) : "Not scored yet",
+              s.ai
+                ? h(doc, "div", {
+                    class: s.ai.context === aiCtx ? "ai" : "ai muted",
+                    text:
+                      aiSummary(s.ai) +
+                      (s.ai.context === aiCtx
+                        ? ""
+                        : " (from earlier interests or model)"),
+                  })
+                : null,
+            ),
             h(doc, "td", {}, actionCell(s)),
           );
         }),

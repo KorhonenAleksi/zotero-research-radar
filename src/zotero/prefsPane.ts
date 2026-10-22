@@ -1,3 +1,4 @@
+import { aiSummary } from "../core/ai";
 import { AI_SETUP_PROMPT } from "../core/aiSetupPrompt";
 import { ft50Info, ft50Journals, journalId } from "../core/catalogue";
 import {
@@ -17,7 +18,15 @@ import type { Journal, JournalCandidate } from "../core/types";
 import { getPref, setPref } from "../utils/prefs";
 import { clear, h } from "./dom";
 import { getJson } from "./http";
-import { loadSettings, saveAuthors, saveJournals, saveRules } from "./settings";
+import { judgeArticle } from "./ai";
+import {
+  AI_MAX_PER_RUN_LIMITS,
+  loadAiSettings,
+  loadSettings,
+  saveAuthors,
+  saveJournals,
+  saveRules,
+} from "./settings";
 
 type PrefKey = keyof _ZoteroTypes.Prefs["PluginPrefsMap"];
 
@@ -619,6 +628,71 @@ export function initPrefsPane(win: Window): void {
   bindNumber("abstractWeight", LIMITS.weight, 1);
   bindNumber("thresholdHigh", LIMITS.weight, 5);
   bindNumber("thresholdPossible", LIMITS.weight, 1);
+
+  // ---- AI ranking ----
+  bindBool("aiEnabled");
+  bindText("aiBaseUrl");
+  bindText("aiModel");
+  bindText("aiApiKey");
+  bindText("aiReasoningEffort");
+  bindNumber("aiMaxPerRun", AI_MAX_PER_RUN_LIMITS, 50);
+
+  const preset = (baseUrl: string, model: string, effort: string) => () => {
+    const set = (key: PrefKey, value: string) => {
+      setPref(key, value as never);
+      (el(`opt-${key}`) as HTMLInputElement).value = value;
+    };
+    set("aiBaseUrl", baseUrl);
+    // Keep a model the user already typed when switching between local servers
+    if (model || !String(getPref("aiModel") ?? "")) set("aiModel", model);
+    set("aiReasoningEffort", effort);
+  };
+  el("ai-preset-gemini").addEventListener(
+    "click",
+    preset(
+      "https://generativelanguage.googleapis.com/v1beta/openai/",
+      "gemini-3.5-flash-lite",
+      "minimal",
+    ),
+  );
+  el("ai-preset-ollama").addEventListener(
+    "click",
+    preset("http://localhost:11434/v1", "", ""),
+  );
+  el("ai-preset-lmstudio").addEventListener(
+    "click",
+    preset("http://localhost:1234/v1", "", ""),
+  );
+
+  const testResult = el("ai-test-result");
+  el("ai-test").addEventListener("click", async () => {
+    const { ai, interests } = loadAiSettings();
+    if (!ai.baseUrl || !ai.model) {
+      testResult.textContent = "Fill in the base URL and model first.";
+      return;
+    }
+    testResult.textContent = "Testing…";
+    const started = Date.now();
+    try {
+      const j = await judgeArticle(
+        {
+          title:
+            "Corporate decline and renewal in Nordic shipbuilding, 1960-1990",
+          abstract:
+            "Using company archives, we trace how three shipyards responded to prolonged decline, and why only one renewed itself.",
+        },
+        interests ||
+          "Business history; organizational decline and renewal of firms.",
+        ai,
+      );
+      const secs = ((Date.now() - started) / 1000).toFixed(1);
+      testResult.textContent =
+        `Works (${secs} s). Sample article: ${aiSummary(j)}` +
+        (interests ? "" : " (Tested with sample interests: add yours above.)");
+    } catch (e: any) {
+      testResult.textContent = `Failed: ${e?.message ?? e}`;
+    }
+  });
 
   // ---- set up with AI: copy prompt, import profile ----
   const aiStatus = el("ai-status");

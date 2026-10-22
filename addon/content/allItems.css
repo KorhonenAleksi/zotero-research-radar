@@ -254,3 +254,9 @@ td button {
   border-top: 1px solid var(--line);
   margin: 4px 0;
 }
+
+td.why .ai {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px dashed var(--line);
+}

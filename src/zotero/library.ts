@@ -1,3 +1,4 @@
+import type { AiJudgement } from "../core/ai";
 import { noteHtml } from "../core/explain";
 import { decodeEntities } from "../core/markup";
 import type { Tier } from "../core/rules";
@@ -95,7 +96,7 @@ export async function createRadarItem(
   tier: Exclude<Tier, "rest">,
   collections: RadarCollections,
   fetchedOn: string,
-  addedByHand = false,
+  extra: { addedByHand?: boolean; ai?: AiJudgement; liftedByAi?: boolean } = {},
 ): Promise<number> {
   const zi = new Zotero.Item("journalArticle");
   zi.libraryID = userLibraryID();
@@ -125,15 +126,14 @@ export async function createRadarItem(
   );
   zi.addTag("radar");
   zi.addTag(`radar:${tier}`);
+  if (extra.liftedByAi) zi.addTag("radar:ai");
   zi.setCollections([
     tier === "high" ? collections.high : collections.possible,
   ]);
 
   const note = new Zotero.Item("note");
   note.libraryID = userLibraryID();
-  note.setNote(
-    noteHtml(score, { fetchedOn, sources: item.sources, addedByHand }),
-  );
+  note.setNote(noteHtml(score, { fetchedOn, sources: item.sources, ...extra }));
 
   await Zotero.DB.executeTransaction(async () => {
     await zi.save();

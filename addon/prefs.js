@@ -25,3 +25,10 @@ pref("repairedEscapedTitles", false);
 pref("lastRunSummary", "[]");
 // Plain-language research interests, for the optional AI ranking
 pref("interests", "");
+// Optional AI ranking (any OpenAI-compatible endpoint). Off by default.
+pref("aiEnabled", false);
+pref("aiBaseUrl", "");
+pref("aiModel", "");
+pref("aiApiKey", "");
+pref("aiReasoningEffort", "");
+pref("aiMaxPerRun", 50);

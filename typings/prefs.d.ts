@@ -28,6 +28,12 @@ declare namespace _ZoteroTypes {
       "repairedEscapedTitles": boolean;
       "lastRunSummary": string;
       "interests": string;
+      "aiEnabled": boolean;
+      "aiBaseUrl": string;
+      "aiModel": string;
+      "aiApiKey": string;
+      "aiReasoningEffort": string;
+      "aiMaxPerRun": number;
     };
   }
 }

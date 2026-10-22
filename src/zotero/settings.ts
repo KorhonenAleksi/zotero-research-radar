@@ -1,3 +1,4 @@
+import type { AiSettings } from "../core/ai";
 import { DEFAULT_SCORING, type ScoringSettings } from "../core/rules";
 import {
   clamp,
@@ -90,4 +91,31 @@ export function saveRules(rules: ScoringSettings["rules"]): void {
 
 export function saveAuthors(authors: ScoringSettings["authors"]): void {
   setPref("authors", JSON.stringify(authors));
+}
+
+export const AI_MAX_PER_RUN_LIMITS = [1, 500] as const;
+
+/** AI settings and the interests paragraph. The API key stays in prefs only. */
+export function loadAiSettings(): { ai: AiSettings; interests: string } {
+  return {
+    ai: {
+      enabled: getPref("aiEnabled") === true,
+      baseUrl: String(getPref("aiBaseUrl") ?? "").trim(),
+      model: String(getPref("aiModel") ?? "").trim(),
+      apiKey: String(getPref("aiApiKey") ?? "").trim(),
+      reasoningEffort: String(getPref("aiReasoningEffort") ?? "").trim(),
+      maxPerRun: clamp(getPref("aiMaxPerRun"), AI_MAX_PER_RUN_LIMITS, 50),
+    },
+    interests: String(getPref("interests") ?? "").trim(),
+  };
+}
+
+/** Why the AI cannot run with these settings, or null when it can. */
+export function aiNotReady(ai: AiSettings, interests: string): string | null {
+  if (!ai.baseUrl || !ai.model)
+    return "base URL and model are not set in Settings.";
+  if (!/^https?:\/\//i.test(ai.baseUrl))
+    return "the base URL must start with http:// or https://.";
+  if (!interests) return "add your research interests in Settings first.";
+  return null;
 }

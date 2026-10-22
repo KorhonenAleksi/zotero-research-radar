@@ -35,6 +35,83 @@
   </groupbox>
 
   <groupbox>
+    <label><html:h2>AI ranking (optional)</html:h2></label>
+    <html:p class="rr-muted">
+      Asks an AI to rate each new article 0–3 against your research interests
+      (above). The rating is shown next to the keyword score; an article rated 3
+      goes to Radar/Possible even if no rule matched. Nothing is ever hidden.
+      Only titles, abstracts and your interests paragraph are sent, never
+      anything from your library. If the AI can't be reached (e.g. off the VPN),
+      Research Radar quietly uses the keyword scores alone.
+    </html:p>
+    <html:label class="rr-check">
+      <html:input type="checkbox" id="researchradar-opt-aiEnabled" />
+      Use AI ranking
+    </html:label>
+    <html:div class="rr-row">
+      <html:span class="rr-muted">Presets:</html:span>
+      <html:button id="researchradar-ai-preset-gemini"
+        >Google Gemini</html:button
+      >
+      <html:button id="researchradar-ai-preset-ollama"
+        >Ollama on this computer</html:button
+      >
+      <html:button id="researchradar-ai-preset-lmstudio"
+        >LM Studio on this computer</html:button
+      >
+    </html:div>
+    <html:div class="rr-options">
+      <html:label for="researchradar-opt-aiBaseUrl">Base URL</html:label>
+      <html:input
+        type="url"
+        id="researchradar-opt-aiBaseUrl"
+        class="rr-wide-input"
+        placeholder="https://…/v1"
+      />
+      <html:label for="researchradar-opt-aiModel">Model</html:label>
+      <html:input
+        type="text"
+        id="researchradar-opt-aiModel"
+        class="rr-wide-input"
+      />
+      <html:label for="researchradar-opt-aiApiKey">API key</html:label>
+      <html:input
+        type="password"
+        id="researchradar-opt-aiApiKey"
+        class="rr-wide-input"
+        placeholder="Not needed for local servers"
+      />
+      <html:label for="researchradar-opt-aiReasoningEffort"
+        >Reasoning effort</html:label
+      >
+      <html:input
+        type="text"
+        id="researchradar-opt-aiReasoningEffort"
+        class="rr-wide-input"
+        placeholder="Optional, e.g. minimal for Gemini"
+      />
+      <html:label for="researchradar-opt-aiMaxPerRun"
+        >Max articles sent per fetch</html:label
+      >
+      <html:input
+        type="number"
+        class="rr-num"
+        id="researchradar-opt-aiMaxPerRun"
+        min="1"
+        max="500"
+      />
+    </html:div>
+    <html:p class="rr-muted">
+      The API key is kept in Zotero's settings on this computer only. It is not
+      synced and not part of the plugin.
+    </html:p>
+    <html:div class="rr-row">
+      <html:button id="researchradar-ai-test">Test connection</html:button>
+      <html:span id="researchradar-ai-test-result" class="rr-muted"></html:span>
+    </html:div>
+  </groupbox>
+
+  <groupbox>
     <label><html:h2>Journals</html:h2></label>
     <html:p class="rr-muted">
       Articles are fetched from Crossref by ISSN; an RSS feed URL is optional

@@ -130,3 +130,7 @@
   max-height: 140px;
   overflow-y: auto;
 }
+
+#researchradar-pane .rr-wide-input {
+  width: 26em;
+}

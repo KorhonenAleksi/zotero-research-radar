@@ -1,7 +1,7 @@
 {
   "name": "research-radar",
   "type": "module",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Surfaces newly published research from your journals, ranked and explained, inside Zotero",
   "config": {
     "addonName": "Research Radar",
@@ -31,7 +31,8 @@
     "test:watch": "vitest",
     "test:zotero": "zotero-plugin test",
     "test": "vitest run",
-    "docs:prompt": "node scripts/writePromptDoc.ts"
+    "docs:prompt": "node scripts/writePromptDoc.ts",
+    "ai:stub": "node scripts/aiStub.ts"
   },
   "dependencies": {
     "fast-xml-parser": "^5.11.2",

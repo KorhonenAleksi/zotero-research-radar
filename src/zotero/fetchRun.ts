@@ -1,9 +1,11 @@
+import { aiContext, effectiveTier } from "../core/ai";
 import { buildWorksUrl, mapWorks } from "../core/crossref";
 import { parseFeed } from "../core/feed";
 import {
   emptySummary,
   isoDay,
   mapPool,
+  selectForAi,
   selectToWrite,
   sinceDate,
   popupLines,
@@ -24,7 +26,8 @@ import {
   trashItem,
   userLibraryID,
 } from "./library";
-import { loadSettings } from "./settings";
+import { judgeStoredItems } from "./ai";
+import { aiNotReady, loadAiSettings, loadSettings } from "./settings";
 
 const DAY = 24 * 60 * 60 * 1000;
 const CROSSREF_ROWS = 200;
@@ -159,13 +162,34 @@ export async function runFetch(
         await store.recordJournalFetch(r.journal.id, { error: r.error });
 
     // Re-score everything stored, so rule changes apply to recent items too
-    const stored = await rescoreAll(store);
-
+    let stored = await rescoreAll(store);
     const windowDays = Math.max(general.firstFetchDays, 7);
+
+    // Optional AI judgements. Any problem means a silent fallback to the
+    // rule scores; the reason is shown under "Last fetch" in Settings.
+    const { ai, interests } = loadAiSettings();
+    let currentAiContext: string | null = null;
+    if (ai.enabled) {
+      const notReady = aiNotReady(ai, interests);
+      if (notReady) summary.ai.skipped = notReady;
+      else {
+        currentAiContext = aiContext(interests, ai.model);
+        const toJudge = selectForAi(stored, {
+          now,
+          windowDays,
+          context: currentAiContext,
+          max: ai.maxPerRun,
+        });
+        summary.ai = await judgeStoredItems(store, toJudge, interests, ai);
+        stored = await store.allItems();
+      }
+    }
+
     const candidates = selectToWrite(stored, {
       now,
       windowDays,
       max: Number.MAX_SAFE_INTEGER,
+      aiContext: currentAiContext,
     }).write;
     let written = 0;
     for (const s of candidates) {
@@ -178,17 +202,20 @@ export async function runFetch(
         summary.alreadyInLibrary++;
         continue;
       }
-      const tier = s.score!.tier as "high" | "possible";
+      const eff = effectiveTier(s.score!, s.ai, currentAiContext);
+      const tier = eff.tier as "high" | "possible";
       const itemID = await createRadarItem(
         s.item,
         s.score!,
         tier,
         collections,
         today,
+        { ai: currentAiContext ? s.ai : undefined, liftedByAi: eff.liftedByAi },
       );
       await store.addLink(s.item.key, userLibraryID(), itemID, tier);
       written++;
       summary.written[tier]++;
+      if (eff.liftedByAi) summary.written.byAi++;
       if (s.item.titleOnly) summary.written.titleOnly++;
     }
     const lines = summaryLines(summary, general.maxNewPerRun);
@@ -243,7 +270,7 @@ export async function addToRadarByHand(
     tier,
     collections,
     isoDay(new Date()),
-    true,
+    { addedByHand: true, ai: s.ai },
   );
   await store.addLink(s.item.key, userLibraryID(), itemID, tier);
   await store.setLinkStatus(s.item.key, "kept");
