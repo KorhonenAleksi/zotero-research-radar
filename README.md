@@ -40,12 +40,13 @@ your restored copy (see the
 
 Requires Zotero 9 or 10. Back up your library first (see above).
 
-1. Download `research-radar.xpi` from the latest
-   [release](https://github.com/KorhonenAleksi/research-radar/releases/latest).
+1. Get the file `research-radar.xpi` from Aleksi Korhonen. The test version
+   is shared directly, not through a public download page.
 2. In Zotero: Tools → Plugins → gear icon → Install Plugin From File…, and
-   pick the downloaded file.
+   pick the file.
 
-Zotero checks for new versions automatically.
+To update, install the newer `.xpi` the same way, over the old one. Your
+settings and Radar items are kept.
 
 ## First-time setup
 
@@ -174,8 +175,7 @@ Nothing else, and no data is sent to the plugin's author.
 
 ## Reporting problems
 
-Please open an [issue](https://github.com/KorhonenAleksi/research-radar/issues)
-or email me. Useful to include: Zotero version, what you did, and the result
+Please tell Aleksi Korhonen. Useful to include: Zotero version, what you did, and the result
 lines from the top of the Research Radar settings pane. For errors, Help →
 Debug Output Logging → Enable, reproduce the problem, then Submit and send the
 Debug ID.
@@ -188,12 +188,15 @@ npm test            # unit tests for the pure core (src/core), runs in Node
 npm run build       # → build/research-radar.xpi
 npm start           # hot-reload into a separate dev Zotero profile (needs .env, see .env.example)
 npm run release     # bump the version, tag and push; GitHub Actions then
-                    # publishes the release and update.json
+                    # publishes the release (.xpi) and update.json
 ```
 
 Layout: `src/core/` is pure TypeScript with no Zotero dependency and is
 unit-tested. `src/zotero/` holds thin adapters to Zotero's API. `addon/` holds
-static plugin files. `docs/brief.md` has the goals; `docs/decisions.md` records
-structural choices.
+static plugin files. `docs/decisions.md` records structural choices.
+
+The repository is private for now, so Zotero's automatic updates (which
+read `update.json` from the GitHub release) don't reach testers; they install
+each new `.xpi` by hand.
 
 Built on [windingwind/zotero-plugin-template](https://github.com/windingwind/zotero-plugin-template). Licensed AGPL-3.0-or-later.

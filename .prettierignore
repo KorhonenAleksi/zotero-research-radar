@@ -8,7 +8,5 @@ pnpm-lock.yaml
 .scaffold
 coverage
 # Author-written planning docs: keep as written
-docs/brief.md
-docs/plan.md
 # Generated from src/core/aiSetupPrompt.ts
 docs/ai-setup-prompt.md
