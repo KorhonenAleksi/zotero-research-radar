@@ -2,7 +2,7 @@ import { fold } from "./text";
 import type { StoredItem } from "./store";
 
 export type TierFilter = "all" | "high" | "possible" | "rest" | "excluded";
-export type SortOrder = "newest" | "points";
+export type SortOrder = "newest" | "points" | "ai";
 
 export interface ViewFilter {
   tier: TierFilter;
@@ -72,11 +72,17 @@ export function filterItems(stored: StoredItem[], f: ViewFilter): StoredItem[] {
   const byNewest = (a: StoredItem, b: StoredItem) =>
     b.firstSeen.localeCompare(a.firstSeen) ||
     (b.item.date ?? "").localeCompare(a.item.date ?? "");
+  const byPoints = (a: StoredItem, b: StoredItem) =>
+    (b.score?.total ?? 0) - (a.score?.total ?? 0);
+  // Unrated articles go below every rated one, including the 0s
+  const byAi = (a: StoredItem, b: StoredItem) =>
+    (b.ai?.score ?? -1) - (a.ai?.score ?? -1);
   return rows.sort(
     f.sort === "points"
-      ? (a, b) =>
-          (b.score?.total ?? 0) - (a.score?.total ?? 0) || byNewest(a, b)
-      : byNewest,
+      ? (a, b) => byPoints(a, b) || byNewest(a, b)
+      : f.sort === "ai"
+        ? (a, b) => byAi(a, b) || byPoints(a, b) || byNewest(a, b)
+        : byNewest,
   );
 }
 

@@ -104,6 +104,23 @@ describe("filterItems", () => {
       platform,
     );
   });
+
+  it("sorts by AI rating, unrated articles last", () => {
+    const ai = (score: 0 | 1 | 2 | 3) => ({
+      score,
+      interest: "",
+      reason: "",
+      titleOnly: true,
+      model: "m",
+      context: "c",
+    });
+    const zero = row("Zero", { ai: ai(0) });
+    const two = row("Two", { ai: ai(2) });
+    const unrated = row("Unrated");
+    expect(
+      filterItems([unrated, zero, two], { ...DEFAULT_FILTER, sort: "ai" }),
+    ).toEqual([two, zero, unrated]);
+  });
 });
 
 describe("status and actions", () => {

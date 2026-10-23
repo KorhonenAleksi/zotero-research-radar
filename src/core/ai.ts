@@ -7,8 +7,8 @@ import type { RadarItem } from "./types";
  * endpoint (Gemini, a university endpoint, Ollama, LM Studio). Only the
  * article's title and abstract and the user's own interests paragraph are
  * sent; never library contents, notes or annotations. The AI score sits
- * beside the rule score: it never hides or lowers anything, and only a 3
- * lifts an article from Rest to Possible (never past an exclusion rule).
+ * beside the rule score: it never hides or lowers anything, and only a 2 or
+ * 3 lifts an article from Rest to Possible (never past an exclusion rule).
  */
 
 export interface AiSettings {
@@ -127,7 +127,10 @@ export function parseAiReply(
   };
 }
 
-/** Tier after the AI's say: a current AI 3 lifts Rest to Possible, nothing else changes. */
+/** Lowest AI score that lifts a Rest article to Possible. */
+export const AI_LIFT_MIN = 2;
+
+/** Tier after the AI's say: a current AI 2 or 3 lifts Rest to Possible, nothing else changes. */
 export function effectiveTier(
   score: ScoreResult,
   ai: AiJudgement | undefined,
@@ -136,7 +139,8 @@ export function effectiveTier(
   const lift =
     !score.excluded &&
     score.tier === "rest" &&
-    ai?.score === 3 &&
+    ai !== undefined &&
+    ai.score >= AI_LIFT_MIN &&
     currentContext !== null &&
     ai.context === currentContext;
   return lift

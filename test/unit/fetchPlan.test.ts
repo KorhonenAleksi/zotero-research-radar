@@ -220,18 +220,19 @@ describe("AI in selection, notes and pop-ups", () => {
     context,
   });
 
-  it("writes a Rest article the AI rates 3, after rule matches", () => {
+  it("writes a Rest article the AI rates 2 or 3, after rule matches", () => {
     const rule = stored({ score: score("possible", 1) });
     const ai3 = stored({ score: score("rest", 0), ai: judged(3) });
     const ai2 = stored({ score: score("rest", 0), ai: judged(2) });
+    const ai1 = stored({ score: score("rest", 0), ai: judged(1) });
     const stale = stored({ score: score("rest", 0), ai: judged(3, "old") });
-    const sel = selectToWrite([ai3, ai2, stale, rule], {
+    const sel = selectToWrite([ai2, ai1, ai3, stale, rule], {
       now,
       windowDays: 30,
       max: 10,
       aiContext: ctx,
     });
-    expect(sel.write).toEqual([rule, ai3]);
+    expect(sel.write).toEqual([rule, ai3, ai2]);
   });
 
   it("lifts nothing when AI is off", () => {
@@ -262,6 +263,33 @@ describe("AI in selection, notes and pop-ups", () => {
     expect(picked).toEqual([fresh, outdated]);
   });
 
+  it("also rates articles already in Radar, after the others; not kept or dismissed ones", () => {
+    const link = (status: "active" | "kept" | "dismissed") => ({
+      key: "k",
+      libraryId: 1,
+      zoteroItemId: 1,
+      tier: "possible" as const,
+      status,
+      createdAt: "",
+      statusAt: "",
+    });
+    const inRadar = stored({
+      firstSeen: "2026-10-22T11:00:00Z",
+      link: link("active"),
+    });
+    const notInRadar = stored({ firstSeen: "2026-10-20T11:00:00Z" });
+    const kept = stored({ link: link("kept") });
+    const dismissed = stored({ link: link("dismissed") });
+    expect(
+      selectForAi([inRadar, kept, dismissed, notInRadar], {
+        now,
+        windowDays: 30,
+        context: ctx,
+        max: 10,
+      }),
+    ).toEqual([notInRadar, inRadar]);
+  });
+
   it("notes say the AI found it, and why", () => {
     const html = noteHtml(score("rest", 0, { titleOnly: true }), {
       fetchedOn: "2026-10-22",
@@ -280,16 +308,29 @@ describe("AI in selection, notes and pop-ups", () => {
     const s = {
       ...emptySummary(),
       written: { high: 0, possible: 2, titleOnly: 2, byAi: 1 },
-      ai: { judged: 12, skipped: "endpoint unreachable (offline or VPN?)" },
+      ai: {
+        judged: 12,
+        relevant: 3,
+        skipped: "endpoint unreachable (offline or VPN?)",
+      },
     };
     expect(popupLines(s)).toEqual([
       "0 High, 2 Possible added",
       "2 of them title-only",
       "1 of them found by AI",
+      "AI rated 12: 3 relevant (2–3/3)",
     ]);
     expect(summaryLines(s, 30)).toContain(
       "AI not used: endpoint unreachable (offline or VPN?)",
     );
-    expect(summaryLines(s, 30)).toContain("AI judged 12 new articles.");
+    expect(summaryLines(s, 30)).toContain("AI rated 12: 3 relevant (2–3/3).");
+  });
+
+  it("says when the AI rated articles but none was relevant", () => {
+    const s = { ...emptySummary(), ai: { judged: 50, relevant: 0 } };
+    expect(popupLines(s)).toEqual([
+      "No new matches",
+      "AI rated 50: none relevant (2–3/3)",
+    ]);
   });
 });

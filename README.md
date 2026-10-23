@@ -112,9 +112,12 @@ preview first, and importing only adds to your settings.
 Off by default. Under **AI ranking**, enter any OpenAI-compatible endpoint
 (presets for Gemini, Ollama and LM Studio), a model and your own API key, and
 write a few sentences about your research under **Research interests**. The AI
-rates each new article 0–3; the rating is shown next to the keyword score, and
-a 3 moves an article to Radar/Possible even if no rule matched. It never hides
-or lowers anything.
+rates each new article 0–3 (3 = directly relevant, 2 = clearly related,
+1 = loosely related, 0 = not relevant). The rating is shown next to the keyword
+score, in the AI column of All fetched articles, and an article rated 2 or 3
+moves to Radar/Possible even if no rule matched. It never hides or lowers
+anything. Up to 50 articles are rated per fetch (setting), so a large first
+fetch is rated over a few fetches.
 
 What is sent: the article's title and abstract and your interests paragraph.
 Never anything from your library, notes or annotations. The API key is stored

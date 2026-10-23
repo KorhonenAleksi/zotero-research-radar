@@ -48,7 +48,7 @@ export function selectToWrite(
     now: Date;
     windowDays: number;
     max: number;
-    /** Current AI context, or null when AI is off: only current AI 3s lift. */
+    /** Current AI context, or null when AI is off: only current AI 2s and 3s lift. */
     aiContext?: string | null;
   },
 ): Selection {
@@ -80,9 +80,10 @@ export function selectToWrite(
 }
 
 /**
- * Which articles to send to the AI this run: recent, not yet in the library,
- * not excluded by a rule, and without a judgement for the current interests
- * and model. Newest first, at most `max`.
+ * Which articles to send to the AI this run: recent, not yet in the library
+ * (Radar items still count), not excluded by a rule, and without a judgement
+ * for the current interests and model. Articles not in Radar come first,
+ * because only they can be lifted; then newest first, at most `max`.
  */
 export function selectForAi(
   stored: StoredItem[],
@@ -92,14 +93,18 @@ export function selectForAi(
   return stored
     .filter(
       (s) =>
-        !s.link &&
+        (!s.link || s.link.status === "active") &&
         !s.baseline &&
         !s.inLibrary &&
         !s.score?.excluded &&
         s.ai?.context !== opts.context &&
         Date.parse(s.firstSeen) >= cutoff,
     )
-    .sort((a, b) => b.firstSeen.localeCompare(a.firstSeen))
+    .sort(
+      (a, b) =>
+        Number(!!a.link) - Number(!!b.link) ||
+        b.firstSeen.localeCompare(a.firstSeen),
+    )
     .slice(0, opts.max);
 }
 
@@ -109,8 +114,11 @@ export interface RunSummary {
   newItems: number;
   written: { high: number; possible: number; titleOnly: number; byAi: number };
   waiting: number;
-  /** AI judgements made this run; `skipped` explains why the AI was not (fully) used. */
-  ai: { judged: number; skipped?: string };
+  /**
+   * AI judgements made this run, and how many of them scored 2 or 3;
+   * `skipped` explains why the AI was not (fully) used.
+   */
+  ai: { judged: number; relevant?: number; skipped?: string };
   alreadyInLibrary: number;
   cleanedUp: number;
   errors: Array<{ journal: string; message: string }>;
@@ -133,6 +141,11 @@ export function emptySummary(): RunSummary {
 const plural = (n: number, one: string, many = `${one}s`) =>
   `${n} ${n === 1 ? one : many}`;
 
+/** "AI rated 50: 8 relevant", short enough for the pop-up. */
+function aiRatedLine(judged: number, relevant: number): string {
+  return `AI rated ${judged}: ${relevant || "none"} relevant (2–3/3)`;
+}
+
 /** Zotero's pop-up fits about this many characters per line. */
 export const POPUP_LINE_MAX = 40;
 
@@ -147,6 +160,7 @@ export function popupLines(s: RunSummary): string[] {
   else lines.push(`${high} High, ${possible} Possible added`);
   if (titleOnly) lines.push(`${titleOnly} of them title-only`);
   if (s.written.byAi) lines.push(`${s.written.byAi} of them found by AI`);
+  if (s.ai.judged) lines.push(aiRatedLine(s.ai.judged, s.ai.relevant ?? 0));
   if (s.waiting) lines.push(`${s.waiting} more next time (per-fetch limit)`);
   if (s.alreadyInLibrary)
     lines.push(`${s.alreadyInLibrary} already in your library`);
@@ -174,7 +188,7 @@ export function summaryLines(s: RunSummary, maxNewPerRun: number): string[] {
       `${plural(s.written.byAi, "article")} found by AI (no keyword rule matched).`,
     );
   if (s.ai.judged)
-    lines.push(`AI judged ${plural(s.ai.judged, "new article")}.`);
+    lines.push(`${aiRatedLine(s.ai.judged, s.ai.relevant ?? 0)}.`);
   if (s.ai.skipped) lines.push(`AI not used: ${s.ai.skipped}`);
   if (s.waiting)
     lines.push(`${s.waiting} more waiting (limit ${maxNewPerRun} per fetch).`);

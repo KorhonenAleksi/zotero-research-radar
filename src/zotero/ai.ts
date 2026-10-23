@@ -1,5 +1,6 @@
 import {
   aiContext,
+  AI_LIFT_MIN,
   AiReplyError,
   buildAiRequest,
   parseAiReply,
@@ -74,8 +75,9 @@ export async function judgeStoredItems(
   items: StoredItem[],
   interests: string,
   ai: AiSettings,
-): Promise<{ judged: number; skipped?: string }> {
+): Promise<{ judged: number; relevant: number; skipped?: string }> {
   let judged = 0;
+  let relevant = 0;
   let stopped: string | undefined;
   let badReplies = 0;
   await mapPool(items, CONCURRENCY, async (s) => {
@@ -84,6 +86,7 @@ export async function judgeStoredItems(
       const j = await judgeArticle(s.item, interests, ai);
       await store.saveAiJudgement(s.item.key, j);
       judged++;
+      if (j.score >= AI_LIFT_MIN) relevant++;
     } catch (e) {
       if (e instanceof AiStop) stopped ??= e.message;
       else if (e instanceof AiReplyError) badReplies++;
@@ -99,5 +102,5 @@ export async function judgeStoredItems(
       ? `${badReplies} repl${badReplies === 1 ? "y" : "ies"} could not be read; will retry next fetch`
       : undefined);
   if (skipped) Zotero.debug(`[Research Radar] AI: ${skipped}`);
-  return { judged, skipped };
+  return { judged, relevant, skipped };
 }

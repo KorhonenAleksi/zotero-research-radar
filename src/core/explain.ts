@@ -69,7 +69,7 @@ export function noteHtml(
       ? `<p><strong>${escapeHtml(`AI (${info.ai.model}):`)}</strong> ${escapeHtml(aiSummary(info.ai).replace(/^AI /, ""))}</p>`
       : "",
     info.liftedByAi
-      ? "<p><em>No keyword rule matched; the AI rated this article as directly relevant to your interests.</em></p>"
+      ? "<p><em>No keyword rule matched; the AI rated this article as relevant to your interests.</em></p>"
       : "",
     `<p>Found ${escapeHtml(info.fetchedOn)} via ${escapeHtml(info.sources.join(" + "))}.</p>`,
     info.addedByHand

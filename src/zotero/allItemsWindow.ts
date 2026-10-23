@@ -166,6 +166,7 @@ async function init(
     for (const [value, label] of [
       ["newest", "Newest"],
       ["points", "Most points"],
+      ["ai", "Highest AI rating"],
     ] as const)
       sortBox.append(
         toggle(label, filter.sort === value, () => {
@@ -291,9 +292,16 @@ async function init(
           doc,
           "tr",
           {},
-          ...["Tier", "Points", "Article", "Journal", "Date", "Why", ""].map(
-            (t) => h(doc, "th", { text: t }),
-          ),
+          ...[
+            "Tier",
+            "Points",
+            "AI",
+            "Article",
+            "Journal",
+            "Date",
+            "Why",
+            "",
+          ].map((t) => h(doc, "th", { text: t })),
         ),
         ...shown.slice(0, MAX_ROWS).map((s) => {
           const lifted =
@@ -325,11 +333,18 @@ async function init(
                 class: `tier ${tier}`,
                 text: lifted ? "Possible (AI)" : TIER_LABEL[tier],
                 title: lifted
-                  ? "No keyword rule matched; the AI rated it 3/3"
+                  ? `No keyword rule matched; the AI rated it ${s.ai?.score}/3`
                   : undefined,
               }),
             ),
             h(doc, "td", { class: "num", text: String(s.score?.total ?? "–") }),
+            h(doc, "td", {
+              class: `num${s.ai && s.ai.context !== aiCtx ? " muted" : ""}`,
+              text: s.ai ? `${s.ai.score}/3` : "–",
+              title: s.ai
+                ? aiSummary(s.ai)
+                : "Not rated by the AI (yet). Up to the per-fetch limit are rated at each fetch.",
+            }),
             h(
               doc,
               "td",

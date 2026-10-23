@@ -138,12 +138,14 @@ describe("effectiveTier", () => {
     context,
   });
 
-  it("lifts Rest to Possible only on a current AI 3", () => {
+  it("lifts Rest to Possible only on a current AI 2 or 3", () => {
     expect(effectiveTier(score("rest"), ai(3), ctx)).toEqual({
       tier: "possible",
       liftedByAi: true,
     });
-    expect(effectiveTier(score("rest"), ai(2), ctx).tier).toBe("rest");
+    expect(effectiveTier(score("rest"), ai(2), ctx).tier).toBe("possible");
+    expect(effectiveTier(score("rest"), ai(1), ctx).tier).toBe("rest");
+    expect(effectiveTier(score("rest"), ai(2, "old"), ctx).tier).toBe("rest");
     expect(effectiveTier(score("rest"), ai(3, "old"), ctx).tier).toBe("rest");
     expect(effectiveTier(score("rest"), ai(3), null).tier).toBe("rest");
   });
