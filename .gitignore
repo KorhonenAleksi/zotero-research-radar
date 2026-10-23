@@ -4,6 +4,10 @@ build/
 .scaffold/
 *.xpi
 
+# Personal planning notes, kept locally only
+docs/brief.md
+docs/plan.md
+
 # Secrets and local config (never commit)
 .env
 .env.*

@@ -7,6 +7,5 @@ yarn.lock
 pnpm-lock.yaml
 .scaffold
 coverage
-# Author-written planning docs: keep as written
 # Generated from src/core/aiSetupPrompt.ts
 docs/ai-setup-prompt.md
