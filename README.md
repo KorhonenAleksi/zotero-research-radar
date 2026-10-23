@@ -1,11 +1,126 @@
 # Research Radar
 
-A Zotero 9/10 plugin that fetches new articles from a list of journals (RSS + Crossref),
-ranks every one into **High / Possible / Rest** with an explanation, and files matches
-into a synced **Radar** collection. It works fully without AI.
+A Zotero 9/10 plugin that fetches newly published articles from the journals
+you follow, ranks each one **High / Possible / Rest** against your own keyword
+rules and watched authors, and files the matches into a **Radar** collection
+in your library, with a note explaining why each one matched. It works fully
+without AI; AI ranking is an optional extra.
 
-Status: early development (MVP milestone). See `docs/brief.md` for the goals and
-the approved plan for the build order.
+Status: **test version (0.x)**. It writes items into your library, so please
+read "What it changes in your library" below before the first fetch.
+
+## Install
+
+Requires Zotero 9 or 10.
+
+1. Download `research-radar.xpi` from the latest
+   [release](https://github.com/KorhonenAleksi/research-radar/releases/latest).
+2. In Zotero: Tools → Plugins → gear icon → Install Plugin From File…, and
+   pick the downloaded file.
+
+Zotero checks for new versions automatically.
+
+## First-time setup
+
+Open Zotero Settings → **Research Radar**.
+
+1. **Journals.** Tick journals in the FT50 list, or search Crossref for any
+   other journal by title. Articles are fetched from Crossref by ISSN; an RSS
+   feed URL is optional and mainly adds abstracts some publishers don't send
+   to Crossref.
+2. **Keyword rules.** One rule per line of interest, e.g.
+   `"organizational decline" OR turnaround`. Words match in any form
+   (decline, declining) and in British or American spelling. Use "quotes" for
+   phrases, AND / OR / NOT in capitals, brackets, and `*` for word families
+   (`histor*` matches history and historical). Title matches count 3× abstract
+   matches by default.
+3. **Watched authors.** Add an ORCID iD for exact matching; without one,
+   family name plus first initial is used.
+4. Optional: your **email** under Options. It is sent to Crossref only, as
+   their "polite pool" asks, which gives faster and more reliable responses.
+
+Then run **Tools → Research Radar: Fetch now**. The first fetch looks back 30
+days and writes at most 15 new items. Automatic fetching (on startup and every
+12 hours) is **off** until you tick it under Options.
+
+Shortcut: **Set up with AI** at the top of the settings pane gives you a prompt
+to paste into an AI assistant together with your research notes; it drafts
+journals, rules and authors into a profile file you then import. You see a
+preview first, and importing only adds to your settings.
+
+## Daily use
+
+- **Radar → High / Possible** in your library hold the matches. Each item has
+  the tags `radar` and `radar:high` or `radar:possible`, and a child note with
+  the score and the matched terms or author.
+- **Keep** an article by adding it to any of your own collections, or by
+  adding a note or attachment to it.
+- **Dismiss** it by moving it to the Trash.
+- **Tools → Research Radar: All fetched articles…** lists everything fetched,
+  including the Rest tier, with filters by tier and journal and an **Add to
+  Radar** button.
+- **Right-click** any article for: Watch an author…, Follow this journal, Make
+  a rule from this article….
+- A pop-up after each fetch reports how many new High and Possible matches
+  were found.
+
+## What it changes in your library
+
+- It creates the collections **Radar**, **Radar/High** and **Radar/Possible**
+  in My Library (never in group libraries) and adds new journal-article items
+  there. Articles already in your library (same DOI) are not added again.
+- Items you haven't kept are moved to the **Trash** after 30 days (setting
+  under Options; 0 = never). Nothing is ever deleted permanently, and an item
+  you have filed elsewhere, annotated or given an attachment is never trashed.
+- **Tools → Research Radar: Remove untouched Radar items…** trashes every
+  Radar item you haven't kept, if you want to start over.
+- Radar items sync like any other item, so you can review them on the iPad or
+  phone apps.
+- Its own bookkeeping (everything fetched, scores) lives in a separate file,
+  `researchradar.sqlite`, in your Zotero data folder; Zotero's own database is
+  not touched by it. Uninstalling the plugin leaves your items as they are.
+
+## Optional AI ranking
+
+Off by default. Under **AI ranking**, enter any OpenAI-compatible endpoint
+(presets for Gemini, Ollama and LM Studio), a model and your own API key, and
+write a few sentences about your research under **Research interests**. The AI
+rates each new article 0–3; the rating is shown next to the keyword score, and
+a 3 moves an article to Radar/Possible even if no rule matched. It never hides
+or lowers anything.
+
+What is sent: the article's title and abstract and your interests paragraph.
+Never anything from your library, notes or annotations. The API key is stored
+in Zotero's settings on your computer only; it is not synced. If the endpoint
+can't be reached (for example off the university VPN), Research Radar falls
+back to the keyword scores without complaint.
+
+## What leaves your computer
+
+- Requests to Crossref (`api.crossref.org`) for each followed journal, with
+  your email only if you entered one.
+- Requests to the RSS feed URLs you added.
+- If AI ranking is on: titles, abstracts and your interests paragraph to the
+  endpoint you configured.
+
+Nothing else, and no data is sent to the plugin's author.
+
+## Known limitations
+
+- Abstracts depend on the publisher. Some deposit few abstracts with
+  Crossref, so their articles are matched on the title alone unless you add
+  the journal's RSS feed.
+- Harvard Business Review registers no DOIs, so it works only through its RSS
+  feed.
+- Fetching runs only while Zotero is open.
+
+## Reporting problems
+
+Please open an [issue](https://github.com/KorhonenAleksi/research-radar/issues)
+or email me. Useful to include: Zotero version, what you did, and the result
+lines from the top of the Research Radar settings pane. For errors, Help →
+Debug Output Logging → Enable, reproduce the problem, then Submit and send the
+Debug ID.
 
 ## Development
 
@@ -14,9 +129,13 @@ npm install
 npm test            # unit tests for the pure core (src/core), runs in Node
 npm run build       # → build/research-radar.xpi
 npm start           # hot-reload into a separate dev Zotero profile (needs .env, see .env.example)
+npm run release     # bump the version, tag and push; GitHub Actions then
+                    # publishes the release and update.json
 ```
 
-Layout: `src/core/` is pure TypeScript with no Zotero dependency and is unit-tested.
-`src/zotero/` holds thin adapters to Zotero's API. `addon/` holds static plugin files.
+Layout: `src/core/` is pure TypeScript with no Zotero dependency and is
+unit-tested. `src/zotero/` holds thin adapters to Zotero's API. `addon/` holds
+static plugin files. `docs/brief.md` has the goals; `docs/decisions.md` records
+structural choices.
 
 Built on [windingwind/zotero-plugin-template](https://github.com/windingwind/zotero-plugin-template). Licensed AGPL-3.0-or-later.

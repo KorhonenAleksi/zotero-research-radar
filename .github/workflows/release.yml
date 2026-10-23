@@ -1,0 +1,31 @@
+name: Release
+
+# Runs when `npm run release` pushes a version tag (v1.2.3). Builds the
+# plugin, publishes a GitHub release with the .xpi, and updates update.json
+# on the "release" tag so installed copies auto-update.
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The changelog is built from commits since the previous tag
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - run: npm run release

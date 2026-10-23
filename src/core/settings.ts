@@ -11,7 +11,7 @@ import type { Journal } from "./types";
  */
 
 export interface GeneralSettings {
-  /** Fetch on startup and every N hours. Off by default during development. */
+  /** Fetch on startup and every N hours. Off by default: nothing runs until the user asks. */
   autoFetch: boolean;
   fetchIntervalHours: number;
   /** Unkept Radar items go to the Trash after this many days. 0 = never. */
