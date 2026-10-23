@@ -1,4 +1,4 @@
-# Research Radar
+# Zotero Research Radar
 
 A Zotero 9/10 plugin that fetches newly published articles from the journals
 you follow, ranks each one **High / Possible / Rest** against your own keyword
@@ -40,8 +40,8 @@ your restored copy (see the
 
 Requires Zotero 9 or 10. Back up your library first (see above).
 
-1. Download `research-radar.xpi` from the latest
-   [release](https://github.com/KorhonenAleksi/research-radar/releases/latest).
+1. Download `zotero-research-radar.xpi` from the latest
+   [release](https://github.com/KorhonenAleksi/zotero-research-radar/releases/latest).
 2. In Zotero: Tools → Plugins → gear icon → Install Plugin From File…, and
    pick the downloaded file.
 
@@ -175,7 +175,7 @@ Nothing else, and no data is sent to the plugin's author.
 
 ## Reporting problems
 
-Please open an [issue](https://github.com/KorhonenAleksi/research-radar/issues)
+Please open an [issue](https://github.com/KorhonenAleksi/zotero-research-radar/issues)
 or contact me. Useful to include: Zotero version, what you did, and the result
 lines from the top of the Research Radar settings pane. For errors, Help →
 Debug Output Logging → Enable, reproduce the problem, then Submit and send the
@@ -186,7 +186,7 @@ Debug ID.
 ```sh
 npm install
 npm test            # unit tests for the pure core (src/core), runs in Node
-npm run build       # → build/research-radar.xpi
+npm run build       # → build/zotero-research-radar.xpi
 npm start           # hot-reload into a separate dev Zotero profile (needs .env, see .env.example)
 npm run release     # bump the version, tag and push; GitHub Actions then
                     # publishes the release (.xpi) and update.json

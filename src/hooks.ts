@@ -16,7 +16,8 @@ async function onStartup() {
   Zotero.PreferencePanes.register({
     pluginID: addon.data.config.addonID,
     src: rootURI + "content/preferences.xhtml",
-    label: addon.data.config.addonName,
+    // Short label in the settings sidebar; the plugin list shows the full name
+    label: "Research Radar",
     image: `chrome://${addon.data.config.addonRef}/content/icons/favicon.png`,
     // ?v= makes Zotero load this version's stylesheet, not a cached older copy
     stylesheets: [

@@ -1,10 +1,10 @@
 {
-  "name": "research-radar",
+  "name": "zotero-research-radar",
   "type": "module",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Surfaces newly published research from your journals, ranked and explained, inside Zotero",
   "config": {
-    "addonName": "Research Radar",
+    "addonName": "Zotero Research Radar",
     "addonID": "researchradar@korhonenaleksi.github.io",
     "addonRef": "researchradar",
     "addonInstance": "ResearchRadar",
@@ -12,13 +12,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KorhonenAleksi/research-radar.git"
+    "url": "git+https://github.com/KorhonenAleksi/zotero-research-radar.git"
   },
   "author": "Aleksi Korhonen",
   "bugs": {
-    "url": "https://github.com/KorhonenAleksi/research-radar/issues"
+    "url": "https://github.com/KorhonenAleksi/zotero-research-radar/issues"
   },
-  "homepage": "https://github.com/KorhonenAleksi/research-radar#readme",
+  "homepage": "https://github.com/KorhonenAleksi/zotero-research-radar#readme",
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "start": "zotero-plugin serve",
