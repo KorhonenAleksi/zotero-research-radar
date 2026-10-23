@@ -1,6 +1,11 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { buildWorksUrl, mapWorks } from "../../src/core/crossref";
+import {
+  buildEarlierWorksUrl,
+  buildWorksUrl,
+  mapWorks,
+  nextCursor,
+} from "../../src/core/crossref";
 import { parseFeed } from "../../src/core/feed";
 import { cleanAbstract, stripMarkup } from "../../src/core/markup";
 import { mergeItems } from "../../src/core/merge";
@@ -33,6 +38,33 @@ describe("buildWorksUrl", () => {
       "filter=issn:0143-2095,issn:1097-0266,from-created-date:2026-09-01,type:journal-article",
     );
     expect(url).not.toContain("mailto");
+  });
+});
+
+describe("buildEarlierWorksUrl and nextCursor", () => {
+  it("asks for articles published since a year, up to a date, by cursor", () => {
+    const url = decodeURIComponent(
+      buildEarlierWorksUrl(SMJ, 2020, "2026-09-23", {
+        cursor: "AoJ+abc",
+        mailto: "a@b.fi",
+      }),
+    );
+    expect(url).toContain(
+      "filter=issn:0143-2095,issn:1097-0266,from-pub-date:2020-01-01,until-created-date:2026-09-23,type:journal-article",
+    );
+    expect(url).toContain("rows=1000");
+    expect(url).toContain("cursor=AoJ+abc");
+    expect(url).toContain("mailto=a@b.fi");
+    expect(buildEarlierWorksUrl(SMJ, 2020, "2026-09-23")).toContain("cursor=*");
+  });
+
+  it("follows the cursor only while pages are full", () => {
+    const page = (n: number) => ({
+      message: { items: Array(n).fill({}), "next-cursor": "next" },
+    });
+    expect(nextCursor(page(1000), 1000)).toBe("next");
+    expect(nextCursor(page(999), 1000)).toBeNull();
+    expect(nextCursor({}, 1000)).toBeNull();
   });
 });
 

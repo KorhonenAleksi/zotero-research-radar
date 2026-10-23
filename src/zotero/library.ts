@@ -17,6 +17,8 @@ export interface RadarCollections {
   radar: number;
   high: number;
   possible: number;
+  /** Radar/Earlier, for the initial search; only created once it is needed. */
+  earlier?: number;
 }
 
 export const userLibraryID = () => Zotero.Libraries.userLibraryID;
@@ -40,15 +42,20 @@ async function createCollection(
   return (await c.saveTx()) as number;
 }
 
-/** The Radar, Radar/High and Radar/Possible collections; created if missing or trashed. */
-export async function ensureCollections(): Promise<RadarCollections> {
+/**
+ * The Radar, Radar/High and Radar/Possible collections, and Radar/Earlier
+ * when asked for or already there; created if missing or trashed.
+ */
+export async function ensureCollections(
+  opts: { earlier?: boolean } = {},
+): Promise<RadarCollections> {
   let radar = liveCollection(getPref("collectionRadar"))?.id;
   if (!radar) {
     radar = await createCollection("Radar");
     setPref("collectionRadar", radar);
   }
   const sub = async (
-    key: "collectionHigh" | "collectionPossible",
+    key: "collectionHigh" | "collectionPossible" | "collectionEarlier",
     name: string,
   ) => {
     const c = liveCollection(getPref(key));
@@ -57,10 +64,15 @@ export async function ensureCollections(): Promise<RadarCollections> {
     setPref(key, id);
     return id;
   };
+  const earlierExists = !!liveCollection(getPref("collectionEarlier"));
   return {
     radar,
     high: await sub("collectionHigh", "High"),
     possible: await sub("collectionPossible", "Possible"),
+    earlier:
+      opts.earlier || earlierExists
+        ? await sub("collectionEarlier", "Earlier")
+        : undefined,
   };
 }
 
@@ -96,7 +108,13 @@ export async function createRadarItem(
   tier: Exclude<Tier, "rest">,
   collections: RadarCollections,
   fetchedOn: string,
-  extra: { addedByHand?: boolean; ai?: AiJudgement; liftedByAi?: boolean } = {},
+  extra: {
+    addedByHand?: boolean;
+    ai?: AiJudgement;
+    liftedByAi?: boolean;
+    /** From the initial search: goes to Radar/Earlier. */
+    earlier?: boolean;
+  } = {},
 ): Promise<number> {
   const zi = new Zotero.Item("journalArticle");
   zi.libraryID = userLibraryID();
@@ -127,9 +145,14 @@ export async function createRadarItem(
   zi.addTag("radar");
   zi.addTag(`radar:${tier}`);
   if (extra.liftedByAi) zi.addTag("radar:ai");
-  zi.setCollections([
-    tier === "high" ? collections.high : collections.possible,
-  ]);
+  if (extra.earlier) zi.addTag("radar:earlier");
+  const target =
+    extra.earlier && collections.earlier
+      ? collections.earlier
+      : tier === "high"
+        ? collections.high
+        : collections.possible;
+  zi.setCollections([target]);
 
   const note = new Zotero.Item("note");
   note.libraryID = userLibraryID();
@@ -156,7 +179,12 @@ export function cleanupVerdict(
 ): CleanupVerdict {
   const zi = Zotero.Items.get(itemID) as Zotero.Item | false;
   if (!zi || zi.deleted) return "gone";
-  const ours = new Set([radar.radar, radar.high, radar.possible]);
+  const ours = new Set([
+    radar.radar,
+    radar.high,
+    radar.possible,
+    radar.earlier,
+  ]);
   if (zi.getCollections().some((id: number) => !ours.has(id))) return "kept";
   if (zi.numAttachments() > 0 || zi.numNotes() > 1) return "kept";
   return "trash";
@@ -176,6 +204,7 @@ export function radarCollectionIds(): Set<number> {
       getPref("collectionRadar"),
       getPref("collectionHigh"),
       getPref("collectionPossible"),
+      getPref("collectionEarlier"),
     ].filter((id) => !!id),
   );
 }

@@ -22,7 +22,13 @@ export interface GeneralSettings {
   firstFetchDays: number;
   /** Optional contact email sent to Crossref (polite pool). Empty = not sent. */
   mailto: string;
+  /** The initial search looks for articles published since this year. */
+  earlierFromYear: number;
 }
+
+/** Default start year for the initial search: two years back. */
+export const defaultEarlierFromYear = (now = new Date()) =>
+  now.getFullYear() - 2;
 
 export const DEFAULT_GENERAL: GeneralSettings = {
   autoFetch: false,
@@ -31,6 +37,7 @@ export const DEFAULT_GENERAL: GeneralSettings = {
   maxNewPerRun: 15,
   firstFetchDays: 30,
   mailto: "",
+  earlierFromYear: defaultEarlierFromYear(),
 };
 
 export const LIMITS = {
@@ -38,6 +45,7 @@ export const LIMITS = {
   cleanupDays: [0, 365],
   maxNewPerRun: [1, 200],
   firstFetchDays: [1, 365],
+  earlierFromYear: [1950, 2100],
   weight: [0, 100],
 } as const;
 

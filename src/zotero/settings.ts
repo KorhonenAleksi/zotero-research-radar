@@ -50,6 +50,17 @@ export function loadSettings(): LoadedSettings {
         DEFAULT_GENERAL.firstFetchDays,
       ),
       mailto: String(getPref("mailto") ?? "").trim(),
+      // 0 = never chosen: two years back
+      earlierFromYear: Math.min(
+        new Date().getFullYear(),
+        getPref("earlierFromYear")
+          ? clamp(
+              getPref("earlierFromYear"),
+              LIMITS.earlierFromYear,
+              DEFAULT_GENERAL.earlierFromYear,
+            )
+          : DEFAULT_GENERAL.earlierFromYear,
+      ),
     },
     journals: journals.value,
     scoring: {

@@ -24,6 +24,8 @@ declare namespace _ZoteroTypes {
       "collectionRadar": number;
       "collectionHigh": number;
       "collectionPossible": number;
+      "collectionEarlier": number;
+      "earlierFromYear": number;
       "lastRun": string;
       "repairedEscapedTitles": boolean;
       "lastRunSummary": string;

@@ -66,7 +66,7 @@ describe("Store", () => {
     const [row] = await db.query(
       "SELECT value FROM meta WHERE key = 'schema_version'",
     );
-    expect(row.value).toBe("2");
+    expect(row.value).toBe("3");
   });
 
   it("refuses a database from a newer plugin version", async () => {
@@ -238,8 +238,10 @@ describe("Store schema 2 (AI judgements)", () => {
     const [v] = await db.query(
       "SELECT value FROM meta WHERE key = 'schema_version'",
     );
-    expect(v.value).toBe("2");
+    expect(v.value).toBe("3");
     expect(await store.getItem("doi:10.1/a")).toBeDefined();
+    const [row] = await db.query("SELECT earlier FROM items");
+    expect(row.earlier).toBe(0);
   });
 
   it("stores AI judgements with their items", async () => {
@@ -257,6 +259,24 @@ describe("Store schema 2 (AI judgements)", () => {
     await store.saveAiJudgement("doi:10.1/a", judgement);
     const [s] = await store.allItems();
     expect(s.ai).toEqual(judgement);
+  });
+});
+
+describe("Store schema 3 (initial search)", () => {
+  it("marks new articles from the initial search as earlier; known ones keep their flag", async () => {
+    const store = new Store(memoryDb());
+    await store.init();
+    await store.upsertItems([item({})]);
+    const res = await store.upsertItems(
+      [item({}), item({ key: "doi:10.1/b", doi: "10.1/b", title: "B" })],
+      { earlier: true },
+    );
+    expect(res.map((r) => r.isNew)).toEqual([false, true]);
+    const byKey = Object.fromEntries(
+      (await store.allItems()).map((s) => [s.item.key, s.earlier]),
+    );
+    expect(byKey).toEqual({ "doi:10.1/a": false, "doi:10.1/b": true });
+    expect(await store.earlierKeys()).toEqual(new Set(["doi:10.1/b"]));
   });
 });
 

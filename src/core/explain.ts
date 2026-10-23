@@ -50,6 +50,8 @@ export function noteHtml(
     addedByHand?: boolean;
     ai?: AiJudgement;
     liftedByAi?: boolean;
+    /** Found by the initial search for earlier articles. */
+    earlier?: boolean;
   },
 ): string {
   const head = info.liftedByAi
@@ -71,10 +73,12 @@ export function noteHtml(
     info.liftedByAi
       ? "<p><em>No keyword rule matched; the AI rated this article as relevant to your interests.</em></p>"
       : "",
-    `<p>Found ${escapeHtml(info.fetchedOn)} via ${escapeHtml(info.sources.join(" + "))}.</p>`,
+    `<p>Found ${escapeHtml(info.fetchedOn)} via ${escapeHtml(info.sources.join(" + "))}${info.earlier ? " by the initial search for earlier articles" : ""}.</p>`,
     info.addedByHand
       ? "<p>You added this article by hand from \u201cAll fetched articles\u201d.</p>"
       : "",
-    "<p>To keep this article, add it to one of your own collections. To dismiss it, move it to the Trash. Untouched Radar items are cleaned up automatically after the period set in Research Radar's settings.</p>",
+    info.earlier
+      ? "<p>To keep this article, add it to one of your own collections. To dismiss it, move it to the Trash. Articles from the initial search stay in Radar/Earlier until you move them, or until they no longer match your settings.</p>"
+      : "<p>To keep this article, add it to one of your own collections. To dismiss it, move it to the Trash. Untouched Radar items are cleaned up automatically after the period set in Research Radar's settings.</p>",
   ].join("");
 }

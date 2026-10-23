@@ -255,6 +255,10 @@ td button {
   margin: 4px 0;
 }
 
+.seg[hidden] {
+  display: none;
+}
+
 td.why .ai {
   margin-top: 4px;
   padding-top: 4px;

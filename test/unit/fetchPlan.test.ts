@@ -5,7 +5,9 @@ import {
   popupLines,
   POPUP_LINE_MAX,
   mapPool,
+  selectEarlierToWrite,
   selectForAi,
+  selectToTidy,
   selectToWrite,
   sinceDate,
   summaryLines,
@@ -53,8 +55,21 @@ const stored = (over: Partial<StoredItem>): StoredItem => ({
   lastSeen: "2026-10-22T10:00:00Z",
   baseline: false,
   inLibrary: false,
+  earlier: false,
   score: score("possible", 3),
   ...over,
+});
+
+const link = (
+  status: "active" | "kept" | "dismissed" | "tidied",
+): NonNullable<StoredItem["link"]> => ({
+  key: "k",
+  libraryId: 1,
+  zoteroItemId: 1,
+  tier: "possible",
+  status,
+  createdAt: "",
+  statusAt: "",
 });
 
 describe("selectToWrite", () => {
@@ -264,15 +279,6 @@ describe("AI in selection, notes and pop-ups", () => {
   });
 
   it("also rates articles already in Radar, after the others; not kept or dismissed ones", () => {
-    const link = (status: "active" | "kept" | "dismissed") => ({
-      key: "k",
-      libraryId: 1,
-      zoteroItemId: 1,
-      tier: "possible" as const,
-      status,
-      createdAt: "",
-      statusAt: "",
-    });
     const inRadar = stored({
       firstSeen: "2026-10-22T11:00:00Z",
       link: link("active"),
@@ -332,5 +338,121 @@ describe("AI in selection, notes and pop-ups", () => {
       "No new matches",
       "AI rated 50: none relevant (2–3/3)",
     ]);
+  });
+});
+
+describe("initial search and tidying", () => {
+  const ctx = "ctx-now";
+  const judged = (scoreN: 0 | 1 | 2 | 3, context = ctx) => ({
+    score: scoreN,
+    interest: "",
+    reason: "",
+    titleOnly: false,
+    model: "m",
+    context,
+  });
+
+  it("keeps earlier articles out of the regular Radar folders", () => {
+    const earlier = stored({ earlier: true, score: score("high", 9) });
+    expect(
+      selectToWrite([earlier], { now, windowDays: 30, max: 10 }).write,
+    ).toEqual([]);
+  });
+
+  it("files earlier articles that are High, or rated 2-3 by the AI, strongest first", () => {
+    const high = stored({ earlier: true, score: score("high", 6) });
+    const possibleAi = stored({
+      earlier: true,
+      score: score("possible", 2),
+      ai: judged(2),
+    });
+    const possibleOnly = stored({ earlier: true, score: score("possible", 4) });
+    const staleAi = stored({
+      earlier: true,
+      score: score("possible", 2),
+      ai: judged(3, "old"),
+    });
+    const owned = stored({
+      earlier: true,
+      score: score("high", 9),
+      inLibrary: true,
+    });
+    const notEarlier = stored({ score: score("high", 9) });
+    const sel = selectEarlierToWrite(
+      [possibleOnly, possibleAi, staleAi, owned, notEarlier, high],
+      { max: 1, aiContext: ctx },
+    );
+    expect(sel).toEqual({ write: [high], waiting: 1 });
+    expect(
+      selectEarlierToWrite([possibleAi], { max: 5, aiContext: null }).write,
+    ).toEqual([]);
+  });
+
+  it("tidies untouched Radar items that no longer match, nothing else", () => {
+    const stale = stored({ score: score("rest", 0), link: link("active") });
+    const stillMatches = stored({ link: link("active") });
+    const aiFind = stored({
+      score: score("rest", 0),
+      ai: judged(2),
+      link: link("active"),
+    });
+    const kept = stored({ score: score("rest", 0), link: link("kept") });
+    const earlierNowPossible = stored({
+      earlier: true,
+      score: score("possible", 3),
+      link: link("active"),
+    });
+    expect(
+      selectToTidy(
+        [stale, stillMatches, aiFind, kept, earlierNowPossible],
+        ctx,
+      ),
+    ).toEqual([stale, earlierNowPossible]);
+  });
+
+  it("writes a tidied article again once it matches again", () => {
+    const back = stored({ link: link("tidied") });
+    expect(
+      selectToWrite([back], { now, windowDays: 30, max: 5 }).write,
+    ).toEqual([back]);
+  });
+
+  it("sends earlier keyword matches to the AI after new articles, but not the whole backlog", () => {
+    const fresh = stored({});
+    const inRadar = stored({ link: link("active") });
+    const earlierMatch = stored({
+      earlier: true,
+      score: score("possible", 1),
+    });
+    const earlierRest = stored({ earlier: true, score: score("rest", 0) });
+    expect(
+      selectForAi([inRadar, earlierRest, earlierMatch, fresh], {
+        now,
+        windowDays: 30,
+        context: ctx,
+        max: 10,
+      }),
+    ).toEqual([fresh, earlierMatch, inRadar]);
+  });
+
+  it("reports the initial search and tidying in short pop-up lines", () => {
+    const s = {
+      ...emptySummary(),
+      tidied: 39,
+      earlier: { fromYear: 2020, found: 13204, written: 50, waiting: 112 },
+    };
+    const lines = popupLines(s);
+    expect(lines).toEqual([
+      "Since 2020: 13204 earlier articles",
+      "No new matches",
+      "50 added to Radar/Earlier",
+      "112 earlier ones next time",
+      "39 no longer matching: to Trash",
+    ]);
+    for (const l of lines)
+      expect(l.length, l).toBeLessThanOrEqual(POPUP_LINE_MAX);
+    expect(summaryLines(s, 15)).toContain(
+      "Initial search: 13204 earlier articles since 2020 added to All fetched articles.",
+    );
   });
 });

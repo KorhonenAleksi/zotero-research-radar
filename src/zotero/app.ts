@@ -209,7 +209,7 @@ export async function stopApp(): Promise<void> {
 }
 
 export async function fetchNow(
-  opts: { quietIfNothing?: boolean } = {},
+  opts: { quietIfNothing?: boolean; earlierFromYear?: number } = {},
 ): Promise<void> {
   if (!store) {
     popup(
@@ -230,13 +230,22 @@ export async function fetchNow(
   }
   const progress = opts.quietIfNothing
     ? null
-    : new Popup(`Fetching ${journals.length} journals…`);
+    : new Popup(
+        opts.earlierFromYear !== undefined
+          ? `Searching since ${opts.earlierFromYear}: takes minutes…`
+          : `Fetching ${journals.length} journals…`,
+      );
   try {
-    const result = await runFetch(store);
+    const result = await runFetch(store, {
+      earlierFromYear: opts.earlierFromYear,
+    });
     if (!result) return;
     const { summary, lines } = result;
     Zotero.debug(`[Research Radar] fetch done: ${JSON.stringify(summary)}`);
-    const found = summary.written.high + summary.written.possible;
+    const found =
+      summary.written.high +
+      summary.written.possible +
+      (summary.earlier?.written ?? 0);
     const type: LineType =
       found > 0 ? "success" : summary.errors.length ? "fail" : "default";
     // Matches stay on screen until clicked; "nothing new" closes by itself
@@ -256,6 +265,11 @@ export async function fetchNow(
     if (progress) progress.finish(msg, "fail", -1);
     else popup(msg, "fail", -1);
   }
+}
+
+/** The initial search, started from the settings pane. */
+export function runInitialSearch(fromYear: number): void {
+  void fetchNow({ earlierFromYear: fromYear });
 }
 
 async function removeAll(): Promise<void> {

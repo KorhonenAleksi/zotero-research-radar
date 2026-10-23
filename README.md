@@ -70,6 +70,9 @@ Then run **Tools → Research Radar: Fetch now**. The first fetch looks back 30
 days and writes at most 15 new items. Automatic fetching (on startup and every
 12 hours) is **off** until you tick it under Options.
 
+Optional, once: the **initial search** (see below) also looks through your
+journals' earlier articles.
+
 Shortcut: **Set up with AI** at the top of the settings pane gives you a prompt
 to paste into an AI assistant together with your research notes; it drafts
 journals, rules and authors into a profile file you then import. You see a
@@ -84,21 +87,46 @@ preview first, and importing only adds to your settings.
   adding a note or attachment to it.
 - **Dismiss** it by moving it to the Trash.
 - **Tools → Research Radar: All fetched articles…** lists everything fetched,
-  including the Rest tier, with filters by tier and journal and an **Add to
-  Radar** button.
+  including the Rest tier, with filters by tier and journal, sorting by
+  points or AI rating, and an **Add article to library** button.
 - **Right-click** any article for: Watch an author…, Follow this journal, Make
   a rule from this article….
 - A pop-up after each fetch reports how many new High and Possible matches
   were found.
+- If you change your rules, untouched Radar items that no longer match are
+  moved to the Trash at the next fetch. They stay listed in All fetched
+  articles and can be added back.
+
+## Initial search for earlier articles
+
+Regular fetches only look at new articles. To also catch relevant articles
+from earlier years, open Settings → Research Radar → **Initial search**,
+choose a start year (default: two years back) and click **Run initial
+search**.
+
+- Every article your journals have published since that year is added to
+  **All fetched articles**, marked **Earlier** (use the New / Earlier filter
+  there). This can be thousands of articles and take several minutes.
+- Only the strongest go into your library, in **Radar/Earlier** (tag
+  `radar:earlier`): High keyword matches, and keyword matches the AI rates
+  2–3 if AI ranking is on. At most 50 are added per fetch; the rest follow at
+  later fetches. Radar/Earlier is never cleaned up by age.
+- The AI rates only the earlier articles that matched a keyword rule, after
+  each fetch's new articles. You can raise "Max articles sent per fetch" to
+  get through them faster.
+- Added journals later? Run it again; articles already found are skipped.
 
 ## What it changes in your library
 
 - It creates the collections **Radar**, **Radar/High** and **Radar/Possible**
-  in My Library (never in group libraries) and adds new journal-article items
-  there. Articles already in your library (same DOI) are not added again.
+  in My Library (never in group libraries), plus **Radar/Earlier** if you run
+  the initial search, and adds journal-article items there. Articles already
+  in your library (same DOI) are not added again.
 - Items you haven't kept are moved to the **Trash** after 30 days (setting
-  under Options; 0 = never). Nothing is ever deleted permanently, and an item
-  you have filed elsewhere, annotated or given an attachment is never trashed.
+  under Options; 0 = never; not for Radar/Earlier), or at the next fetch if
+  they no longer match your settings. Nothing is ever deleted permanently,
+  and an item you have filed elsewhere, annotated or given an attachment is
+  never trashed.
 - **Tools → Research Radar: Remove untouched Radar items…** trashes every
   Radar item you haven't kept, if you want to start over.
 - Radar items sync like any other item, so you can review them on the iPad or

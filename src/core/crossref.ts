@@ -48,6 +48,45 @@ export function buildWorksUrl(
   return `${CROSSREF_WORKS}?${params}`;
 }
 
+/**
+ * Crossref query for the initial search: articles in one journal published
+ * since the start of `fromYear` and registered up to `until` (YYYY-MM-DD),
+ * where the regular fetch takes over. Paged with a cursor ("*" for the first
+ * page; then `nextCursor` of the previous response).
+ */
+export function buildEarlierWorksUrl(
+  journal: Pick<Journal, "issnPrint" | "issnElectronic">,
+  fromYear: number,
+  until: string,
+  opts: { rows?: number; cursor?: string; mailto?: string } = {},
+): string {
+  const issns = [journal.issnPrint, journal.issnElectronic].filter(Boolean);
+  if (issns.length === 0) throw new Error("Journal has no ISSN");
+  const filter = [
+    ...issns.map((i) => `issn:${i}`),
+    `from-pub-date:${fromYear}-01-01`,
+    `until-created-date:${until}`,
+    "type:journal-article",
+  ].join(",");
+  const params = new URLSearchParams({
+    filter,
+    rows: String(opts.rows ?? 1000),
+    select: SELECT,
+    cursor: opts.cursor ?? "*",
+  });
+  if (opts.mailto) params.set("mailto", opts.mailto);
+  return `${CROSSREF_WORKS}?${params}`;
+}
+
+/** The cursor for the next page, or null when this page was the last. */
+export function nextCursor(response: unknown, rows: number): string | null {
+  const m = (response as any)?.message;
+  const items = m?.items;
+  const cursor = m?.["next-cursor"];
+  if (!Array.isArray(items) || items.length < rows) return null;
+  return typeof cursor === "string" && cursor ? cursor : null;
+}
+
 interface CrossrefDate {
   "date-parts"?: Array<Array<number | null>>;
 }

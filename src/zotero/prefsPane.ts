@@ -19,6 +19,7 @@ import { getPref, setPref } from "../utils/prefs";
 import { clear, h } from "./dom";
 import { getJson } from "./http";
 import { judgeArticle } from "./ai";
+import { runInitialSearch } from "./app";
 import {
   AI_MAX_PER_RUN_LIMITS,
   loadAiSettings,
@@ -636,6 +637,37 @@ export function initPrefsPane(win: Window): void {
   bindText("aiApiKey");
   bindText("aiReasoningEffort");
   bindNumber("aiMaxPerRun", AI_MAX_PER_RUN_LIMITS, 50);
+
+  // ---- initial search ----
+  const yearInput = el("opt-earlierFromYear") as HTMLInputElement;
+  const readYear = () =>
+    Math.min(
+      new Date().getFullYear(),
+      clamp(
+        yearInput.value,
+        LIMITS.earlierFromYear,
+        loadSettings().general.earlierFromYear,
+      ),
+    );
+  yearInput.value = String(loadSettings().general.earlierFromYear);
+  yearInput.max = String(new Date().getFullYear());
+  yearInput.addEventListener("change", () => {
+    const year = readYear();
+    yearInput.value = String(year);
+    setPref("earlierFromYear", year);
+  });
+  el("earlier-run").addEventListener("click", () => {
+    const year = readYear();
+    yearInput.value = String(year);
+    setPref("earlierFromYear", year);
+    if (loadSettings().journals.length === 0) {
+      el("earlier-status").textContent = "Add journals first.";
+      return;
+    }
+    runInitialSearch(year);
+    el("earlier-status").textContent =
+      "Started: progress in the pop-up, results under Last fetch at the top.";
+  });
 
   const preset = (baseUrl: string, model: string, effort: string) => () => {
     const set = (key: PrefKey, value: string) => {

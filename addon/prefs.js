@@ -18,6 +18,9 @@ pref("thresholdPossible", 1);
 pref("collectionRadar", 0);
 pref("collectionHigh", 0);
 pref("collectionPossible", 0);
+pref("collectionEarlier", 0);
+// Initial search: articles published since this year (0 = two years back)
+pref("earlierFromYear", 0);
 pref("lastRun", "");
 // One-time repair of "&amp;" in journal names written by 0.6.0 and earlier
 pref("repairedEscapedTitles", false);

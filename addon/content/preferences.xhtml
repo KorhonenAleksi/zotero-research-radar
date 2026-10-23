@@ -154,6 +154,35 @@
   </groupbox>
 
   <groupbox>
+    <label><html:h2>Initial search (earlier articles)</html:h2></label>
+    <html:p class="rr-muted">
+      Regular fetches only look at new articles. The initial search goes further
+      back, once: every article your journals have published since the chosen
+      year is added to All fetched articles, marked Earlier. The strongest ones
+      (High, or rated 2–3 by the AI) go to Radar/Earlier, up to 50 per fetch;
+      Radar/Earlier is never cleaned up by age. The search can take several
+      minutes. Run it again after adding journals: articles already found are
+      skipped.
+    </html:p>
+    <html:div class="rr-row">
+      <html:label for="researchradar-opt-earlierFromYear"
+        >Articles published since</html:label
+      >
+      <html:input
+        type="number"
+        class="rr-num"
+        id="researchradar-opt-earlierFromYear"
+        min="1950"
+        max="2100"
+      />
+      <html:button id="researchradar-earlier-run"
+        >Run initial search</html:button
+      >
+      <html:span id="researchradar-earlier-status" class="rr-muted"></html:span>
+    </html:div>
+  </groupbox>
+
+  <groupbox>
     <label><html:h2>Options</html:h2></label>
     <html:div class="rr-options">
       <html:label class="rr-check">

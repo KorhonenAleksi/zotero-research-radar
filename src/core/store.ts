@@ -25,7 +25,8 @@ export type LinkStatus =
   | "kept" // user added it to one of their own collections
   | "dismissed" // user trashed or deleted it: negative feedback
   | "expired" // cleanup trashed it after N days
-  | "removed"; // removed by "Remove all Radar items"
+  | "removed" // removed by "Remove all Radar items"
+  | "tidied"; // trashed because it no longer matches the current settings
 
 export interface Link {
   key: string;
@@ -45,13 +46,15 @@ export interface StoredItem {
   baseline: boolean;
   /** The user already had this article in their library; never written. */
   inLibrary: boolean;
+  /** Found by the initial search (older than the regular fetch looks back). */
+  earlier: boolean;
   score?: ScoreResult;
   /** Optional AI judgement (may be outdated: compare its context). */
   ai?: AiJudgement;
   link?: Link;
 }
 
-const SCHEMA_VERSION = 2;
+const SCHEMA_VERSION = 3;
 
 const MIGRATIONS: Record<number, string[]> = {
   1: [
@@ -100,6 +103,8 @@ const MIGRATIONS: Record<number, string[]> = {
       judgement TEXT NOT NULL,
       judged_at TEXT NOT NULL)`,
   ],
+  // 0.8.0: articles found by the initial search
+  3: ["ALTER TABLE items ADD COLUMN earlier INTEGER NOT NULL DEFAULT 0"],
 };
 
 export class Store {
@@ -143,7 +148,11 @@ export class Store {
    */
   async upsertItems(
     items: RadarItem[],
-    opts: { baseline?: (item: RadarItem) => boolean } = {},
+    opts: {
+      baseline?: (item: RadarItem) => boolean;
+      /** Mark new items as found by the initial search. Existing items keep their flag. */
+      earlier?: boolean;
+    } = {},
   ): Promise<Array<{ item: RadarItem; isNew: boolean }>> {
     const now = this.now();
     return this.db.transaction(async () => {
@@ -181,7 +190,7 @@ export class Store {
           out.push({ item: merged, isNew: false });
         } else {
           await this.db.run(
-            "INSERT INTO items (key, title_key, journal_id, doi, data, first_seen, last_seen, baseline) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO items (key, title_key, journal_id, doi, data, first_seen, last_seen, baseline, earlier) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             [
               item.key,
               tKey,
@@ -191,6 +200,7 @@ export class Store {
               now,
               now,
               opts.baseline?.(item) ? 1 : 0,
+              opts.earlier ? 1 : 0,
             ],
           );
           out.push({ item, isNew: true });
@@ -228,6 +238,7 @@ export class Store {
       "last_seen",
       "baseline",
       "in_library",
+      "earlier",
       "result",
       "judgement",
       "library_id",
@@ -238,7 +249,7 @@ export class Store {
       "status_at",
     ];
     const rows = await this.db.query(
-      `SELECT i.data, i.first_seen, i.last_seen, i.baseline, i.in_library, s.result, a.judgement,
+      `SELECT i.data, i.first_seen, i.last_seen, i.baseline, i.in_library, i.earlier, s.result, a.judgement,
               l.library_id, l.zotero_item_id, l.tier AS ltier, l.status, l.created_at, l.status_at
        FROM items i
        LEFT JOIN scores s ON s.key = i.key
@@ -256,6 +267,7 @@ export class Store {
         lastSeen: String(r.last_seen),
         baseline: Number(r.baseline) === 1,
         inLibrary: Number(r.in_library) === 1,
+        earlier: Number(r.earlier) === 1,
         score: r.result
           ? (JSON.parse(String(r.result)) as ScoreResult)
           : undefined,
@@ -336,6 +348,16 @@ export class Store {
       cols,
     );
     return rows.length ? rowToLink(String(rows[0].key), rows[0]) : undefined;
+  }
+
+  /** Keys of articles found by the initial search. */
+  async earlierKeys(): Promise<Set<string>> {
+    const rows = await this.db.query(
+      "SELECT key FROM items WHERE earlier = 1",
+      [],
+      ["key"],
+    );
+    return new Set(rows.map((r) => String(r.key)));
   }
 
   /** Zotero item ids the plugin created. Nothing outside this set is ever modified. */

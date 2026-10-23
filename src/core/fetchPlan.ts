@@ -1,4 +1,4 @@
-import { effectiveTier } from "./ai";
+import { AI_LIFT_MIN, effectiveTier } from "./ai";
 import type { StoredItem } from "./store";
 
 const DAY = 24 * 60 * 60 * 1000;
@@ -35,12 +35,44 @@ export interface Selection {
   waiting: number;
 }
 
+/** Can this article be written to Radar again? Never written, or tidied away and now matching again. */
+const writable = (s: StoredItem) => !s.link || s.link.status === "tidied";
+
 /**
- * Which stored items to put into the Radar collection now: High/Possible,
- * not excluded, never written before, not already in the library, not a
- * first-fetch feed baseline, and first seen within `windowDays`. High first,
- * then by points. Re-evaluated every run, so items held back by the limit,
- * or lifted by a rule change, still get their turn.
+ * Does an article belong in Radar under the current settings? New articles:
+ * High or Possible after the AI's say. Articles from the initial search:
+ * only High, or rated 2-3 by the AI (with the current interests and model),
+ * so Radar/Earlier holds the strongest of the backlog. Never if excluded.
+ */
+export function qualifies(s: StoredItem, aiContext: string | null): boolean {
+  if (!s.score || s.score.excluded) return false;
+  if (s.earlier)
+    return (
+      s.score.tier === "high" ||
+      (aiContext !== null &&
+        s.ai?.context === aiContext &&
+        s.ai.score >= AI_LIFT_MIN)
+    );
+  return effectiveTier(s.score, s.ai, aiContext).tier !== "rest";
+}
+
+/** Strongest first: High, then points, then AI rating, then newest. */
+function byStrength(aiContext: string | null) {
+  const tierOf = (s: StoredItem) =>
+    effectiveTier(s.score!, s.ai, aiContext).tier;
+  return (a: StoredItem, b: StoredItem) =>
+    Number(tierOf(b) === "high") - Number(tierOf(a) === "high") ||
+    b.score!.total - a.score!.total ||
+    (b.ai?.score ?? 0) - (a.ai?.score ?? 0) ||
+    b.firstSeen.localeCompare(a.firstSeen);
+}
+
+/**
+ * Which new articles to put into Radar/High and Radar/Possible now: matching,
+ * not written before, not already in the library, not a first-fetch feed
+ * baseline, not from the initial search, and first seen within
+ * `windowDays`. Strongest first. Re-evaluated every run, so items held back
+ * by the limit, or lifted by a rule change, still get their turn.
  */
 export function selectToWrite(
   stored: StoredItem[],
@@ -52,27 +84,39 @@ export function selectToWrite(
     aiContext?: string | null;
   },
 ): Selection {
+  const ctx = opts.aiContext ?? null;
   const cutoff = opts.now.getTime() - opts.windowDays * DAY;
-  const tierOf = (s: StoredItem) =>
-    effectiveTier(s.score!, s.ai, opts.aiContext ?? null).tier;
   const candidates = stored
     .filter(
       (s) =>
-        !s.link &&
+        writable(s) &&
+        !s.earlier &&
         !s.baseline &&
         !s.inLibrary &&
-        s.score &&
-        !s.score.excluded &&
-        tierOf(s) !== "rest" &&
+        qualifies(s, ctx) &&
         Date.parse(s.firstSeen) >= cutoff,
     )
-    .sort(
-      (a, b) =>
-        Number(tierOf(b) === "high") - Number(tierOf(a) === "high") ||
-        b.score!.total - a.score!.total ||
-        (b.ai?.score ?? 0) - (a.ai?.score ?? 0) ||
-        b.firstSeen.localeCompare(a.firstSeen),
-    );
+    .sort(byStrength(ctx));
+  return {
+    write: candidates.slice(0, opts.max),
+    waiting: Math.max(0, candidates.length - opts.max),
+  };
+}
+
+/** Which articles from the initial search to put into Radar/Earlier now. Strongest first. */
+export function selectEarlierToWrite(
+  stored: StoredItem[],
+  opts: { max: number; aiContext: string | null },
+): Selection {
+  const candidates = stored
+    .filter(
+      (s) =>
+        s.earlier &&
+        writable(s) &&
+        !s.inLibrary &&
+        qualifies(s, opts.aiContext),
+    )
+    .sort(byStrength(opts.aiContext));
   return {
     write: candidates.slice(0, opts.max),
     waiting: Math.max(0, candidates.length - opts.max),
@@ -80,32 +124,47 @@ export function selectToWrite(
 }
 
 /**
- * Which articles to send to the AI this run: recent, not yet in the library
- * (Radar items still count), not excluded by a rule, and without a judgement
- * for the current interests and model. Articles not in Radar come first,
- * because only they can be lifted; then newest first, at most `max`.
+ * Untouched Radar items that no longer belong there, e.g. after a rule was
+ * deleted. The caller still checks each one in Zotero: anything the user
+ * filed, annotated or gave an attachment is kept.
+ */
+export function selectToTidy(
+  stored: StoredItem[],
+  aiContext: string | null,
+): StoredItem[] {
+  return stored.filter(
+    (s) => s.link?.status === "active" && !qualifies(s, aiContext),
+  );
+}
+
+/**
+ * Which articles to send to the AI this run, without a judgement for the
+ * current interests and model, not in the library and not excluded. In
+ * order: recent articles not in Radar (the AI can lift them), then initial
+ * search articles that matched a keyword rule (the AI decides which go to
+ * Radar/Earlier), then articles already in Radar. Newest first in each
+ * group, at most `max`. The rest of the initial search is not sent: rating
+ * thousands of articles would take too long and cost too much.
  */
 export function selectForAi(
   stored: StoredItem[],
   opts: { now: Date; windowDays: number; context: string; max: number },
 ): StoredItem[] {
   const cutoff = opts.now.getTime() - opts.windowDays * DAY;
+  const group = (s: StoredItem): number | null => {
+    if (s.inLibrary || s.baseline || s.score?.excluded) return null;
+    if (s.ai?.context === opts.context) return null;
+    if (s.link?.status === "active") return 2;
+    if (!writable(s)) return null;
+    if (s.earlier) return s.score && s.score.tier !== "rest" ? 1 : null;
+    return Date.parse(s.firstSeen) >= cutoff ? 0 : null;
+  };
   return stored
-    .filter(
-      (s) =>
-        (!s.link || s.link.status === "active") &&
-        !s.baseline &&
-        !s.inLibrary &&
-        !s.score?.excluded &&
-        s.ai?.context !== opts.context &&
-        Date.parse(s.firstSeen) >= cutoff,
-    )
-    .sort(
-      (a, b) =>
-        Number(!!a.link) - Number(!!b.link) ||
-        b.firstSeen.localeCompare(a.firstSeen),
-    )
-    .slice(0, opts.max);
+    .map((s) => ({ s, g: group(s) }))
+    .filter((x): x is { s: StoredItem; g: number } => x.g !== null)
+    .sort((a, b) => a.g - b.g || b.s.firstSeen.localeCompare(a.s.firstSeen))
+    .slice(0, opts.max)
+    .map((x) => x.s);
 }
 
 export interface RunSummary {
@@ -121,6 +180,18 @@ export interface RunSummary {
   ai: { judged: number; relevant?: number; skipped?: string };
   alreadyInLibrary: number;
   cleanedUp: number;
+  /** Untouched Radar items trashed because they no longer match. */
+  tidied?: number;
+  /**
+   * Initial search: `fromYear` and `found` only on the run that searched;
+   * `written` and `waiting` on every run that has earlier articles to file.
+   */
+  earlier?: {
+    fromYear?: number;
+    found?: number;
+    written: number;
+    waiting: number;
+  };
   errors: Array<{ journal: string; message: string }>;
 }
 
@@ -156,15 +227,21 @@ export const POPUP_LINE_MAX = 40;
 export function popupLines(s: RunSummary): string[] {
   const { high, possible, titleOnly } = s.written;
   const lines: string[] = [];
+  const e = s.earlier;
+  if (e?.fromYear !== undefined)
+    lines.push(`Since ${e.fromYear}: ${e.found ?? 0} earlier articles`);
   if (high + possible === 0) lines.push("No new matches");
   else lines.push(`${high} High, ${possible} Possible added`);
   if (titleOnly) lines.push(`${titleOnly} of them title-only`);
   if (s.written.byAi) lines.push(`${s.written.byAi} of them found by AI`);
+  if (e?.written) lines.push(`${e.written} added to Radar/Earlier`);
   if (s.ai.judged) lines.push(aiRatedLine(s.ai.judged, s.ai.relevant ?? 0));
   if (s.waiting) lines.push(`${s.waiting} more next time (per-fetch limit)`);
+  if (e?.waiting) lines.push(`${e.waiting} earlier ones next time`);
   if (s.alreadyInLibrary)
     lines.push(`${s.alreadyInLibrary} already in your library`);
   if (s.cleanedUp) lines.push(`${s.cleanedUp} old items moved to Trash`);
+  if (s.tidied) lines.push(`${s.tidied} no longer matching: to Trash`);
   if (s.errors.length)
     lines.push(`${plural(s.errors.length, "journal")} failed: see Settings`);
   return lines;
@@ -174,6 +251,11 @@ export function popupLines(s: RunSummary): string[] {
 export function summaryLines(s: RunSummary, maxNewPerRun: number): string[] {
   const lines: string[] = [];
   const { high, possible, titleOnly } = s.written;
+  const e = s.earlier;
+  if (e?.fromYear !== undefined)
+    lines.push(
+      `Initial search: ${plural(e.found ?? 0, "earlier article")} since ${e.fromYear} added to All fetched articles.`,
+    );
   if (high + possible === 0)
     lines.push(
       `No new matches (${plural(s.newItems, "new article")} checked in ${plural(s.journals, "journal")}).`,
@@ -187,11 +269,19 @@ export function summaryLines(s: RunSummary, maxNewPerRun: number): string[] {
     lines.push(
       `${plural(s.written.byAi, "article")} found by AI (no keyword rule matched).`,
     );
+  if (e?.written)
+    lines.push(
+      `${plural(e.written, "earlier article")} added to Radar/Earlier.`,
+    );
   if (s.ai.judged)
     lines.push(`${aiRatedLine(s.ai.judged, s.ai.relevant ?? 0)}.`);
   if (s.ai.skipped) lines.push(`AI not used: ${s.ai.skipped}`);
   if (s.waiting)
     lines.push(`${s.waiting} more waiting (limit ${maxNewPerRun} per fetch).`);
+  if (e?.waiting)
+    lines.push(
+      `${plural(e.waiting, "earlier article")} for Radar/Earlier waiting for the next fetches.`,
+    );
   if (s.alreadyInLibrary)
     lines.push(
       `${plural(s.alreadyInLibrary, "match", "matches")} already in your library, skipped.`,
@@ -199,6 +289,10 @@ export function summaryLines(s: RunSummary, maxNewPerRun: number): string[] {
   if (s.cleanedUp)
     lines.push(
       `${plural(s.cleanedUp, "old untouched item")} moved to the Trash.`,
+    );
+  if (s.tidied)
+    lines.push(
+      `${plural(s.tidied, "untouched Radar item")} no longer matching your settings, moved to the Trash.`,
     );
   if (s.errors.length)
     lines.push(

@@ -5,7 +5,9 @@ import {
   canAddToRadar,
   DEFAULT_FILTER,
   filterItems,
+  inPeriod,
   journalOptions,
+  type PeriodFilter,
   statusLabel,
   tierCounts,
   type TierFilter,
@@ -18,6 +20,11 @@ import { addToRadarByHand } from "./fetchRun";
 import { aiNotReady, loadAiSettings } from "./settings";
 
 const MAX_ROWS = 300;
+const PERIOD_LABEL: Record<PeriodFilter, string> = {
+  all: "New and earlier",
+  new: "New",
+  earlier: "Earlier",
+};
 const TIER_LABEL: Record<TierFilter, string> = {
   all: "All tiers",
   high: "High",
@@ -61,6 +68,7 @@ async function init(
 ): Promise<void> {
   const doc = win.document;
   const $ = <T extends HTMLElement>(id: string) => doc.getElementById(id) as T;
+  const periodBox = $<HTMLElement>("period");
   const tiersBox = $<HTMLElement>("tiers");
   const journalsBox = $<HTMLElement>("journals");
   const search = $<HTMLInputElement>("search");
@@ -149,9 +157,30 @@ async function init(
     return b;
   };
 
-  /** Tier buttons, sort buttons and the journal list, with counts. */
+  /** Period, tier and sort buttons and the journal list, with counts. */
   function renderFilters() {
-    const counts = tierCounts(stored);
+    // The period buttons only appear once the initial search has run
+    clear(periodBox);
+    const earlierCount = stored.filter((s) => s.earlier).length;
+    periodBox.hidden = earlierCount === 0;
+    if (earlierCount)
+      for (const p of Object.keys(PERIOD_LABEL) as PeriodFilter[]) {
+        const n =
+          p === "all"
+            ? stored.length
+            : p === "earlier"
+              ? earlierCount
+              : stored.length - earlierCount;
+        periodBox.append(
+          toggle(`${PERIOD_LABEL[p]} ${n}`, filter.period === p, () => {
+            filter.period = p;
+            renderFilters();
+            render();
+          }),
+        );
+      }
+
+    const counts = tierCounts(stored.filter((s) => inPeriod(s, filter.period)));
     clear(tiersBox);
     for (const t of Object.keys(TIER_LABEL) as TierFilter[])
       tiersBox.append(
@@ -211,9 +240,10 @@ async function init(
           render();
         },
       );
-    journalList.append(entry("", "All journals", stored.length));
+    const inView = stored.filter((s) => inPeriod(s, filter.period));
+    journalList.append(entry("", "All journals", inView.length));
     const q = journalFilter.trim().toLowerCase();
-    for (const j of journalOptions(stored))
+    for (const j of journalOptions(inView))
       if (!q || j.title.toLowerCase().includes(q))
         journalList.append(entry(j.id, j.title, j.count));
   }
@@ -230,8 +260,7 @@ async function init(
     const btn = h(doc, "button", {
       text: "Add article to library",
       attrs: { "data-key": s.item.key },
-      title:
-        "Adds this article to your library in Radar/Possible, with its explanation note. Your journals, rules and authors are not changed.",
+      title: `Adds this article to your library in ${s.earlier ? "Radar/Earlier" : "Radar"}, with its explanation note. Your journals, rules and authors are not changed.`,
       on: {
         click: async () => {
           btn.disabled = true;

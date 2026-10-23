@@ -3,8 +3,11 @@ import type { StoredItem } from "./store";
 
 export type TierFilter = "all" | "high" | "possible" | "rest" | "excluded";
 export type SortOrder = "newest" | "points" | "ai";
+/** New articles (regular fetches) or the initial search's earlier ones. */
+export type PeriodFilter = "all" | "new" | "earlier";
 
 export interface ViewFilter {
+  period: PeriodFilter;
   tier: TierFilter;
   journalId: string; // "" = all journals
   text: string;
@@ -12,6 +15,7 @@ export interface ViewFilter {
 }
 
 export const DEFAULT_FILTER: ViewFilter = {
+  period: "all",
   tier: "all",
   journalId: "",
   text: "",
@@ -32,16 +36,28 @@ export function statusLabel(s: StoredItem): string {
         return "Cleaned up";
       case "removed":
         return "Removed";
+      case "tidied":
+        return "Removed (no longer matching)";
     }
   }
   if (s.inLibrary) return "Already in library";
   if (s.baseline) return "Older feed item";
+  if (s.earlier) return "Earlier";
   return "";
 }
 
-/** Can the user pull this article into the Radar collection by hand? */
+/**
+ * Can the user pull this article into the library by hand? Yes unless it is
+ * already there, or in Radar now, or the user kept it.
+ */
 export function canAddToRadar(s: StoredItem): boolean {
-  return !s.link && !s.inLibrary;
+  if (s.inLibrary) return false;
+  return !s.link || !["active", "kept"].includes(s.link.status);
+}
+
+/** Does an article belong to the chosen period? */
+export function inPeriod(s: StoredItem, period: PeriodFilter): boolean {
+  return period === "all" || (period === "earlier") === s.earlier;
 }
 
 function matchesTier(s: StoredItem, tier: TierFilter): boolean {
@@ -65,6 +81,7 @@ export function filterItems(stored: StoredItem[], f: ViewFilter): StoredItem[] {
   const words = fold(f.text).split(/\s+/).filter(Boolean);
   const rows = stored.filter(
     (s) =>
+      inPeriod(s, f.period) &&
       matchesTier(s, f.tier) &&
       (!f.journalId || s.item.journalId === f.journalId) &&
       (words.length === 0 || words.every((w) => haystack(s).includes(w))),

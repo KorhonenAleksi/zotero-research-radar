@@ -41,6 +41,7 @@ const row = (
   lastSeen: "2026-10-22T18:00:00Z",
   baseline: false,
   inLibrary: false,
+  earlier: false,
   score: score("rest", 0),
   ...over,
 });
@@ -123,6 +124,21 @@ describe("filterItems", () => {
   });
 });
 
+describe("period filter", () => {
+  it("separates new articles from the initial search's earlier ones", () => {
+    const old = row("An older article", { earlier: true });
+    const rows = [civilising, old];
+    expect(filterItems(rows, { ...DEFAULT_FILTER, period: "earlier" })).toEqual(
+      [old],
+    );
+    expect(filterItems(rows, { ...DEFAULT_FILTER, period: "new" })).toEqual([
+      civilising,
+    ]);
+    expect(filterItems(rows, DEFAULT_FILTER)).toHaveLength(2);
+    expect(statusLabel(old)).toBe("Earlier");
+  });
+});
+
 describe("status and actions", () => {
   it("labels where each article stands", () => {
     expect(statusLabel(placing)).toBe("In Radar");
@@ -138,6 +154,17 @@ describe("status and actions", () => {
     expect(canAddToRadar(row("x", { baseline: true }))).toBe(true);
     expect(canAddToRadar(placing)).toBe(false);
     expect(canAddToRadar(row("x", { inLibrary: true }))).toBe(false);
+  });
+
+  it("allows adding back an article that was tidied or cleaned up, not a kept one", () => {
+    const withStatus = (status: "tidied" | "expired" | "kept") =>
+      row("x", { link: { ...placing.link!, status } });
+    expect(canAddToRadar(withStatus("tidied"))).toBe(true);
+    expect(canAddToRadar(withStatus("expired"))).toBe(true);
+    expect(canAddToRadar(withStatus("kept"))).toBe(false);
+    expect(statusLabel(withStatus("tidied"))).toBe(
+      "Removed (no longer matching)",
+    );
   });
 });
 
