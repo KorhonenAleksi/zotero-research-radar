@@ -7,11 +7,38 @@ in your library, with a note explaining why each one matched. It works fully
 without AI; AI ranking is an optional extra.
 
 Status: **test version (0.x)**. It writes items into your library, so please
-read "What it changes in your library" below before the first fetch.
+read "What it changes in your library" below before the first fetch, and
+back up your library before installing.
+
+## Before you install: back up your Zotero library
+
+This is a test version that adds items to your library, so make a backup
+first. It takes a few minutes and lets you undo anything.
+
+1. Find your Zotero data folder: in Zotero, open Settings (macOS: Zotero →
+   Settings; Windows/Linux: Edit → Settings) → Advanced → Files and Folders →
+   **Show Data Directory**. By default it is the `Zotero` folder in your home
+   folder.
+2. **Quit Zotero completely.** Copying the database while Zotero is running
+   can give a broken copy.
+3. Copy the **whole** data folder (it contains `zotero.sqlite`, your library,
+   and `storage`, your PDFs) to another place, such as an external drive or a
+   cloud folder. Give the copy a date, e.g. `Zotero backup 2026-10-23`.
+
+Zotero sync is not a backup: if items are trashed or changed, sync copies that
+change to your other devices and to zotero.org.
+
+To restore: quit Zotero, rename the current data folder (e.g. to
+`Zotero old`), copy the backup into its place under the original name, and
+start Zotero. If you use Zotero sync, turn off automatic sync before starting
+Zotero, otherwise it may pull the newer changes back from zotero.org; the
+Reset options under Settings → Sync can then replace the online library with
+your restored copy (see the
+[Zotero documentation](https://www.zotero.org/support/zotero_data#backing_up_your_zotero_data)).
 
 ## Install
 
-Requires Zotero 9 or 10.
+Requires Zotero 9 or 10. Back up your library first (see above).
 
 1. Download `research-radar.xpi` from the latest
    [release](https://github.com/KorhonenAleksi/research-radar/releases/latest).
